@@ -63,8 +63,17 @@ func mutate(rate: float = 0.15, strength: float = 0.3) -> void:
 	for i in range(weights_ih.size()):
 		for j in range(weights_ih[i].size()):
 			if randf() < rate:
-				weights_ih[i][j] = clamp(weights_ih[i][j] + randf_range(-strength, strength), -2.0, 2.0)
+				weights_ih[i][j] = clampf(weights_ih[i][j] + randfn(0.0, strength), -4.0, 4.0)
+	
 	for i in range(weights_ho.size()):
 		for j in range(weights_ho[i].size()):
 			if randf() < rate:
-				weights_ho[i][j] = clamp(weights_ho[i][j] + randf_range(-strength, strength), -2.0, 2.0)
+				weights_ho[i][j] = clampf(weights_ho[i][j] + randfn(0.0, strength), -4.0, 4.0)
+	
+	for i in range(bias_h.size()):
+		if randf() < rate:
+			bias_h[i] = clampf(bias_h[i] + randfn(0.0, strength), -4.0, 4.0)
+	
+	for i in range(bias_o.size()):
+		if randf() < rate:
+			bias_o[i] = clampf(bias_o[i] + randfn(0.0, strength), -4.0, 4.0)

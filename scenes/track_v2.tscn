@@ -1,0 +1,2080 @@
+[gd_scene format=3 uid="uid://bngt70hmjrdxe"]
+
+[ext_resource type="Script" uid="uid://bmye11sntfkqc" path="res://scripts/main.gd" id="1_main"]
+[ext_resource type="Script" uid="uid://fxqf0oi17uno" path="res://scripts/hud.gd" id="2_hud"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_checkpoint"]
+size = Vector2(16, 114)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_panel"]
+bg_color = Color(0.055, 0.075, 0.11, 0.84)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.14, 0.62, 0.98, 0.72)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn"]
+bg_color = Color(0.08, 0.11, 0.16, 0.9)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.14, 0.62, 0.98, 0.85)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn_pressed"]
+bg_color = Color(0.14, 0.56, 0.88, 0.95)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.75, 0.92, 1, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn_hover"]
+bg_color = Color(0.13, 0.22, 0.34, 0.95)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.32, 0.78, 1, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[node name="TrackV2" type="Node2D" unique_id=1313591022]
+script = ExtResource("1_main")
+population_size = 50
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=774120981]
+position = Vector2(800, 450)
+zoom = Vector2(0.8, 0.8)
+
+[node name="Background" type="Node2D" parent="." unique_id=856131417]
+z_index = -10
+
+[node name="TurfBase" type="Polygon2D" parent="Background" unique_id=693569192]
+color = Color(0.086, 0.165, 0.114, 1)
+polygon = PackedVector2Array(-400, -300, 2000, -300, 2000, 1200, -400, 1200)
+
+[node name="MowStripes" type="Node2D" parent="Background" unique_id=1394351163]
+
+[node name="Stripe_00" type="Polygon2D" parent="Background/MowStripes" unique_id=1004456837]
+color = Color(0.106, 0.2, 0.137, 1)
+polygon = PackedVector2Array(-900, -200, -862, -200, -1408, 1100, -1446, 1100)
+
+[node name="Stripe_01" type="Polygon2D" parent="Background/MowStripes" unique_id=1934384475]
+color = Color(0.106, 0.2, 0.137, 1)
+polygon = PackedVector2Array(-824, -200, -786, -200, -1332, 1100, -1370, 1100)
+
+[node name="Stripe_02" type="Polygon2D" parent="Background/MowStripes" unique_id=764623912]
+color = Color(0.106, 0.2, 0.137, 1)
+polygon = PackedVector2Array(-748, -200, -710, -200, -1256, 1100, -1294, 1100)
+
+[node name="Stripe_03" type="Polygon2D" parent="Background/MowStripes" unique_id=1467274712]
+color = Color(0.106, 0.2, 0.137, 1)
+polygon = PackedVector2Array(-672, -200, -634, -200, -1180, 1100, -1218, 1100)
+
+[node name="Stripe_04" type="Polygon2D" parent="Background/MowStripes" unique_id=1753614192]
+color = Color(0.106, 0.2, 0.137, 1)
+polygon = PackedVector2Array(-596, -200, -558, -200, -1104, 1100, -1142, 1100)
+
+[node name="Stripe_05" type="Polygon2D" parent="Background/MowStripes" unique_id=1242958734]
+color = Color(0.106, 0.2, 0.137, 1)
+polygon = PackedVector2Array(-520, -200, -482, -200, -1028, 1100, -1066, 1100)
+
+[node name="Stripe_06" type="Polygon2D" parent="Background/MowStripes" unique_id=953362078]
+color = Color(0.106, 0.2, 0.137, 1)
+polygon = PackedVector2Array(-444, -200, -406, -200, -952, 1100, -990, 1100)
+
+[node name="Stripe_07" type="Polygon2D" parent="Background/MowStripes" unique_id=197697503]
+color = Color(0.106, 0.2, 0.137, 1)
+polygon = PackedVector2Array(-368, -200, -330, -200, -876, 1100, -914, 1100)
+
+[node name="Stripe_08" type="Polygon2D" parent="Background/MowStripes" unique_id=2042106173]
+color = Color(0.106, 0.2, 0.137, 1)
+polygon = PackedVector2Array(-292, -200, -254, -200, -800, 1100, -838, 1100)
+
+[node name="Stripe_09" type="Polygon2D" parent="Background/MowStripes" unique_id=341873625]
+color = Color(0.106, 0.2, 0.137, 1)
+polygon = PackedVector2Array(-216, -200, -178, -200, -724, 1100, -762, 1100)
+
+[node name="Stripe_10" type="Polygon2D" parent="Background/MowStripes" unique_id=358313273]
+color = Color(0.106, 0.2, 0.137, 1)
+polygon = PackedVector2Array(-140, -200, -102, -200, -648, 1100, -686, 1100)
+
+[node name="Stripe_11" type="Polygon2D" parent="Background/MowStripes" unique_id=465459155]
+color = Color(0.106, 0.2, 0.137, 1)
+polygon = PackedVector2Array(-64, -200, -26, -200, -572, 1100, -610, 1100)
+
+[node name="Stripe_12" type="Polygon2D" parent="Background/MowStripes" unique_id=1485949194]
+color = Color(0.106, 0.2, 0.137, 1)
+polygon = PackedVector2Array(12, -200, 50, -200, -496, 1100, -534, 1100)
+
+[node name="Stripe_13" type="Polygon2D" parent="Background/MowStripes" unique_id=1631309025]
+color = Color(0.106, 0.2, 0.137, 1)
+polygon = PackedVector2Array(88, -200, 126, -200, -420, 1100, -458, 1100)
+
+[node name="Stripe_14" type="Polygon2D" parent="Background/MowStripes" unique_id=2056098045]
+color = Color(0.106, 0.2, 0.137, 1)
+polygon = PackedVector2Array(164, -200, 202, -200, -344, 1100, -382, 1100)
+
+[node name="Stripe_15" type="Polygon2D" parent="Background/MowStripes" unique_id=236895650]
+color = Color(0.106, 0.2, 0.137, 1)
+polygon = PackedVector2Array(240, -200, 278, -200, -268, 1100, -306, 1100)
+
+[node name="Stripe_16" type="Polygon2D" parent="Background/MowStripes" unique_id=1567882035]
+color = Color(0.106, 0.2, 0.137, 1)
+polygon = PackedVector2Array(316, -200, 354, -200, -192, 1100, -230, 1100)
+
+[node name="Stripe_17" type="Polygon2D" parent="Background/MowStripes" unique_id=709593146]
+color = Color(0.106, 0.2, 0.137, 1)
+polygon = PackedVector2Array(392, -200, 430, -200, -116, 1100, -154, 1100)
+
+[node name="Stripe_18" type="Polygon2D" parent="Background/MowStripes" unique_id=846966165]
+color = Color(0.106, 0.2, 0.137, 1)
+polygon = PackedVector2Array(468, -200, 506, -200, -40, 1100, -78, 1100)
+
+[node name="Stripe_19" type="Polygon2D" parent="Background/MowStripes" unique_id=910554601]
+color = Color(0.106, 0.2, 0.137, 1)
+polygon = PackedVector2Array(544, -200, 582, -200, 36, 1100, -2, 1100)
+
+[node name="Stripe_20" type="Polygon2D" parent="Background/MowStripes" unique_id=58443955]
+color = Color(0.106, 0.2, 0.137, 1)
+polygon = PackedVector2Array(620, -200, 658, -200, 112, 1100, 74, 1100)
+
+[node name="Stripe_21" type="Polygon2D" parent="Background/MowStripes" unique_id=530911986]
+color = Color(0.106, 0.2, 0.137, 1)
+polygon = PackedVector2Array(696, -200, 734, -200, 188, 1100, 150, 1100)
+
+[node name="Stripe_22" type="Polygon2D" parent="Background/MowStripes" unique_id=489261404]
+color = Color(0.106, 0.2, 0.137, 1)
+polygon = PackedVector2Array(772, -200, 810, -200, 264, 1100, 226, 1100)
+
+[node name="Stripe_23" type="Polygon2D" parent="Background/MowStripes" unique_id=663894278]
+color = Color(0.106, 0.2, 0.137, 1)
+polygon = PackedVector2Array(848, -200, 886, -200, 340, 1100, 302, 1100)
+
+[node name="Stripe_24" type="Polygon2D" parent="Background/MowStripes" unique_id=41178866]
+color = Color(0.106, 0.2, 0.137, 1)
+polygon = PackedVector2Array(924, -200, 962, -200, 416, 1100, 378, 1100)
+
+[node name="Stripe_25" type="Polygon2D" parent="Background/MowStripes" unique_id=562344726]
+color = Color(0.106, 0.2, 0.137, 1)
+polygon = PackedVector2Array(1000, -200, 1038, -200, 492, 1100, 454, 1100)
+
+[node name="Stripe_26" type="Polygon2D" parent="Background/MowStripes" unique_id=918005955]
+color = Color(0.106, 0.2, 0.137, 1)
+polygon = PackedVector2Array(1076, -200, 1114, -200, 568, 1100, 530, 1100)
+
+[node name="Stripe_27" type="Polygon2D" parent="Background/MowStripes" unique_id=1396642165]
+color = Color(0.106, 0.2, 0.137, 1)
+polygon = PackedVector2Array(1152, -200, 1190, -200, 644, 1100, 606, 1100)
+
+[node name="Stripe_28" type="Polygon2D" parent="Background/MowStripes" unique_id=215990899]
+color = Color(0.106, 0.2, 0.137, 1)
+polygon = PackedVector2Array(1228, -200, 1266, -200, 720, 1100, 682, 1100)
+
+[node name="Stripe_29" type="Polygon2D" parent="Background/MowStripes" unique_id=922398631]
+color = Color(0.106, 0.2, 0.137, 1)
+polygon = PackedVector2Array(1304, -200, 1342, -200, 796, 1100, 758, 1100)
+
+[node name="Stripe_30" type="Polygon2D" parent="Background/MowStripes" unique_id=1395496905]
+color = Color(0.106, 0.2, 0.137, 1)
+polygon = PackedVector2Array(1380, -200, 1418, -200, 872, 1100, 834, 1100)
+
+[node name="Stripe_31" type="Polygon2D" parent="Background/MowStripes" unique_id=1673727673]
+color = Color(0.106, 0.2, 0.137, 1)
+polygon = PackedVector2Array(1456, -200, 1494, -200, 948, 1100, 910, 1100)
+
+[node name="Stripe_32" type="Polygon2D" parent="Background/MowStripes" unique_id=1031217755]
+color = Color(0.106, 0.2, 0.137, 1)
+polygon = PackedVector2Array(1532, -200, 1570, -200, 1024, 1100, 986, 1100)
+
+[node name="Stripe_33" type="Polygon2D" parent="Background/MowStripes" unique_id=1737823859]
+color = Color(0.106, 0.2, 0.137, 1)
+polygon = PackedVector2Array(1608, -200, 1646, -200, 1100, 1100, 1062, 1100)
+
+[node name="Stripe_34" type="Polygon2D" parent="Background/MowStripes" unique_id=400641118]
+color = Color(0.106, 0.2, 0.137, 1)
+polygon = PackedVector2Array(1684, -200, 1722, -200, 1176, 1100, 1138, 1100)
+
+[node name="Stripe_35" type="Polygon2D" parent="Background/MowStripes" unique_id=349948033]
+color = Color(0.106, 0.2, 0.137, 1)
+polygon = PackedVector2Array(1760, -200, 1798, -200, 1252, 1100, 1214, 1100)
+
+[node name="Stripe_36" type="Polygon2D" parent="Background/MowStripes" unique_id=649391308]
+color = Color(0.106, 0.2, 0.137, 1)
+polygon = PackedVector2Array(1836, -200, 1874, -200, 1328, 1100, 1290, 1100)
+
+[node name="Stripe_37" type="Polygon2D" parent="Background/MowStripes" unique_id=530481358]
+color = Color(0.106, 0.2, 0.137, 1)
+polygon = PackedVector2Array(1912, -200, 1950, -200, 1404, 1100, 1366, 1100)
+
+[node name="Stripe_38" type="Polygon2D" parent="Background/MowStripes" unique_id=1213858013]
+color = Color(0.106, 0.2, 0.137, 1)
+polygon = PackedVector2Array(1988, -200, 2026, -200, 1480, 1100, 1442, 1100)
+
+[node name="Stripe_39" type="Polygon2D" parent="Background/MowStripes" unique_id=1177451861]
+color = Color(0.106, 0.2, 0.137, 1)
+polygon = PackedVector2Array(2064, -200, 2102, -200, 1556, 1100, 1518, 1100)
+
+[node name="Stripe_40" type="Polygon2D" parent="Background/MowStripes" unique_id=1052674467]
+color = Color(0.106, 0.2, 0.137, 1)
+polygon = PackedVector2Array(2140, -200, 2178, -200, 1632, 1100, 1594, 1100)
+
+[node name="Stripe_41" type="Polygon2D" parent="Background/MowStripes" unique_id=1419866794]
+color = Color(0.106, 0.2, 0.137, 1)
+polygon = PackedVector2Array(2216, -200, 2254, -200, 1708, 1100, 1670, 1100)
+
+[node name="Stripe_42" type="Polygon2D" parent="Background/MowStripes" unique_id=589815379]
+color = Color(0.106, 0.2, 0.137, 1)
+polygon = PackedVector2Array(2292, -200, 2330, -200, 1784, 1100, 1746, 1100)
+
+[node name="Stripe_43" type="Polygon2D" parent="Background/MowStripes" unique_id=686061449]
+color = Color(0.106, 0.2, 0.137, 1)
+polygon = PackedVector2Array(2368, -200, 2406, -200, 1860, 1100, 1822, 1100)
+
+[node name="Stripe_44" type="Polygon2D" parent="Background/MowStripes" unique_id=1623061199]
+color = Color(0.106, 0.2, 0.137, 1)
+polygon = PackedVector2Array(2444, -200, 2482, -200, 1936, 1100, 1898, 1100)
+
+[node name="GravelTraps" type="Node2D" parent="Background" unique_id=1278563950]
+
+[node name="Gravel_Turn1_Rim" type="Polygon2D" parent="Background/GravelTraps" unique_id=2120655546]
+color = Color(0.329, 0.302, 0.255, 1)
+polygon = PackedVector2Array(1024.13, 828.67, 1044.91, 828.43, 1065.8, 827.93, 1086.77, 827.12, 1107.81, 825.99, 1128.89, 824.49, 1149.99, 822.6, 1171.12, 820.31, 1192.27, 817.58, 1213.43, 814.39, 1234.62, 810.69, 1255.9, 806.42, 1277.31, 801.45, 1298.89, 795.64, 1320.65, 788.77, 1342.55, 780.58, 1364.49, 770.77, 1386.24, 759.03, 1407.45, 745.08, 1409.22, 747.5, 1394.17, 772.32, 1374.78, 791.7, 1353.81, 808.07, 1332.04, 821.87, 1309.92, 833.38, 1287.68, 842.84, 1265.42, 850.47, 1243.19, 856.41, 1220.97, 860.78, 1198.72, 863.65, 1176.43, 865.07, 1154.19, 865.07, 1132.04, 863.68, 1110, 860.93, 1088.14, 856.81, 1066.52, 851.24, 1045.19, 843.9, 1024.15, 831.67)
+
+[node name="Gravel_Turn1_Bed" type="Polygon2D" parent="Background/GravelTraps" unique_id=1161361586]
+color = Color(0.384, 0.357, 0.302, 1)
+polygon = PackedVector2Array(1044.91, 828.43, 1065.8, 827.93, 1086.77, 827.12, 1107.81, 825.99, 1128.89, 824.49, 1149.99, 822.6, 1171.12, 820.31, 1192.27, 817.58, 1213.43, 814.39, 1234.62, 810.69, 1255.9, 806.42, 1277.31, 801.45, 1298.89, 795.64, 1320.65, 788.77, 1342.55, 780.58, 1364.49, 770.77, 1386.24, 759.03, 1387.78, 761.61, 1370.36, 782.72, 1350.03, 798.85, 1328.75, 812.31, 1307.04, 823.53, 1285.15, 832.76, 1263.21, 840.22, 1241.25, 846.05, 1219.28, 850.35, 1197.26, 853.21, 1175.2, 854.66, 1153.17, 854.72, 1131.21, 853.45, 1109.36, 850.84, 1087.68, 846.85, 1066.21, 841.23, 1044.96, 831.43)
+
+[node name="Gravel_Turn2_Rim" type="Polygon2D" parent="Background/GravelTraps" unique_id=1484021090]
+color = Color(0.329, 0.302, 0.255, 1)
+polygon = PackedVector2Array(1515.38, 528.83, 1516.88, 506.48, 1517.54, 484.33, 1517.45, 462.31, 1516.65, 440.34, 1515.13, 418.36, 1512.84, 396.32, 1509.71, 374.19, 1505.64, 351.95, 1500.47, 329.64, 1494.07, 307.29, 1486.27, 285.02, 1476.94, 262.99, 1465.96, 241.4, 1453.29, 220.48, 1438.94, 200.47, 1422.97, 181.6, 1405.49, 164.06, 1386.62, 147.99, 1366.5, 133.51, 1345.23, 120.72, 1346.67, 118.09, 1374.23, 121.79, 1399.59, 131.44, 1423.67, 144.4, 1446.27, 160.2, 1467.11, 178.5, 1485.89, 198.97, 1502.37, 221.17, 1516.39, 244.65, 1527.9, 268.95, 1536.95, 293.66, 1543.68, 318.46, 1548.24, 343.13, 1550.83, 367.52, 1551.61, 391.58, 1550.72, 415.29, 1548.25, 438.67, 1544.23, 461.77, 1538.57, 484.6, 1530.91, 507.16, 1518.36, 529.09)
+
+[node name="Gravel_Turn2_Bed" type="Polygon2D" parent="Background/GravelTraps" unique_id=531828989]
+color = Color(0.384, 0.357, 0.302, 1)
+polygon = PackedVector2Array(1516.88, 506.48, 1517.54, 484.33, 1517.45, 462.31, 1516.65, 440.34, 1515.13, 418.36, 1512.84, 396.32, 1509.71, 374.19, 1505.64, 351.95, 1500.47, 329.64, 1494.07, 307.29, 1486.27, 285.02, 1476.94, 262.99, 1465.96, 241.4, 1453.29, 220.48, 1438.94, 200.47, 1422.97, 181.6, 1405.49, 164.06, 1386.62, 147.99, 1366.5, 133.51, 1368.15, 131.01, 1394.06, 138.51, 1417.53, 151.04, 1439.45, 166.47, 1459.61, 184.35, 1477.79, 204.31, 1493.74, 225.96, 1507.33, 248.86, 1518.52, 272.57, 1527.35, 296.71, 1533.94, 320.98, 1538.46, 345.16, 1541.08, 369.1, 1541.97, 392.76, 1541.25, 416.1, 1539, 439.16, 1535.19, 461.95, 1529.59, 484.49, 1519.88, 506.63)
+
+[node name="Gravel_Chicane_Rim" type="Polygon2D" parent="Background/GravelTraps" unique_id=1436583269]
+color = Color(0.329, 0.302, 0.255, 1)
+polygon = PackedVector2Array(1142.77, 209.03, 1128.98, 214.78, 1115.87, 221.72, 1103.47, 229.87, 1091.7, 239.26, 1080.43, 249.96, 1069.47, 262.05, 1058.61, 275.54, 1047.6, 290.39, 1036.1, 306.47, 1023.74, 323.57, 1010.07, 341.36, 994.68, 359.37, 977.23, 376.98, 957.62, 393.49, 935.96, 408.21, 912.58, 420.59, 887.84, 430.31, 862.07, 437.17, 835.52, 441.01, 808.4, 441.65, 808.28, 444.65, 836.56, 453.44, 865.78, 455.25, 895.14, 452.53, 924.09, 445.63, 951.99, 434.8, 978.1, 420.51, 1001.74, 403.52, 1022.45, 384.89, 1040.14, 365.7, 1055.02, 346.87, 1067.51, 329.05, 1078.09, 312.61, 1087.19, 297.65, 1095.23, 284.09, 1102.62, 271.68, 1109.78, 260.05, 1117.19, 248.81, 1125.27, 237.61, 1134.3, 226.05, 1143.8, 211.84)
+
+[node name="Gravel_Chicane_Bed" type="Polygon2D" parent="Background/GravelTraps" unique_id=1578201842]
+color = Color(0.384, 0.357, 0.302, 1)
+polygon = PackedVector2Array(1128.98, 214.78, 1115.87, 221.72, 1103.47, 229.87, 1091.7, 239.26, 1080.43, 249.96, 1069.47, 262.05, 1058.61, 275.54, 1047.6, 290.39, 1036.1, 306.47, 1023.74, 323.57, 1010.07, 341.36, 994.68, 359.37, 977.23, 376.98, 957.62, 393.49, 935.96, 408.21, 912.58, 420.59, 887.84, 430.31, 862.07, 437.17, 835.52, 441.01, 835.77, 444, 864.23, 447.71, 892.72, 445.17, 920.77, 438.41, 947.78, 427.82, 973.07, 413.88, 996, 397.31, 1016.15, 379.1, 1033.44, 360.27, 1048.09, 341.71, 1060.51, 324.02, 1071.17, 307.57, 1080.5, 292.47, 1088.91, 278.68, 1096.79, 265.98, 1104.57, 254.05, 1112.64, 242.53, 1121.35, 230.98, 1130.26, 217.49)
+
+[node name="Gravel_NW_Rim" type="Polygon2D" parent="Background/GravelTraps" unique_id=659748227]
+color = Color(0.329, 0.302, 0.255, 1)
+polygon = PackedVector2Array(685.8, 220.98, 671.45, 203.6, 655.68, 186.35, 638.41, 169.7, 619.69, 154.09, 599.71, 139.88, 578.74, 127.28, 557.02, 116.36, 534.77, 107.11, 512.16, 99.45, 489.28, 93.3, 466.21, 88.59, 443, 85.26, 419.71, 83.28, 396.36, 82.62, 373.01, 83.29, 349.67, 85.29, 326.39, 88.67, 303.19, 93.49, 280.1, 99.88, 257.19, 107.97, 256.09, 105.19, 276.2, 87.48, 298.65, 74.72, 322.14, 64.52, 346.36, 56.56, 371.15, 50.73, 396.36, 47, 421.85, 45.37, 447.5, 45.86, 473.16, 48.52, 498.7, 53.39, 523.96, 60.53, 548.75, 70, 572.84, 81.84, 595.92, 96.07, 617.57, 112.6, 637.34, 131.19, 654.78, 151.44, 669.53, 172.88, 681.27, 195.09, 688.14, 219.11)
+
+[node name="Gravel_NW_Bed" type="Polygon2D" parent="Background/GravelTraps" unique_id=1021194556]
+color = Color(0.384, 0.357, 0.302, 1)
+polygon = PackedVector2Array(671.45, 203.6, 655.68, 186.35, 638.41, 169.7, 619.69, 154.09, 599.71, 139.88, 578.74, 127.28, 557.02, 116.36, 534.77, 107.11, 512.16, 99.45, 489.28, 93.3, 466.21, 88.59, 443, 85.26, 419.71, 83.28, 396.36, 82.62, 373.01, 83.29, 349.67, 85.29, 326.39, 88.67, 303.19, 93.49, 280.1, 99.88, 279.2, 97.02, 300.56, 82.62, 323.56, 72.58, 347.32, 64.89, 371.64, 59.32, 396.36, 55.78, 421.35, 54.29, 446.48, 54.84, 471.61, 57.49, 496.61, 62.27, 521.32, 69.24, 545.57, 78.46, 569.12, 89.96, 591.68, 103.77, 612.86, 119.79, 632.22, 137.83, 649.32, 157.53, 663.7, 178.54, 673.72, 201.64)
+
+[node name="Gravel_Final_Rim" type="Polygon2D" parent="Background/GravelTraps" unique_id=17550435]
+color = Color(0.329, 0.302, 0.255, 1)
+polygon = PackedVector2Array(152.42, 519.03, 150.92, 533.33, 147.81, 549.82, 143.52, 569.15, 139.08, 591.83, 136.18, 617.92, 136.85, 646.8, 142.85, 676.83, 154.68, 705.57, 171.62, 731.32, 192.02, 752.6, 213.87, 769.59, 236.71, 783.23, 260.07, 794.01, 283.57, 802.36, 306.96, 808.65, 330.01, 813.26, 329.5, 816.22, 303.61, 822.98, 277.03, 823.39, 249.57, 819.85, 221.52, 812.09, 193.44, 799.56, 166.05, 781.55, 140.02, 756.61, 118.44, 724.74, 104.1, 688.52, 98.18, 650.99, 99.95, 616.22, 106.86, 586.81, 116.23, 563.42, 126.23, 545.42, 136.35, 531.24, 149.42, 518.9)
+
+[node name="Gravel_Final_Bed" type="Polygon2D" parent="Background/GravelTraps" unique_id=587404316]
+color = Color(0.384, 0.357, 0.302, 1)
+polygon = PackedVector2Array(150.92, 533.33, 147.81, 549.82, 143.52, 569.15, 139.08, 591.83, 136.18, 617.92, 136.85, 646.8, 142.85, 676.83, 154.68, 705.57, 171.62, 731.32, 192.02, 752.6, 213.87, 769.59, 236.71, 783.23, 260.07, 794.01, 283.57, 802.36, 306.96, 808.65, 306.27, 811.57, 279.78, 814.57, 252.98, 811.46, 225.74, 804.07, 198.56, 792.06, 172.13, 774.78, 147.14, 750.92, 126.5, 720.48, 112.83, 685.89, 107.23, 650.01, 109.02, 616.64, 115.81, 588.2, 125.09, 565.28, 135.28, 547.27, 147.95, 532.9)
+
+[node name="TrackVisuals" type="Node2D" parent="." unique_id=1955791739]
+z_index = -5
+
+[node name="TrackApron_Q0" type="Polygon2D" parent="TrackVisuals" unique_id=115999301]
+color = Color(0.078, 0.09, 0.118, 1)
+polygon = PackedVector2Array(458.76, 828.51, 479.15, 828.88, 499.41, 829.19, 519.62, 829.47, 539.81, 829.73, 560.01, 829.97, 580.21, 830.19, 600.43, 830.38, 620.65, 830.55, 640.86, 830.68, 661.06, 830.8, 681.25, 830.89, 701.41, 830.97, 721.54, 831.05, 741.64, 831.13, 761.7, 831.23, 781.72, 831.36, 801.72, 831.53, 821.69, 831.74, 841.65, 832.01, 861.63, 832.34, 881.64, 832.71, 901.7, 833.11, 921.84, 833.52, 942.06, 833.92, 962.4, 834.28, 982.86, 834.55, 1003.45, 834.69, 1024.17, 834.67, 1045.02, 834.43, 1065.98, 833.92, 1087.05, 833.12, 1108.18, 831.98, 1129.37, 830.47, 1150.58, 828.57, 1171.83, 826.27, 1193.1, 823.52, 1214.39, 820.31, 1235.72, 816.59, 1257.16, 812.28, 1278.77, 807.27, 1300.57, 801.4, 1322.6, 794.44, 1344.82, 786.13, 1367.14, 776.16, 1389.31, 764.18, 1324.77, 655.97, 1311.52, 663.09, 1297.08, 669.53, 1281.59, 675.3, 1265.23, 680.45, 1248.16, 685.05, 1230.54, 689.13, 1212.5, 692.75, 1194.16, 695.94, 1175.64, 698.74, 1156.97, 701.15, 1138.18, 703.18, 1119.29, 704.87, 1100.31, 706.22, 1081.24, 707.25, 1062.07, 707.98, 1042.78, 708.45, 1023.36, 708.67, 1003.82, 708.69, 984.14, 708.55, 964.33, 708.29, 944.41, 707.94, 924.38, 707.55, 904.26, 707.13, 884.06, 706.73, 863.81, 706.36, 843.52, 706.03, 823.22, 705.75, 802.93, 705.53, 782.65, 705.36, 762.41, 705.23, 742.21, 705.13, 722.04, 705.05, 701.9, 704.97, 681.79, 704.89, 661.71, 704.8, 641.65, 704.69, 621.6, 704.55, 601.55, 704.38, 581.5, 704.19, 561.44, 703.97, 541.37, 703.74, 521.3, 703.48, 501.24, 703.2, 481.24, 702.9, 461.37, 702.54)
+
+[node name="TrackApron_Q1" type="Polygon2D" parent="TrackVisuals" unique_id=1483325842]
+color = Color(0.078, 0.09, 0.118, 1)
+polygon = PackedVector2Array(1389.31, 764.18, 1410.99, 749.92, 1431.65, 733.22, 1450.69, 714.13, 1467.57, 692.99, 1481.91, 670.34, 1493.62, 646.79, 1502.85, 622.9, 1509.89, 599.05, 1515.11, 575.47, 1518.84, 552.24, 1521.35, 529.35, 1522.87, 506.77, 1523.54, 484.41, 1523.45, 462.19, 1522.64, 440.02, 1521.1, 417.85, 1518.8, 395.59, 1515.64, 373.23, 1511.51, 350.74, 1506.28, 328.13, 1499.79, 305.47, 1491.87, 282.86, 1482.38, 260.46, 1471.21, 238.48, 1458.3, 217.17, 1443.67, 196.78, 1427.39, 177.55, 1409.56, 159.66, 1390.32, 143.27, 1369.8, 128.5, 1348.11, 115.46, 1325.38, 104.23, 1301.74, 94.91, 1277.35, 87.61, 1252.41, 82.39, 1227.11, 79.32, 1201.66, 78.41, 1176.24, 79.65, 1150.99, 83.04, 1126.05, 88.59, 1101.56, 96.32, 1077.72, 106.28, 1054.78, 118.44, 1033.08, 132.68, 1012.96, 148.71, 1095.64, 243.78, 1106.99, 234.73, 1118.93, 226.89, 1131.54, 220.2, 1144.83, 214.66, 1158.72, 210.28, 1173.07, 207.09, 1187.71, 205.13, 1202.48, 204.4, 1217.25, 204.93, 1231.91, 206.71, 1246.36, 209.73, 1260.52, 213.98, 1274.32, 219.42, 1287.67, 226.02, 1300.47, 233.72, 1312.61, 242.45, 1324.01, 252.16, 1334.59, 262.78, 1344.31, 274.26, 1353.13, 286.57, 1361.07, 299.69, 1368.13, 313.59, 1374.33, 328.26, 1379.71, 343.64, 1384.29, 359.68, 1388.13, 376.29, 1391.26, 393.4, 1393.73, 410.9, 1395.57, 428.69, 1396.82, 446.68, 1397.48, 464.75, 1397.55, 482.79, 1397.02, 500.67, 1395.84, 518.26, 1393.97, 535.4, 1391.33, 551.91, 1387.87, 567.64, 1383.53, 582.4, 1378.29, 596.06, 1372.1, 608.55, 1364.93, 619.9, 1356.72, 630.19, 1347.35, 639.57, 1336.72, 648.14, 1324.77, 655.97)
+
+[node name="TrackApron_Q2" type="Polygon2D" parent="TrackVisuals" unique_id=517797076]
+color = Color(0.078, 0.09, 0.118, 1)
+polygon = PackedVector2Array(1012.96, 148.71, 994.67, 166.02, 978.3, 184.03, 963.7, 202.11, 950.61, 219.73, 938.66, 236.43, 927.5, 251.89, 916.81, 265.85, 906.31, 278.17, 895.81, 288.83, 885.11, 297.88, 874.03, 305.43, 862.46, 311.56, 850.4, 316.3, 837.98, 319.61, 825.45, 321.44, 813.12, 321.74, 801.26, 320.54, 790.04, 317.85, 779.39, 313.66, 769.11, 307.88, 758.93, 300.29, 748.66, 290.73, 738.14, 279.16, 727.27, 265.73, 715.86, 250.69, 703.69, 234.4, 690.49, 217.24, 675.98, 199.67, 659.98, 182.16, 642.41, 165.23, 623.35, 149.34, 603, 134.86, 581.63, 122.02, 559.52, 110.91, 536.89, 101.49, 513.9, 93.7, 490.66, 87.46, 467.24, 82.68, 443.68, 79.3, 420.05, 77.29, 396.36, 76.62, 372.66, 77.3, 348.99, 79.33, 325.35, 82.76, 301.78, 87.66, 331.39, 210.13, 347.22, 206.85, 363.42, 204.5, 379.85, 203.09, 396.38, 202.62, 412.93, 203.09, 429.4, 204.49, 445.69, 206.82, 461.71, 210.09, 477.34, 214.28, 492.47, 219.4, 507, 225.44, 520.85, 232.4, 533.99, 240.28, 546.43, 249.13, 558.28, 259.02, 569.68, 270.03, 580.82, 282.25, 591.93, 295.75, 603.28, 310.51, 615.21, 326.48, 628.15, 343.51, 642.63, 361.35, 659.25, 379.51, 678.51, 397.28, 700.64, 413.65, 725.43, 427.52, 752.19, 438.03, 780.04, 444.74, 808.16, 447.64, 836.02, 446.99, 863.28, 443.05, 889.71, 436.01, 915.09, 426.04, 939.06, 413.35, 961.24, 398.27, 981.3, 381.39, 999.09, 363.43, 1014.74, 345.13, 1028.55, 327.15, 1040.97, 309.98, 1052.45, 293.93, 1063.36, 279.21, 1074.03, 265.95, 1084.72, 254.16, 1095.64, 243.78)
+
+[node name="TrackApron_Q3" type="Polygon2D" parent="TrackVisuals" unique_id=155457750]
+color = Color(0.078, 0.09, 0.118, 1)
+polygon = PackedVector2Array(301.78, 87.66, 278.3, 94.15, 254.98, 102.4, 231.93, 112.6, 209.36, 124.97, 187.6, 139.7, 167.05, 156.93, 148.22, 176.63, 131.6, 198.66, 117.65, 222.74, 106.73, 248.53, 99.12, 275.62, 95.03, 303.5, 94.52, 331.52, 97.41, 358.91, 103.14, 384.89, 110.85, 408.9, 119.44, 430.51, 127.8, 449.72, 135.1, 466.69, 140.72, 481.55, 144.39, 494.6, 146.24, 506.59, 146.42, 518.78, 144.98, 532.48, 141.94, 548.62, 137.65, 567.92, 133.15, 590.9, 130.19, 617.64, 130.89, 647.45, 137.11, 678.56, 149.38, 708.37, 166.93, 735.07, 188.01, 757.07, 210.49, 774.55, 233.92, 788.54, 257.81, 799.57, 281.79, 808.09, 305.59, 814.49, 328.99, 819.17, 351.88, 822.49, 374.2, 824.78, 395.98, 826.32, 417.27, 827.34, 438.16, 828.03, 458.76, 828.51, 461.37, 702.54, 441.71, 702.08, 422.36, 701.44, 403.43, 700.54, 385.04, 699.25, 367.31, 697.44, 350.35, 695, 334.27, 691.8, 319.2, 687.77, 305.26, 682.85, 292.61, 677.04, 281.47, 670.44, 272.16, 663.28, 265.3, 656.33, 260.75, 649.45, 257.73, 642.15, 256.16, 633.89, 256.05, 623.54, 257.65, 610.3, 260.96, 593.79, 265.4, 573.78, 269.7, 550.35, 272.31, 524.03, 271.79, 496.02, 267.61, 468.26, 260.53, 442.56, 252.02, 419.73, 243.45, 399.7, 235.72, 381.99, 229.39, 366.2, 224.74, 351.89, 221.76, 338.58, 220.4, 325.96, 220.61, 313.77, 222.35, 301.86, 225.62, 290.25, 230.38, 279.02, 236.59, 268.33, 244.19, 258.27, 253.15, 248.92, 263.44, 240.32, 274.98, 232.53, 287.7, 225.58, 301.46, 219.51, 316.08, 214.36, 331.39, 210.13)
+
+[node name="Asphalt_Q0" type="Polygon2D" parent="TrackVisuals" unique_id=144156738]
+color = Color(0.157, 0.173, 0.212, 1)
+polygon = PackedVector2Array(458.93, 820.51, 479.28, 820.88, 499.53, 821.19, 519.73, 821.47, 539.91, 821.73, 560.1, 821.97, 580.29, 822.19, 600.5, 822.38, 620.71, 822.55, 640.91, 822.68, 661.11, 822.8, 681.28, 822.89, 701.44, 822.97, 721.57, 823.05, 741.67, 823.13, 761.74, 823.23, 781.78, 823.36, 801.79, 823.53, 821.78, 823.74, 841.77, 824.02, 861.77, 824.34, 881.79, 824.71, 901.86, 825.11, 922, 825.52, 942.21, 825.92, 962.52, 826.28, 982.94, 826.55, 1003.47, 826.69, 1024.12, 826.67, 1044.88, 826.43, 1065.73, 825.93, 1086.68, 825.13, 1107.68, 823.99, 1128.73, 822.49, 1149.8, 820.61, 1170.88, 818.32, 1191.99, 815.6, 1213.11, 812.41, 1234.25, 808.73, 1255.47, 804.46, 1276.82, 799.51, 1298.33, 793.72, 1320, 786.87, 1341.79, 778.73, 1363.6, 768.98, 1385.21, 757.31, 1328.86, 662.84, 1315.05, 670.27, 1300.11, 676.93, 1284.2, 682.86, 1267.47, 688.13, 1250.1, 692.81, 1232.23, 696.95, 1213.97, 700.61, 1195.45, 703.84, 1176.74, 706.66, 1157.92, 709.09, 1138.97, 711.15, 1119.93, 712.85, 1100.81, 714.21, 1081.61, 715.24, 1062.32, 715.98, 1042.92, 716.44, 1023.41, 716.67, 1003.79, 716.69, 984.06, 716.55, 964.21, 716.29, 944.26, 715.94, 924.22, 715.55, 904.09, 715.13, 883.9, 714.73, 863.67, 714.35, 843.4, 714.03, 823.12, 713.75, 802.85, 713.53, 782.6, 713.36, 762.37, 713.23, 742.17, 713.13, 722.01, 713.05, 701.87, 712.97, 681.76, 712.89, 661.67, 712.8, 641.6, 712.69, 621.54, 712.55, 601.48, 712.38, 581.42, 712.19, 561.35, 711.97, 541.27, 711.73, 521.19, 711.48, 501.13, 711.2, 481.11, 710.89, 461.2, 710.54)
+
+[node name="Asphalt_Q1" type="Polygon2D" parent="TrackVisuals" unique_id=1143446420]
+color = Color(0.157, 0.173, 0.212, 1)
+polygon = PackedVector2Array(1385.21, 757.31, 1406.27, 743.46, 1426.29, 727.27, 1444.72, 708.8, 1461.05, 688.35, 1474.94, 666.41, 1486.3, 643.57, 1495.27, 620.33, 1502.14, 597.06, 1507.25, 573.97, 1510.91, 551.17, 1513.38, 528.65, 1514.88, 506.38, 1515.54, 484.31, 1515.45, 462.35, 1514.65, 440.45, 1513.13, 418.53, 1510.85, 396.57, 1507.74, 374.51, 1503.68, 352.36, 1498.54, 330.14, 1492.16, 307.9, 1484.41, 285.74, 1475.12, 263.84, 1464.21, 242.37, 1451.62, 221.58, 1437.36, 201.7, 1421.49, 182.96, 1404.13, 165.53, 1385.39, 149.57, 1365.4, 135.18, 1344.27, 122.48, 1322.14, 111.54, 1299.12, 102.47, 1275.39, 95.36, 1251.11, 90.28, 1226.49, 87.29, 1201.71, 86.41, 1176.96, 87.62, 1152.39, 90.92, 1128.13, 96.32, 1104.31, 103.84, 1081.14, 113.51, 1058.85, 125.33, 1037.77, 139.16, 1018.21, 154.74, 1090.39, 237.75, 1102.3, 228.25, 1114.85, 220, 1128.12, 212.97, 1142.09, 207.15, 1156.65, 202.55, 1171.67, 199.22, 1186.98, 197.16, 1202.43, 196.4, 1217.88, 196.96, 1233.21, 198.82, 1248.32, 201.98, 1263.14, 206.42, 1277.57, 212.1, 1291.51, 219, 1304.87, 227.03, 1317.55, 236.16, 1329.44, 246.29, 1340.48, 257.37, 1350.62, 269.35, 1359.81, 282.17, 1368.06, 295.8, 1375.38, 310.22, 1381.79, 325.37, 1387.33, 341.21, 1392.04, 357.67, 1395.96, 374.67, 1399.16, 392.12, 1401.67, 409.93, 1403.54, 428, 1404.8, 446.26, 1405.47, 464.59, 1405.55, 482.89, 1405.01, 501.06, 1403.81, 518.96, 1401.89, 536.46, 1399.19, 553.41, 1395.62, 569.63, 1391.11, 584.97, 1385.61, 599.28, 1379.07, 612.47, 1371.45, 624.54, 1362.68, 635.52, 1352.7, 645.52, 1341.43, 654.6, 1328.86, 662.84)
+
+[node name="Asphalt_Q2" type="Polygon2D" parent="TrackVisuals" unique_id=274952878]
+color = Color(0.157, 0.173, 0.212, 1)
+polygon = PackedVector2Array(1018.21, 154.74, 1000.39, 171.62, 984.37, 189.23, 970.03, 207.01, 957.08, 224.44, 945.16, 241.1, 933.92, 256.67, 923.02, 270.88, 912.21, 283.59, 901.24, 294.7, 889.94, 304.25, 878.16, 312.28, 865.8, 318.83, 852.9, 323.9, 839.59, 327.45, 826.12, 329.41, 812.81, 329.74, 799.92, 328.42, 787.63, 325.48, 775.96, 320.89, 764.76, 314.59, 753.83, 306.45, 742.98, 296.37, 732.08, 284.38, 720.98, 270.67, 709.47, 255.5, 697.32, 239.23, 684.23, 222.23, 669.94, 204.91, 654.25, 187.74, 637.07, 171.18, 618.47, 155.68, 598.62, 141.56, 577.77, 129.03, 556.19, 118.18, 534.07, 108.98, 511.58, 101.36, 488.82, 95.24, 465.87, 90.56, 442.78, 87.25, 419.59, 85.27, 396.36, 84.62, 373.12, 85.28, 349.9, 87.28, 326.74, 90.64, 303.66, 95.44, 329.51, 202.36, 345.83, 198.97, 362.5, 196.55, 379.39, 195.1, 396.38, 194.62, 413.38, 195.1, 430.31, 196.54, 447.06, 198.94, 463.54, 202.3, 479.66, 206.63, 495.29, 211.92, 510.34, 218.17, 524.71, 225.39, 538.37, 233.59, 551.31, 242.8, 563.62, 253.07, 575.41, 264.45, 586.87, 277.01, 598.19, 290.76, 609.66, 305.68, 621.6, 321.67, 634.44, 338.57, 648.7, 356.13, 664.93, 373.88, 683.61, 391.13, 704.99, 406.94, 728.86, 420.29, 754.6, 430.4, 781.39, 436.85, 808.48, 439.65, 835.35, 439.02, 861.67, 435.21, 887.22, 428.41, 911.75, 418.78, 934.93, 406.49, 956.41, 391.9, 975.87, 375.51, 993.2, 358.01, 1008.52, 340.1, 1022.14, 322.38, 1034.48, 305.31, 1045.98, 289.22, 1057.03, 274.32, 1067.95, 260.75, 1079, 248.56, 1090.39, 237.75)
+
+[node name="Asphalt_Q3" type="Polygon2D" parent="TrackVisuals" unique_id=316868589]
+color = Color(0.157, 0.173, 0.212, 1)
+polygon = PackedVector2Array(303.66, 95.44, 280.7, 101.79, 257.93, 109.83, 235.47, 119.77, 213.53, 131.79, 192.41, 146.09, 172.52, 162.77, 154.31, 181.81, 138.27, 203.08, 124.81, 226.32, 114.27, 251.18, 106.94, 277.29, 103, 304.15, 102.51, 331.16, 105.31, 357.62, 110.86, 382.8, 118.37, 406.19, 126.82, 427.43, 135.14, 446.54, 142.52, 463.71, 148.32, 479.08, 152.22, 492.93, 154.21, 505.92, 154.42, 519.11, 152.9, 533.61, 149.77, 550.22, 145.48, 569.56, 141.06, 592.14, 138.18, 618.01, 138.84, 646.59, 144.77, 676.25, 156.45, 704.63, 173.18, 730.07, 193.36, 751.11, 215, 767.94, 237.64, 781.46, 260.82, 792.16, 284.17, 800.45, 307.41, 806.7, 330.35, 811.29, 352.86, 814.55, 374.89, 816.81, 396.45, 818.33, 417.59, 819.35, 438.39, 820.03, 458.93, 820.51, 461.2, 710.54, 441.48, 710.08, 422.03, 709.44, 402.95, 708.53, 384.35, 707.22, 366.33, 705.38, 348.99, 702.88, 332.45, 699.59, 316.83, 695.41, 302.24, 690.26, 288.88, 684.12, 276.96, 677.05, 266.82, 669.24, 259.06, 661.33, 253.68, 653.2, 250.07, 644.46, 248.2, 634.75, 248.06, 623.16, 249.74, 609.07, 253.13, 592.15, 257.56, 572.18, 261.79, 549.21, 264.32, 523.69, 263.82, 496.69, 259.79, 469.93, 252.92, 445.03, 244.6, 422.71, 236.1, 402.87, 228.34, 385.07, 221.86, 368.91, 217.02, 353.98, 213.86, 339.87, 212.41, 326.32, 212.63, 313.12, 214.53, 300.2, 218.07, 287.6, 223.22, 275.45, 229.92, 263.91, 238.1, 253.09, 247.69, 243.08, 258.62, 233.93, 270.82, 225.7, 284.16, 218.41, 298.51, 212.08, 313.68, 206.73, 329.51, 202.36)
+
+[node name="CenterDashes" type="Node2D" parent="TrackVisuals" unique_id=39837438]
+
+[node name="Dash_000" type="Line2D" parent="TrackVisuals/CenterDashes" unique_id=849918242]
+points = PackedVector2Array(460.06, 765.53, 480.2, 765.89)
+width = 2.6
+default_color = Color(1, 1, 1, 0.14)
+
+[node name="Dash_002" type="Line2D" parent="TrackVisuals/CenterDashes" unique_id=101006878]
+points = PackedVector2Array(500.33, 766.19, 520.46, 766.47)
+width = 2.6
+default_color = Color(1, 1, 1, 0.14)
+
+[node name="Dash_004" type="Line2D" parent="TrackVisuals/CenterDashes" unique_id=931985850]
+points = PackedVector2Array(540.59, 766.73, 560.72, 766.97)
+width = 2.6
+default_color = Color(1, 1, 1, 0.14)
+
+[node name="Dash_006" type="Line2D" parent="TrackVisuals/CenterDashes" unique_id=682985098]
+points = PackedVector2Array(580.86, 767.19, 600.99, 767.38)
+width = 2.6
+default_color = Color(1, 1, 1, 0.14)
+
+[node name="Dash_008" type="Line2D" parent="TrackVisuals/CenterDashes" unique_id=1019751342]
+points = PackedVector2Array(621.12, 767.55, 641.25, 767.69)
+width = 2.6
+default_color = Color(1, 1, 1, 0.14)
+
+[node name="Dash_010" type="Line2D" parent="TrackVisuals/CenterDashes" unique_id=672184999]
+points = PackedVector2Array(661.39, 767.8, 681.52, 767.89)
+width = 2.6
+default_color = Color(1, 1, 1, 0.14)
+
+[node name="Dash_012" type="Line2D" parent="TrackVisuals/CenterDashes" unique_id=291999086]
+points = PackedVector2Array(701.65, 767.97, 721.79, 768.05)
+width = 2.6
+default_color = Color(1, 1, 1, 0.14)
+
+[node name="Dash_014" type="Line2D" parent="TrackVisuals/CenterDashes" unique_id=1681361250]
+points = PackedVector2Array(741.92, 768.13, 762.06, 768.23)
+width = 2.6
+default_color = Color(1, 1, 1, 0.14)
+
+[node name="Dash_016" type="Line2D" parent="TrackVisuals/CenterDashes" unique_id=257589687]
+points = PackedVector2Array(782.19, 768.36, 802.32, 768.53)
+width = 2.6
+default_color = Color(1, 1, 1, 0.14)
+
+[node name="Dash_018" type="Line2D" parent="TrackVisuals/CenterDashes" unique_id=1608750990]
+points = PackedVector2Array(822.45, 768.75, 842.59, 769.02)
+width = 2.6
+default_color = Color(1, 1, 1, 0.14)
+
+[node name="Dash_020" type="Line2D" parent="TrackVisuals/CenterDashes" unique_id=1824054083]
+points = PackedVector2Array(862.72, 769.35, 882.85, 769.72)
+width = 2.6
+default_color = Color(1, 1, 1, 0.14)
+
+[node name="Dash_022" type="Line2D" parent="TrackVisuals/CenterDashes" unique_id=536367212]
+points = PackedVector2Array(902.98, 770.12, 923.11, 770.53)
+width = 2.6
+default_color = Color(1, 1, 1, 0.14)
+
+[node name="Dash_024" type="Line2D" parent="TrackVisuals/CenterDashes" unique_id=1029469767]
+points = PackedVector2Array(943.24, 770.93, 963.37, 771.28)
+width = 2.6
+default_color = Color(1, 1, 1, 0.14)
+
+[node name="Dash_026" type="Line2D" parent="TrackVisuals/CenterDashes" unique_id=1338779825]
+points = PackedVector2Array(983.5, 771.55, 1003.63, 771.69)
+width = 2.6
+default_color = Color(1, 1, 1, 0.14)
+
+[node name="Dash_028" type="Line2D" parent="TrackVisuals/CenterDashes" unique_id=479448105]
+points = PackedVector2Array(1023.77, 771.67, 1043.9, 771.44)
+width = 2.6
+default_color = Color(1, 1, 1, 0.14)
+
+[node name="Dash_030" type="Line2D" parent="TrackVisuals/CenterDashes" unique_id=1991015352]
+points = PackedVector2Array(1064.03, 770.95, 1084.14, 770.19)
+width = 2.6
+default_color = Color(1, 1, 1, 0.14)
+
+[node name="Dash_032" type="Line2D" parent="TrackVisuals/CenterDashes" unique_id=268091215]
+points = PackedVector2Array(1104.25, 769.1, 1124.33, 767.67)
+width = 2.6
+default_color = Color(1, 1, 1, 0.14)
+
+[node name="Dash_034" type="Line2D" parent="TrackVisuals/CenterDashes" unique_id=1918429665]
+points = PackedVector2Array(1144.38, 765.88, 1164.4, 763.71)
+width = 2.6
+default_color = Color(1, 1, 1, 0.14)
+
+[node name="Dash_036" type="Line2D" parent="TrackVisuals/CenterDashes" unique_id=1160528077]
+points = PackedVector2Array(1184.37, 761.13, 1204.28, 758.13)
+width = 2.6
+default_color = Color(1, 1, 1, 0.14)
+
+[node name="Dash_038" type="Line2D" parent="TrackVisuals/CenterDashes" unique_id=609916300]
+points = PackedVector2Array(1224.11, 754.67, 1243.85, 750.7)
+width = 2.6
+default_color = Color(1, 1, 1, 0.14)
+
+[node name="Dash_040" type="Line2D" parent="TrackVisuals/CenterDashes" unique_id=549682786]
+points = PackedVector2Array(1263.46, 746.16, 1282.9, 740.93)
+width = 2.6
+default_color = Color(1, 1, 1, 0.14)
+
+[node name="Dash_042" type="Line2D" parent="TrackVisuals/CenterDashes" unique_id=1579106977]
+points = PackedVector2Array(1302.1, 734.87, 1320.95, 727.83)
+width = 2.6
+default_color = Color(1, 1, 1, 0.14)
+
+[node name="Dash_044" type="Line2D" parent="TrackVisuals/CenterDashes" unique_id=2002143518]
+points = PackedVector2Array(1339.33, 719.62, 1357.04, 710.08)
+width = 2.6
+default_color = Color(1, 1, 1, 0.14)
+
+[node name="Dash_046" type="Line2D" parent="TrackVisuals/CenterDashes" unique_id=520653552]
+points = PackedVector2Array(1373.85, 699.03, 1389.5, 686.39)
+width = 2.6
+default_color = Color(1, 1, 1, 0.14)
+
+[node name="Dash_048" type="Line2D" parent="TrackVisuals/CenterDashes" unique_id=984006216]
+points = PackedVector2Array(1403.7, 672.16, 1416.25, 656.44)
+width = 2.6
+default_color = Color(1, 1, 1, 0.14)
+
+[node name="Dash_050" type="Line2D" parent="TrackVisuals/CenterDashes" unique_id=539369024]
+points = PackedVector2Array(1427, 639.44, 1435.95, 621.42)
+width = 2.6
+default_color = Color(1, 1, 1, 0.14)
+
+[node name="Dash_052" type="Line2D" parent="TrackVisuals/CenterDashes" unique_id=1542155560]
+points = PackedVector2Array(1443.19, 602.65, 1448.88, 583.34)
+width = 2.6
+default_color = Color(1, 1, 1, 0.14)
+
+[node name="Dash_054" type="Line2D" parent="TrackVisuals/CenterDashes" unique_id=1744809959]
+points = PackedVector2Array(1453.22, 563.69, 1456.4, 543.82)
+width = 2.6
+default_color = Color(1, 1, 1, 0.14)
+
+[node name="Dash_056" type="Line2D" parent="TrackVisuals/CenterDashes" unique_id=2133563154]
+points = PackedVector2Array(1458.6, 523.81, 1459.95, 503.72)
+width = 2.6
+default_color = Color(1, 1, 1, 0.14)
+
+[node name="Dash_058" type="Line2D" parent="TrackVisuals/CenterDashes" unique_id=2123226533]
+points = PackedVector2Array(1460.55, 483.6, 1460.46, 463.47)
+width = 2.6
+default_color = Color(1, 1, 1, 0.14)
+
+[node name="Dash_060" type="Line2D" parent="TrackVisuals/CenterDashes" unique_id=1042795782]
+points = PackedVector2Array(1459.73, 443.35, 1458.34, 423.27)
+width = 2.6
+default_color = Color(1, 1, 1, 0.14)
+
+[node name="Dash_062" type="Line2D" parent="TrackVisuals/CenterDashes" unique_id=1184372373]
+points = PackedVector2Array(1456.26, 403.25, 1453.45, 383.31)
+width = 2.6
+default_color = Color(1, 1, 1, 0.14)
+
+[node name="Dash_064" type="Line2D" parent="TrackVisuals/CenterDashes" unique_id=1948066654]
+points = PackedVector2Array(1449.82, 363.51, 1445.29, 343.9)
+width = 2.6
+default_color = Color(1, 1, 1, 0.14)
+
+[node name="Dash_066" type="Line2D" parent="TrackVisuals/CenterDashes" unique_id=179682050]
+points = PackedVector2Array(1439.75, 324.56, 1433.1, 305.56)
+width = 2.6
+default_color = Color(1, 1, 1, 0.14)
+
+[node name="Dash_068" type="Line2D" parent="TrackVisuals/CenterDashes" unique_id=2075027011]
+points = PackedVector2Array(1425.25, 287.03, 1416.14, 269.09)
+width = 2.6
+default_color = Color(1, 1, 1, 0.14)
+
+[node name="Dash_070" type="Line2D" parent="TrackVisuals/CenterDashes" unique_id=1232481191]
+points = PackedVector2Array(1405.72, 251.87, 1393.99, 235.52)
+width = 2.6
+default_color = Color(1, 1, 1, 0.14)
+
+[node name="Dash_072" type="Line2D" parent="TrackVisuals/CenterDashes" unique_id=1009982159]
+points = PackedVector2Array(1380.99, 220.16, 1366.79, 205.91)
+width = 2.6
+default_color = Color(1, 1, 1, 0.14)
+
+[node name="Dash_074" type="Line2D" parent="TrackVisuals/CenterDashes" unique_id=1734055624]
+points = PackedVector2Array(1351.47, 192.86, 1335.13, 181.11)
+width = 2.6
+default_color = Color(1, 1, 1, 0.14)
+
+[node name="Dash_076" type="Line2D" parent="TrackVisuals/CenterDashes" unique_id=343475236]
+points = PackedVector2Array(1317.89, 170.74, 1299.85, 161.82)
+width = 2.6
+default_color = Color(1, 1, 1, 0.14)
+
+[node name="Dash_078" type="Line2D" parent="TrackVisuals/CenterDashes" unique_id=311157437]
+points = PackedVector2Array(1281.13, 154.44, 1261.85, 148.67)
+width = 2.6
+default_color = Color(1, 1, 1, 0.14)
+
+[node name="Dash_080" type="Line2D" parent="TrackVisuals/CenterDashes" unique_id=1352223604]
+points = PackedVector2Array(1242.16, 144.55, 1222.18, 142.13)
+width = 2.6
+default_color = Color(1, 1, 1, 0.14)
+
+[node name="Dash_082" type="Line2D" parent="TrackVisuals/CenterDashes" unique_id=827437997]
+points = PackedVector2Array(1202.07, 141.41, 1181.97, 142.39)
+width = 2.6
+default_color = Color(1, 1, 1, 0.14)
+
+[node name="Dash_084" type="Line2D" parent="TrackVisuals/CenterDashes" unique_id=247117864]
+points = PackedVector2Array(1162.03, 145.07, 1142.39, 149.44)
+width = 2.6
+default_color = Color(1, 1, 1, 0.14)
+
+[node name="Dash_086" type="Line2D" parent="TrackVisuals/CenterDashes" unique_id=272693437]
+points = PackedVector2Array(1123.2, 155.49, 1104.63, 163.24)
+width = 2.6
+default_color = Color(1, 1, 1, 0.14)
+
+[node name="Dash_088" type="Line2D" parent="TrackVisuals/CenterDashes" unique_id=1018843083]
+points = PackedVector2Array(1086.85, 172.66, 1070.03, 183.71)
+width = 2.6
+default_color = Color(1, 1, 1, 0.14)
+
+[node name="Dash_090" type="Line2D" parent="TrackVisuals/CenterDashes" unique_id=1098421559]
+points = PackedVector2Array(1054.3, 196.24, 1039.69, 210.09)
+width = 2.6
+default_color = Color(1, 1, 1, 0.14)
+
+[node name="Dash_092" type="Line2D" parent="TrackVisuals/CenterDashes" unique_id=517721098]
+points = PackedVector2Array(1026.16, 224.99, 1013.53, 240.66)
+width = 2.6
+default_color = Color(1, 1, 1, 0.14)
+
+[node name="Dash_094" type="Line2D" parent="TrackVisuals/CenterDashes" unique_id=1270243959]
+points = PackedVector2Array(1001.53, 256.83, 989.82, 273.2)
+width = 2.6
+default_color = Color(1, 1, 1, 0.14)
+
+[node name="Dash_096" type="Line2D" parent="TrackVisuals/CenterDashes" unique_id=1832306338]
+points = PackedVector2Array(978.03, 289.52, 965.77, 305.49)
+width = 2.6
+default_color = Color(1, 1, 1, 0.14)
+
+[node name="Dash_098" type="Line2D" parent="TrackVisuals/CenterDashes" unique_id=1700090364]
+points = PackedVector2Array(952.7, 320.8, 938.56, 335.11)
+width = 2.6
+default_color = Color(1, 1, 1, 0.14)
+
+[node name="Dash_100" type="Line2D" parent="TrackVisuals/CenterDashes" unique_id=576354847]
+points = PackedVector2Array(923.17, 348.07, 906.54, 359.39)
+width = 2.6
+default_color = Color(1, 1, 1, 0.14)
+
+[node name="Dash_102" type="Line2D" parent="TrackVisuals/CenterDashes" unique_id=1462385800]
+points = PackedVector2Array(888.77, 368.8, 870.06, 376.16)
+width = 2.6
+default_color = Color(1, 1, 1, 0.14)
+
+[node name="Dash_104" type="Line2D" parent="TrackVisuals/CenterDashes" unique_id=1557341340]
+points = PackedVector2Array(850.63, 381.33, 830.74, 384.21)
+width = 2.6
+default_color = Color(1, 1, 1, 0.14)
+
+[node name="Dash_106" type="Line2D" parent="TrackVisuals/CenterDashes" unique_id=785680079]
+points = PackedVector2Array(810.64, 384.69, 790.65, 382.64)
+width = 2.6
+default_color = Color(1, 1, 1, 0.14)
+
+[node name="Dash_108" type="Line2D" parent="TrackVisuals/CenterDashes" unique_id=548557283]
+points = PackedVector2Array(771.11, 377.94, 752.41, 370.59)
+width = 2.6
+default_color = Color(1, 1, 1, 0.14)
+
+[node name="Dash_110" type="Line2D" parent="TrackVisuals/CenterDashes" unique_id=1859637012]
+points = PackedVector2Array(734.88, 360.76, 718.72, 348.79)
+width = 2.6
+default_color = Color(1, 1, 1, 0.14)
+
+[node name="Dash_112" type="Line2D" parent="TrackVisuals/CenterDashes" unique_id=2076461516]
+points = PackedVector2Array(703.95, 335.12, 690.39, 320.25)
+width = 2.6
+default_color = Color(1, 1, 1, 0.14)
+
+[node name="Dash_114" type="Line2D" parent="TrackVisuals/CenterDashes" unique_id=965403945]
+points = PackedVector2Array(677.71, 304.62, 665.53, 288.58)
+width = 2.6
+default_color = Color(1, 1, 1, 0.14)
+
+[node name="Dash_116" type="Line2D" parent="TrackVisuals/CenterDashes" unique_id=1596319934]
+points = PackedVector2Array(653.49, 272.45, 641.21, 256.49)
+width = 2.6
+default_color = Color(1, 1, 1, 0.14)
+
+[node name="Dash_118" type="Line2D" parent="TrackVisuals/CenterDashes" unique_id=1266328926]
+points = PackedVector2Array(628.4, 240.96, 614.83, 226.1)
+width = 2.6
+default_color = Color(1, 1, 1, 0.14)
+
+[node name="Dash_120" type="Line2D" parent="TrackVisuals/CenterDashes" unique_id=1320688980]
+points = PackedVector2Array(600.35, 212.12, 584.89, 199.24)
+width = 2.6
+default_color = Color(1, 1, 1, 0.14)
+
+[node name="Dash_122" type="Line2D" parent="TrackVisuals/CenterDashes" unique_id=254968091]
+points = PackedVector2Array(568.49, 187.57, 551.24, 177.21)
+width = 2.6
+default_color = Color(1, 1, 1, 0.14)
+
+[node name="Dash_124" type="Line2D" parent="TrackVisuals/CenterDashes" unique_id=890621240]
+points = PackedVector2Array(533.26, 168.17, 514.68, 160.45)
+width = 2.6
+default_color = Color(1, 1, 1, 0.14)
+
+[node name="Dash_126" type="Line2D" parent="TrackVisuals/CenterDashes" unique_id=2045037522]
+points = PackedVector2Array(495.62, 153.99, 476.18, 148.77)
+width = 2.6
+default_color = Color(1, 1, 1, 0.14)
+
+[node name="Dash_128" type="Line2D" parent="TrackVisuals/CenterDashes" unique_id=837476622]
+points = PackedVector2Array(456.46, 144.75, 436.54, 141.89)
+width = 2.6
+default_color = Color(1, 1, 1, 0.14)
+
+[node name="Dash_130" type="Line2D" parent="TrackVisuals/CenterDashes" unique_id=1678666592]
+points = PackedVector2Array(416.49, 140.19, 396.37, 139.62)
+width = 2.6
+default_color = Color(1, 1, 1, 0.14)
+
+[node name="Dash_132" type="Line2D" parent="TrackVisuals/CenterDashes" unique_id=509646782]
+points = PackedVector2Array(376.26, 140.19, 356.2, 141.91)
+width = 2.6
+default_color = Color(1, 1, 1, 0.14)
+
+[node name="Dash_134" type="Line2D" parent="TrackVisuals/CenterDashes" unique_id=507491368]
+points = PackedVector2Array(336.29, 144.8, 316.59, 148.9)
+width = 2.6
+default_color = Color(1, 1, 1, 0.14)
+
+[node name="Dash_136" type="Line2D" parent="TrackVisuals/CenterDashes" unique_id=366102017]
+points = PackedVector2Array(297.19, 154.26, 278.22, 160.95)
+width = 2.6
+default_color = Color(1, 1, 1, 0.14)
+
+[node name="Dash_138" type="Line2D" parent="TrackVisuals/CenterDashes" unique_id=1746158083]
+points = PackedVector2Array(259.82, 169.09, 242.17, 178.75)
+width = 2.6
+default_color = Color(1, 1, 1, 0.14)
+
+[node name="Dash_140" type="Line2D" parent="TrackVisuals/CenterDashes" unique_id=263756309]
+points = PackedVector2Array(225.52, 190.01, 210.1, 202.92)
+width = 2.6
+default_color = Color(1, 1, 1, 0.14)
+
+[node name="Dash_142" type="Line2D" parent="TrackVisuals/CenterDashes" unique_id=1681545207]
+points = PackedVector2Array(196.2, 217.45, 184.09, 233.49)
+width = 2.6
+default_color = Color(1, 1, 1, 0.14)
+
+[node name="Dash_144" type="Line2D" parent="TrackVisuals/CenterDashes" unique_id=543454423]
+points = PackedVector2Array(174.02, 250.88, 166.17, 269.39)
+width = 2.6
+default_color = Color(1, 1, 1, 0.14)
+
+[node name="Dash_146" type="Line2D" parent="TrackVisuals/CenterDashes" unique_id=1086746136]
+points = PackedVector2Array(160.73, 288.74, 157.82, 308.63)
+width = 2.6
+default_color = Color(1, 1, 1, 0.14)
+
+[node name="Dash_148" type="Line2D" parent="TrackVisuals/CenterDashes" unique_id=1364286106]
+points = PackedVector2Array(157.46, 328.74, 159.59, 348.74)
+width = 2.6
+default_color = Color(1, 1, 1, 0.14)
+
+[node name="Dash_150" type="Line2D" parent="TrackVisuals/CenterDashes" unique_id=1494618412]
+points = PackedVector2Array(163.94, 368.39, 170.12, 387.55)
+width = 2.6
+default_color = Color(1, 1, 1, 0.14)
+
+[node name="Dash_152" type="Line2D" parent="TrackVisuals/CenterDashes" unique_id=1171924536]
+points = PackedVector2Array(177.58, 406.25, 185.62, 424.71)
+width = 2.6
+default_color = Color(1, 1, 1, 0.14)
+
+[node name="Dash_154" type="Line2D" parent="TrackVisuals/CenterDashes" unique_id=1901659488]
+points = PackedVector2Array(193.56, 443.21, 200.62, 462.05)
+width = 2.6
+default_color = Color(1, 1, 1, 0.14)
+
+[node name="Dash_156" type="Line2D" parent="TrackVisuals/CenterDashes" unique_id=460788894]
+points = PackedVector2Array(206, 481.43, 209.01, 501.31)
+width = 2.6
+default_color = Color(1, 1, 1, 0.14)
+
+[node name="Dash_158" type="Line2D" parent="TrackVisuals/CenterDashes" unique_id=1017642056]
+points = PackedVector2Array(209.37, 521.4, 207.34, 541.41)
+width = 2.6
+default_color = Color(1, 1, 1, 0.14)
+
+[node name="Dash_160" type="Line2D" parent="TrackVisuals/CenterDashes" unique_id=762979724]
+points = PackedVector2Array(203.67, 561.2, 199.31, 580.86)
+width = 2.6
+default_color = Color(1, 1, 1, 0.14)
+
+[node name="Dash_162" type="Line2D" parent="TrackVisuals/CenterDashes" unique_id=1550575039]
+points = PackedVector2Array(195.4, 600.6, 193.12, 620.59)
+width = 2.6
+default_color = Color(1, 1, 1, 0.14)
+
+[node name="Dash_164" type="Line2D" parent="TrackVisuals/CenterDashes" unique_id=1858977470]
+points = PackedVector2Array(193.52, 640.67, 197.42, 660.36)
+width = 2.6
+default_color = Color(1, 1, 1, 0.14)
+
+[node name="Dash_166" type="Line2D" parent="TrackVisuals/CenterDashes" unique_id=1696604594]
+points = PackedVector2Array(205.06, 678.91, 216.12, 695.7)
+width = 2.6
+default_color = Color(1, 1, 1, 0.14)
+
+[node name="Dash_168" type="Line2D" parent="TrackVisuals/CenterDashes" unique_id=1739977285]
+points = PackedVector2Array(230.09, 710.17, 245.98, 722.5)
+width = 2.6
+default_color = Color(1, 1, 1, 0.14)
+
+[node name="Dash_170" type="Line2D" parent="TrackVisuals/CenterDashes" unique_id=764514619]
+points = PackedVector2Array(263.26, 732.79, 281.53, 741.21)
+width = 2.6
+default_color = Color(1, 1, 1, 0.14)
+
+[node name="Dash_172" type="Line2D" parent="TrackVisuals/CenterDashes" unique_id=231776458]
+points = PackedVector2Array(300.5, 747.93, 319.93, 753.15)
+width = 2.6
+default_color = Color(1, 1, 1, 0.14)
+
+[node name="Dash_174" type="Line2D" parent="TrackVisuals/CenterDashes" unique_id=1407806100]
+points = PackedVector2Array(339.67, 757.09, 359.59, 759.97)
+width = 2.6
+default_color = Color(1, 1, 1, 0.14)
+
+[node name="Dash_176" type="Line2D" parent="TrackVisuals/CenterDashes" unique_id=943041259]
+points = PackedVector2Array(379.62, 762.01, 399.7, 763.43)
+width = 2.6
+default_color = Color(1, 1, 1, 0.14)
+
+[node name="Dash_178" type="Line2D" parent="TrackVisuals/CenterDashes" unique_id=1043472401]
+points = PackedVector2Array(419.81, 764.39, 439.94, 765.05)
+width = 2.6
+default_color = Color(1, 1, 1, 0.14)
+
+[node name="RacingKerbs" type="Node2D" parent="TrackVisuals" unique_id=431943633]
+
+[node name="Kerb_000" type="Polygon2D" parent="TrackVisuals/RacingKerbs" unique_id=1871199077]
+color = Color(0.855, 0.188, 0.22, 1)
+polygon = PackedVector2Array(1318.81, 677.9, 1333.22, 670.14, 1328.1, 661.55, 1314.39, 668.93)
+
+[node name="Kerb_001" type="Polygon2D" parent="TrackVisuals/RacingKerbs" unique_id=589495282]
+color = Color(0.941, 0.957, 0.98, 1)
+polygon = PackedVector2Array(1333.22, 670.14, 1346.44, 661.47, 1340.55, 653.39, 1328.1, 661.55)
+
+[node name="Kerb_002" type="Polygon2D" parent="TrackVisuals/RacingKerbs" unique_id=1963826171]
+color = Color(0.855, 0.188, 0.22, 1)
+polygon = PackedVector2Array(1346.44, 661.47, 1358.39, 651.83, 1351.7, 644.4, 1340.55, 653.39)
+
+[node name="Kerb_003" type="Polygon2D" parent="TrackVisuals/RacingKerbs" unique_id=1114204067]
+color = Color(0.941, 0.957, 0.98, 1)
+polygon = PackedVector2Array(1358.39, 651.83, 1369.02, 641.18, 1361.57, 634.52, 1351.7, 644.4)
+
+[node name="Kerb_004" type="Polygon2D" parent="TrackVisuals/RacingKerbs" unique_id=948046958]
+color = Color(0.855, 0.188, 0.22, 1)
+polygon = PackedVector2Array(1369.02, 641.18, 1378.37, 629.47, 1370.23, 623.67, 1361.57, 634.52)
+
+[node name="Kerb_005" type="Polygon2D" parent="TrackVisuals/RacingKerbs" unique_id=1221081125]
+color = Color(0.941, 0.957, 0.98, 1)
+polygon = PackedVector2Array(1378.37, 629.47, 1386.48, 616.64, 1377.76, 611.74, 1370.23, 623.67)
+
+[node name="Kerb_006" type="Polygon2D" parent="TrackVisuals/RacingKerbs" unique_id=1318105569]
+color = Color(0.855, 0.188, 0.22, 1)
+polygon = PackedVector2Array(1386.48, 616.64, 1393.39, 602.7, 1384.23, 598.67, 1377.76, 611.74)
+
+[node name="Kerb_007" type="Polygon2D" parent="TrackVisuals/RacingKerbs" unique_id=1569776830]
+color = Color(0.941, 0.957, 0.98, 1)
+polygon = PackedVector2Array(1393.39, 602.7, 1399.16, 587.7, 1389.69, 584.49, 1384.23, 598.67)
+
+[node name="Kerb_008" type="Polygon2D" parent="TrackVisuals/RacingKerbs" unique_id=1940130445]
+color = Color(0.855, 0.188, 0.22, 1)
+polygon = PackedVector2Array(1399.16, 587.7, 1403.85, 571.75, 1394.16, 569.26, 1389.69, 584.49)
+
+[node name="Kerb_009" type="Polygon2D" parent="TrackVisuals/RacingKerbs" unique_id=1367351719]
+color = Color(0.941, 0.957, 0.98, 1)
+polygon = PackedVector2Array(1403.85, 571.75, 1407.54, 555, 1397.71, 553.13, 1394.16, 569.26)
+
+[node name="Kerb_010" type="Polygon2D" parent="TrackVisuals/RacingKerbs" unique_id=632760431]
+color = Color(0.855, 0.188, 0.22, 1)
+polygon = PackedVector2Array(1383.09, 306.64, 1375.49, 291.68, 1366.75, 296.53, 1374.02, 310.85)
+
+[node name="Kerb_011" type="Polygon2D" parent="TrackVisuals/RacingKerbs" unique_id=838122620]
+color = Color(0.941, 0.957, 0.98, 1)
+polygon = PackedVector2Array(1375.49, 291.68, 1366.91, 277.49, 1358.56, 282.99, 1366.75, 296.53)
+
+[node name="Kerb_012" type="Polygon2D" parent="TrackVisuals/RacingKerbs" unique_id=159339138]
+color = Color(0.855, 0.188, 0.22, 1)
+polygon = PackedVector2Array(1366.91, 277.49, 1357.32, 264.12, 1349.43, 270.27, 1358.56, 282.99)
+
+[node name="Kerb_013" type="Polygon2D" parent="TrackVisuals/RacingKerbs" unique_id=559938676]
+color = Color(0.941, 0.957, 0.98, 1)
+polygon = PackedVector2Array(1357.32, 264.12, 1346.74, 251.62, 1339.38, 258.39, 1349.43, 270.27)
+
+[node name="Kerb_014" type="Polygon2D" parent="TrackVisuals/RacingKerbs" unique_id=925979643]
+color = Color(0.855, 0.188, 0.22, 1)
+polygon = PackedVector2Array(1346.74, 251.62, 1335.21, 240.05, 1328.42, 247.39, 1339.38, 258.39)
+
+[node name="Kerb_015" type="Polygon2D" parent="TrackVisuals/RacingKerbs" unique_id=799178545]
+color = Color(0.941, 0.957, 0.98, 1)
+polygon = PackedVector2Array(1335.21, 240.05, 1322.79, 229.46, 1316.62, 237.34, 1328.42, 247.39)
+
+[node name="Kerb_016" type="Polygon2D" parent="TrackVisuals/RacingKerbs" unique_id=876176590]
+color = Color(0.855, 0.188, 0.22, 1)
+polygon = PackedVector2Array(1322.79, 229.46, 1309.55, 219.94, 1304.05, 228.29, 1316.62, 237.34)
+
+[node name="Kerb_017" type="Polygon2D" parent="TrackVisuals/RacingKerbs" unique_id=1847706661]
+color = Color(0.941, 0.957, 0.98, 1)
+polygon = PackedVector2Array(1309.55, 219.94, 1295.59, 211.54, 1290.79, 220.31, 1304.05, 228.29)
+
+[node name="Kerb_018" type="Polygon2D" parent="TrackVisuals/RacingKerbs" unique_id=761571591]
+color = Color(0.855, 0.188, 0.22, 1)
+polygon = PackedVector2Array(1295.59, 211.54, 1281.01, 204.33, 1276.96, 213.48, 1290.79, 220.31)
+
+[node name="Kerb_019" type="Polygon2D" parent="TrackVisuals/RacingKerbs" unique_id=1461232030]
+color = Color(0.941, 0.957, 0.98, 1)
+polygon = PackedVector2Array(1281.01, 204.33, 1265.92, 198.39, 1262.65, 207.84, 1276.96, 213.48)
+
+[node name="Kerb_020" type="Polygon2D" parent="TrackVisuals/RacingKerbs" unique_id=206900337]
+color = Color(0.855, 0.188, 0.22, 1)
+polygon = PackedVector2Array(1265.92, 198.39, 1250.42, 193.74, 1247.96, 203.43, 1262.65, 207.84)
+
+[node name="Kerb_021" type="Polygon2D" parent="TrackVisuals/RacingKerbs" unique_id=1532600827]
+color = Color(0.941, 0.957, 0.98, 1)
+polygon = PackedVector2Array(1250.42, 193.74, 1234.59, 190.43, 1232.96, 200.3, 1247.96, 203.43)
+
+[node name="Kerb_022" type="Polygon2D" parent="TrackVisuals/RacingKerbs" unique_id=795927701]
+color = Color(0.855, 0.188, 0.22, 1)
+polygon = PackedVector2Array(1234.59, 190.43, 1218.54, 188.48, 1217.76, 198.45, 1232.96, 200.3)
+
+[node name="Kerb_023" type="Polygon2D" parent="TrackVisuals/RacingKerbs" unique_id=560177957]
+color = Color(0.941, 0.957, 0.98, 1)
+polygon = PackedVector2Array(1218.54, 188.48, 1202.38, 187.9, 1202.44, 197.9, 1217.76, 198.45)
+
+[node name="Kerb_024" type="Polygon2D" parent="TrackVisuals/RacingKerbs" unique_id=165392065]
+color = Color(0.855, 0.188, 0.22, 1)
+polygon = PackedVector2Array(1202.38, 187.9, 1186.21, 188.7, 1187.12, 198.65, 1202.44, 197.9)
+
+[node name="Kerb_025" type="Polygon2D" parent="TrackVisuals/RacingKerbs" unique_id=1935093911]
+color = Color(0.941, 0.957, 0.98, 1)
+polygon = PackedVector2Array(1186.21, 188.7, 1170.18, 190.85, 1171.93, 200.69, 1187.12, 198.65)
+
+[node name="Kerb_026" type="Polygon2D" parent="TrackVisuals/RacingKerbs" unique_id=1585742191]
+color = Color(0.855, 0.188, 0.22, 1)
+polygon = PackedVector2Array(1170.18, 190.85, 1154.44, 194.35, 1157.04, 204, 1171.93, 200.69)
+
+[node name="Kerb_027" type="Polygon2D" parent="TrackVisuals/RacingKerbs" unique_id=954845105]
+color = Color(0.941, 0.957, 0.98, 1)
+polygon = PackedVector2Array(1154.44, 194.35, 1139.17, 199.17, 1142.6, 208.56, 1157.04, 204)
+
+[node name="Kerb_028" type="Polygon2D" parent="TrackVisuals/RacingKerbs" unique_id=1455348876]
+color = Color(0.855, 0.188, 0.22, 1)
+polygon = PackedVector2Array(1139.17, 199.17, 1124.49, 205.29, 1128.76, 214.33, 1142.6, 208.56)
+
+[node name="Kerb_029" type="Polygon2D" parent="TrackVisuals/RacingKerbs" unique_id=1014988512]
+color = Color(0.941, 0.957, 0.98, 1)
+polygon = PackedVector2Array(1124.49, 205.29, 1110.53, 212.69, 1115.62, 221.29, 1128.76, 214.33)
+
+[node name="Kerb_030" type="Polygon2D" parent="TrackVisuals/RacingKerbs" unique_id=791748715]
+color = Color(0.855, 0.188, 0.22, 1)
+polygon = PackedVector2Array(1110.53, 212.69, 1097.31, 221.36, 1103.18, 229.46, 1115.62, 221.29)
+
+[node name="Kerb_031" type="Polygon2D" parent="TrackVisuals/RacingKerbs" unique_id=834362122]
+color = Color(0.941, 0.957, 0.98, 1)
+polygon = PackedVector2Array(1097.31, 221.36, 1084.81, 231.33, 1091.37, 238.88, 1103.18, 229.46)
+
+[node name="Kerb_032" type="Polygon2D" parent="TrackVisuals/RacingKerbs" unique_id=520179599]
+color = Color(0.855, 0.188, 0.22, 1)
+polygon = PackedVector2Array(1084.81, 231.33, 1072.92, 242.62, 1080.07, 249.61, 1091.37, 238.88)
+
+[node name="Kerb_033" type="Polygon2D" parent="TrackVisuals/RacingKerbs" unique_id=1590080939]
+color = Color(0.941, 0.957, 0.98, 1)
+polygon = PackedVector2Array(1072.92, 242.62, 1061.49, 255.22, 1069.09, 261.72, 1080.07, 249.61)
+
+[node name="Kerb_034" type="Polygon2D" parent="TrackVisuals/RacingKerbs" unique_id=2105741789]
+color = Color(0.855, 0.188, 0.22, 1)
+polygon = PackedVector2Array(918.46, 289.34, 907.01, 300.95, 900.22, 293.6, 911.1, 282.57)
+
+[node name="Kerb_035" type="Polygon2D" parent="TrackVisuals/RacingKerbs" unique_id=418230521]
+color = Color(0.941, 0.957, 0.98, 1)
+polygon = PackedVector2Array(907.01, 300.95, 895.08, 311.02, 889.03, 303.05, 900.22, 293.6)
+
+[node name="Kerb_036" type="Polygon2D" parent="TrackVisuals/RacingKerbs" unique_id=520702991]
+color = Color(0.855, 0.188, 0.22, 1)
+polygon = PackedVector2Array(895.08, 311.02, 882.54, 319.56, 877.38, 310.99, 889.03, 303.05)
+
+[node name="Kerb_037" type="Polygon2D" parent="TrackVisuals/RacingKerbs" unique_id=1427758157]
+color = Color(0.941, 0.957, 0.98, 1)
+polygon = PackedVector2Array(882.54, 319.56, 869.35, 326.55, 865.18, 317.47, 877.38, 310.99)
+
+[node name="Kerb_038" type="Polygon2D" parent="TrackVisuals/RacingKerbs" unique_id=348945175]
+color = Color(0.855, 0.188, 0.22, 1)
+polygon = PackedVector2Array(869.35, 326.55, 855.55, 331.98, 852.43, 322.48, 865.18, 317.47)
+
+[node name="Kerb_039" type="Polygon2D" parent="TrackVisuals/RacingKerbs" unique_id=1742660968]
+color = Color(0.941, 0.957, 0.98, 1)
+polygon = PackedVector2Array(855.55, 331.98, 841.3, 335.77, 839.29, 325.98, 852.43, 322.48)
+
+[node name="Kerb_040" type="Polygon2D" parent="TrackVisuals/RacingKerbs" unique_id=688128071]
+color = Color(0.855, 0.188, 0.22, 1)
+polygon = PackedVector2Array(841.3, 335.77, 826.84, 337.88, 826, 327.91, 839.29, 325.98)
+
+[node name="Kerb_041" type="Polygon2D" parent="TrackVisuals/RacingKerbs" unique_id=1094748649]
+color = Color(0.941, 0.957, 0.98, 1)
+polygon = PackedVector2Array(826.84, 337.88, 812.47, 338.23, 812.86, 328.24, 826, 327.91)
+
+[node name="Kerb_042" type="Polygon2D" parent="TrackVisuals/RacingKerbs" unique_id=1228259036]
+color = Color(0.855, 0.188, 0.22, 1)
+polygon = PackedVector2Array(812.47, 338.23, 798.48, 336.8, 800.17, 326.94, 812.86, 328.24)
+
+[node name="Kerb_043" type="Polygon2D" parent="TrackVisuals/RacingKerbs" unique_id=1753900973]
+color = Color(0.941, 0.957, 0.98, 1)
+polygon = PackedVector2Array(798.48, 336.8, 785.08, 333.58, 788.08, 324.05, 800.17, 326.94)
+
+[node name="Kerb_044" type="Polygon2D" parent="TrackVisuals/RacingKerbs" unique_id=1266953518]
+color = Color(0.855, 0.188, 0.22, 1)
+polygon = PackedVector2Array(785.08, 333.58, 772.32, 328.57, 776.61, 319.54, 788.08, 324.05)
+
+[node name="Kerb_045" type="Polygon2D" parent="TrackVisuals/RacingKerbs" unique_id=932040557]
+color = Color(0.941, 0.957, 0.98, 1)
+polygon = PackedVector2Array(772.32, 328.57, 760.14, 321.73, 765.58, 313.33, 776.61, 319.54)
+
+[node name="Kerb_046" type="Polygon2D" parent="TrackVisuals/RacingKerbs" unique_id=234801808]
+color = Color(0.855, 0.188, 0.22, 1)
+polygon = PackedVector2Array(760.14, 321.73, 748.4, 312.99, 754.79, 305.29, 765.58, 313.33)
+
+[node name="Kerb_047" type="Polygon2D" parent="TrackVisuals/RacingKerbs" unique_id=325832103]
+color = Color(0.941, 0.957, 0.98, 1)
+polygon = PackedVector2Array(748.4, 312.99, 736.95, 302.36, 744.04, 295.31, 754.79, 305.29)
+
+[node name="Kerb_048" type="Polygon2D" parent="TrackVisuals/RacingKerbs" unique_id=428048143]
+color = Color(0.855, 0.188, 0.22, 1)
+polygon = PackedVector2Array(736.95, 302.36, 725.64, 289.93, 733.22, 283.4, 744.04, 295.31)
+
+[node name="Kerb_049" type="Polygon2D" parent="TrackVisuals/RacingKerbs" unique_id=1262827255]
+color = Color(0.855, 0.188, 0.22, 1)
+polygon = PackedVector2Array(569.29, 246.74, 556.5, 236.07, 550.4, 243.99, 562.62, 254.18)
+
+[node name="Kerb_050" type="Polygon2D" parent="TrackVisuals/RacingKerbs" unique_id=1655942885]
+color = Color(0.941, 0.957, 0.98, 1)
+polygon = PackedVector2Array(556.5, 236.07, 543.02, 226.48, 537.55, 234.84, 550.4, 243.99)
+
+[node name="Kerb_051" type="Polygon2D" parent="TrackVisuals/RacingKerbs" unique_id=1251365382]
+color = Color(0.855, 0.188, 0.22, 1)
+polygon = PackedVector2Array(543.02, 226.48, 528.81, 217.94, 523.99, 226.7, 537.55, 234.84)
+
+[node name="Kerb_052" type="Polygon2D" parent="TrackVisuals/RacingKerbs" unique_id=633660377]
+color = Color(0.941, 0.957, 0.98, 1)
+polygon = PackedVector2Array(528.81, 217.94, 513.88, 210.44, 509.71, 219.53, 523.99, 226.7)
+
+[node name="Kerb_053" type="Polygon2D" parent="TrackVisuals/RacingKerbs" unique_id=324360535]
+color = Color(0.855, 0.188, 0.22, 1)
+polygon = PackedVector2Array(513.88, 210.44, 498.29, 203.96, 494.76, 213.32, 509.71, 219.53)
+
+[node name="Kerb_054" type="Polygon2D" parent="TrackVisuals/RacingKerbs" unique_id=411221079]
+color = Color(0.941, 0.957, 0.98, 1)
+polygon = PackedVector2Array(498.29, 203.96, 482.13, 198.49, 479.22, 208.06, 494.76, 213.32)
+
+[node name="Kerb_055" type="Polygon2D" parent="TrackVisuals/RacingKerbs" unique_id=887350561]
+color = Color(0.855, 0.188, 0.22, 1)
+polygon = PackedVector2Array(311.13, 198.62, 295.37, 204.18, 299.06, 213.47, 314.13, 208.16)
+
+[node name="Kerb_056" type="Polygon2D" parent="TrackVisuals/RacingKerbs" unique_id=1568617524]
+color = Color(0.941, 0.957, 0.98, 1)
+polygon = PackedVector2Array(295.37, 204.18, 280.4, 210.78, 284.83, 219.75, 299.06, 213.47)
+
+[node name="Kerb_057" type="Polygon2D" parent="TrackVisuals/RacingKerbs" unique_id=385290268]
+color = Color(0.855, 0.188, 0.22, 1)
+polygon = PackedVector2Array(280.4, 210.78, 266.39, 218.44, 271.6, 226.98, 284.83, 219.75)
+
+[node name="Kerb_058" type="Polygon2D" parent="TrackVisuals/RacingKerbs" unique_id=1041586387]
+color = Color(0.941, 0.957, 0.98, 1)
+polygon = PackedVector2Array(266.39, 218.44, 253.5, 227.15, 259.52, 235.13, 271.6, 226.98)
+
+[node name="Kerb_059" type="Polygon2D" parent="TrackVisuals/RacingKerbs" unique_id=1762400557]
+color = Color(0.855, 0.188, 0.22, 1)
+polygon = PackedVector2Array(253.5, 227.15, 241.88, 236.87, 248.71, 244.17, 259.52, 235.13)
+
+[node name="Kerb_060" type="Polygon2D" parent="TrackVisuals/RacingKerbs" unique_id=2057639870]
+color = Color(0.941, 0.957, 0.98, 1)
+polygon = PackedVector2Array(241.88, 236.87, 231.62, 247.58, 239.24, 254.06, 248.71, 244.17)
+
+[node name="Kerb_061" type="Polygon2D" parent="TrackVisuals/RacingKerbs" unique_id=684529057]
+color = Color(0.855, 0.188, 0.22, 1)
+polygon = PackedVector2Array(231.62, 247.58, 222.84, 259.21, 231.17, 264.74, 239.24, 254.06)
+
+[node name="Kerb_062" type="Polygon2D" parent="TrackVisuals/RacingKerbs" unique_id=773355448]
+color = Color(0.941, 0.957, 0.98, 1)
+polygon = PackedVector2Array(222.84, 259.21, 215.62, 271.65, 224.57, 276.12, 231.17, 264.74)
+
+[node name="Kerb_063" type="Polygon2D" parent="TrackVisuals/RacingKerbs" unique_id=506786513]
+color = Color(0.855, 0.188, 0.22, 1)
+polygon = PackedVector2Array(215.62, 271.65, 210.05, 284.78, 219.49, 288.09, 224.57, 276.12)
+
+[node name="Kerb_064" type="Polygon2D" parent="TrackVisuals/RacingKerbs" unique_id=286832836]
+color = Color(0.941, 0.957, 0.98, 1)
+polygon = PackedVector2Array(210.05, 284.78, 206.21, 298.43, 215.99, 300.51, 219.49, 288.09)
+
+[node name="Kerb_065" type="Polygon2D" parent="TrackVisuals/RacingKerbs" unique_id=1420914667]
+color = Color(0.855, 0.188, 0.22, 1)
+polygon = PackedVector2Array(206.21, 298.43, 204.16, 312.43, 214.13, 313.24, 215.99, 300.51)
+
+[node name="Kerb_066" type="Polygon2D" parent="TrackVisuals/RacingKerbs" unique_id=1501883393]
+color = Color(0.941, 0.957, 0.98, 1)
+polygon = PackedVector2Array(204.16, 312.43, 203.92, 326.69, 213.91, 326.25, 214.13, 313.24)
+
+[node name="Kerb_067" type="Polygon2D" parent="TrackVisuals/RacingKerbs" unique_id=855779982]
+color = Color(0.855, 0.188, 0.22, 1)
+polygon = PackedVector2Array(203.92, 326.69, 205.48, 341.24, 215.35, 339.63, 213.91, 326.25)
+
+[node name="Kerb_068" type="Polygon2D" parent="TrackVisuals/RacingKerbs" unique_id=9107730]
+color = Color(0.941, 0.957, 0.98, 1)
+polygon = PackedVector2Array(205.48, 341.24, 208.82, 356.21, 218.47, 353.59, 215.35, 339.63)
+
+[node name="Kerb_069" type="Polygon2D" parent="TrackVisuals/RacingKerbs" unique_id=17569540]
+color = Color(0.855, 0.188, 0.22, 1)
+polygon = PackedVector2Array(208.82, 356.21, 213.87, 371.79, 223.28, 368.41, 218.47, 353.59)
+
+[node name="Kerb_070" type="Polygon2D" parent="TrackVisuals/RacingKerbs" unique_id=158267956]
+color = Color(0.941, 0.957, 0.98, 1)
+polygon = PackedVector2Array(213.87, 371.79, 220.49, 388.34, 229.72, 384.49, 223.28, 368.41)
+
+[node name="Kerb_071" type="Polygon2D" parent="TrackVisuals/RacingKerbs" unique_id=1219897804]
+color = Color(0.941, 0.957, 0.98, 1)
+polygon = PackedVector2Array(156.41, 476.44, 160.53, 491.15, 150.75, 493.24, 146.9, 479.54)
+
+[node name="Kerb_072" type="Polygon2D" parent="TrackVisuals/RacingKerbs" unique_id=1273032350]
+color = Color(0.855, 0.188, 0.22, 1)
+polygon = PackedVector2Array(160.53, 491.15, 162.68, 505.21, 152.71, 506.05, 150.75, 493.24)
+
+[node name="Kerb_073" type="Polygon2D" parent="TrackVisuals/RacingKerbs" unique_id=839636298]
+color = Color(0.941, 0.957, 0.98, 1)
+polygon = PackedVector2Array(162.68, 505.21, 162.91, 519.46, 152.92, 519.05, 152.71, 506.05)
+
+[node name="Kerb_074" type="Polygon2D" parent="TrackVisuals/RacingKerbs" unique_id=1770018394]
+color = Color(0.855, 0.188, 0.22, 1)
+polygon = PackedVector2Array(162.91, 519.46, 161.31, 534.82, 151.41, 533.4, 152.92, 519.05)
+
+[node name="Kerb_075" type="Polygon2D" parent="TrackVisuals/RacingKerbs" unique_id=725387008]
+color = Color(0.941, 0.957, 0.98, 1)
+polygon = PackedVector2Array(161.31, 534.82, 158.1, 551.92, 148.3, 549.92, 151.41, 533.4)
+
+[node name="Kerb_076" type="Polygon2D" parent="TrackVisuals/RacingKerbs" unique_id=136684839]
+color = Color(0.855, 0.188, 0.22, 1)
+polygon = PackedVector2Array(241.35, 607.76, 239.57, 622.77, 249.55, 623.23, 251.23, 609.3)
+
+[node name="Kerb_077" type="Polygon2D" parent="TrackVisuals/RacingKerbs" unique_id=1441480572]
+color = Color(0.941, 0.957, 0.98, 1)
+polygon = PackedVector2Array(239.57, 622.77, 239.75, 635.67, 249.69, 634.59, 249.55, 623.23)
+
+[node name="Kerb_078" type="Polygon2D" parent="TrackVisuals/RacingKerbs" unique_id=933225509]
+color = Color(0.855, 0.188, 0.22, 1)
+polygon = PackedVector2Array(239.75, 635.67, 241.94, 646.92, 251.51, 644.03, 249.69, 634.59)
+
+[node name="Kerb_079" type="Polygon2D" parent="TrackVisuals/RacingKerbs" unique_id=895853067]
+color = Color(0.941, 0.957, 0.98, 1)
+polygon = PackedVector2Array(241.94, 646.92, 246.17, 657.17, 255.01, 652.49, 251.51, 644.03)
+
+[node name="Kerb_080" type="Polygon2D" parent="TrackVisuals/RacingKerbs" unique_id=215531281]
+color = Color(0.855, 0.188, 0.22, 1)
+polygon = PackedVector2Array(246.17, 657.17, 252.42, 666.64, 260.23, 660.4, 255.01, 652.49)
+
+[node name="Kerb_081" type="Polygon2D" parent="TrackVisuals/RacingKerbs" unique_id=1231079936]
+color = Color(0.941, 0.957, 0.98, 1)
+polygon = PackedVector2Array(252.42, 666.64, 261.14, 675.56, 267.82, 668.12, 260.23, 660.4)
+
+[node name="Kerb_082" type="Polygon2D" parent="TrackVisuals/RacingKerbs" unique_id=1516127717]
+color = Color(0.855, 0.188, 0.22, 1)
+polygon = PackedVector2Array(261.14, 675.56, 272.18, 684.08, 277.81, 675.81, 267.82, 668.12)
+
+[node name="Kerb_083" type="Polygon2D" parent="TrackVisuals/RacingKerbs" unique_id=859507597]
+color = Color(0.941, 0.957, 0.98, 1)
+polygon = PackedVector2Array(272.18, 684.08, 284.92, 691.64, 289.58, 682.79, 277.81, 675.81)
+
+[node name="Kerb_084" type="Polygon2D" parent="TrackVisuals/RacingKerbs" unique_id=768150111]
+color = Color(0.855, 0.188, 0.22, 1)
+polygon = PackedVector2Array(284.92, 691.64, 299.04, 698.13, 302.81, 688.87, 289.58, 682.79)
+
+[node name="Kerb_085" type="Polygon2D" parent="TrackVisuals/RacingKerbs" unique_id=414812496]
+color = Color(0.941, 0.957, 0.98, 1)
+polygon = PackedVector2Array(299.04, 698.13, 314.3, 703.52, 317.27, 693.97, 302.81, 688.87)
+
+[node name="Kerb_086" type="Polygon2D" parent="TrackVisuals/RacingKerbs" unique_id=54852290]
+color = Color(0.855, 0.188, 0.22, 1)
+polygon = PackedVector2Array(314.3, 703.52, 330.52, 707.87, 332.79, 698.13, 317.27, 693.97)
+
+[node name="OuterEdgeLine" type="Line2D" parent="TrackVisuals" unique_id=2132334270]
+points = PackedVector2Array(458.93, 820.51, 479.28, 820.88, 499.53, 821.19, 519.73, 821.47, 539.91, 821.73, 560.1, 821.97, 580.29, 822.19, 600.5, 822.38, 620.71, 822.55, 640.91, 822.68, 661.11, 822.8, 681.28, 822.89, 701.44, 822.97, 721.57, 823.05, 741.67, 823.13, 761.74, 823.23, 781.78, 823.36, 801.79, 823.53, 821.78, 823.74, 841.77, 824.02, 861.77, 824.34, 881.79, 824.71, 901.86, 825.11, 922, 825.52, 942.21, 825.92, 962.52, 826.28, 982.94, 826.55, 1003.47, 826.69, 1024.12, 826.67, 1044.88, 826.43, 1065.73, 825.93, 1086.68, 825.13, 1107.68, 823.99, 1128.73, 822.49, 1149.8, 820.61, 1170.88, 818.32, 1191.99, 815.6, 1213.11, 812.41, 1234.25, 808.73, 1255.47, 804.46, 1276.82, 799.51, 1298.33, 793.72, 1320, 786.87, 1341.79, 778.73, 1363.6, 768.98, 1385.21, 757.31, 1406.27, 743.46, 1426.29, 727.27, 1444.72, 708.8, 1461.05, 688.35, 1474.94, 666.41, 1486.3, 643.57, 1495.27, 620.33, 1502.14, 597.06, 1507.25, 573.97, 1510.91, 551.17, 1513.38, 528.65, 1514.88, 506.38, 1515.54, 484.31, 1515.45, 462.35, 1514.65, 440.45, 1513.13, 418.53, 1510.85, 396.57, 1507.74, 374.51, 1503.68, 352.36, 1498.54, 330.14, 1492.16, 307.9, 1484.41, 285.74, 1475.12, 263.84, 1464.21, 242.37, 1451.62, 221.58, 1437.36, 201.7, 1421.49, 182.96, 1404.13, 165.53, 1385.39, 149.57, 1365.4, 135.18, 1344.27, 122.48, 1322.14, 111.54, 1299.12, 102.47, 1275.39, 95.36, 1251.11, 90.28, 1226.49, 87.29, 1201.71, 86.41, 1176.96, 87.62, 1152.39, 90.92, 1128.13, 96.32, 1104.31, 103.84, 1081.14, 113.51, 1058.85, 125.33, 1037.77, 139.16, 1018.21, 154.74, 1000.39, 171.62, 984.37, 189.23, 970.03, 207.01, 957.08, 224.44, 945.16, 241.1, 933.92, 256.67, 923.02, 270.88, 912.21, 283.59, 901.24, 294.7, 889.94, 304.25, 878.16, 312.28, 865.8, 318.83, 852.9, 323.9, 839.59, 327.45, 826.12, 329.41, 812.81, 329.74, 799.92, 328.42, 787.63, 325.48, 775.96, 320.89, 764.76, 314.59, 753.83, 306.45, 742.98, 296.37, 732.08, 284.38, 720.98, 270.67, 709.47, 255.5, 697.32, 239.23, 684.23, 222.23, 669.94, 204.91, 654.25, 187.74, 637.07, 171.18, 618.47, 155.68, 598.62, 141.56, 577.77, 129.03, 556.19, 118.18, 534.07, 108.98, 511.58, 101.36, 488.82, 95.24, 465.87, 90.56, 442.78, 87.25, 419.59, 85.27, 396.36, 84.62, 373.12, 85.28, 349.9, 87.28, 326.74, 90.64, 303.66, 95.44, 280.7, 101.79, 257.93, 109.83, 235.47, 119.77, 213.53, 131.79, 192.41, 146.09, 172.52, 162.77, 154.31, 181.81, 138.27, 203.08, 124.81, 226.32, 114.27, 251.18, 106.94, 277.29, 103, 304.15, 102.51, 331.16, 105.31, 357.62, 110.86, 382.8, 118.37, 406.19, 126.82, 427.43, 135.14, 446.54, 142.52, 463.71, 148.32, 479.08, 152.22, 492.93, 154.21, 505.92, 154.42, 519.11, 152.9, 533.61, 149.77, 550.22, 145.48, 569.56, 141.06, 592.14, 138.18, 618.01, 138.84, 646.59, 144.77, 676.25, 156.45, 704.63, 173.18, 730.07, 193.36, 751.11, 215, 767.94, 237.64, 781.46, 260.82, 792.16, 284.17, 800.45, 307.41, 806.7, 330.35, 811.29, 352.86, 814.55, 374.89, 816.81, 396.45, 818.33, 417.59, 819.35, 438.39, 820.03)
+closed = true
+width = 3.0
+default_color = Color(0.894, 0.918, 0.957, 0.92)
+joint_mode = 2
+
+[node name="InnerEdgeLine" type="Line2D" parent="TrackVisuals" unique_id=760383715]
+points = PackedVector2Array(461.2, 710.54, 481.11, 710.89, 501.13, 711.2, 521.19, 711.48, 541.27, 711.73, 561.35, 711.97, 581.42, 712.19, 601.48, 712.38, 621.54, 712.55, 641.6, 712.69, 661.67, 712.8, 681.76, 712.89, 701.87, 712.97, 722.01, 713.05, 742.17, 713.13, 762.37, 713.23, 782.6, 713.36, 802.85, 713.53, 823.12, 713.75, 843.4, 714.03, 863.67, 714.35, 883.9, 714.73, 904.09, 715.13, 924.22, 715.55, 944.26, 715.94, 964.21, 716.29, 984.06, 716.55, 1003.79, 716.69, 1023.41, 716.67, 1042.92, 716.44, 1062.32, 715.98, 1081.61, 715.24, 1100.81, 714.21, 1119.93, 712.85, 1138.97, 711.15, 1157.92, 709.09, 1176.74, 706.66, 1195.45, 703.84, 1213.97, 700.61, 1232.23, 696.95, 1250.1, 692.81, 1267.47, 688.13, 1284.2, 682.86, 1300.11, 676.93, 1315.05, 670.27, 1328.86, 662.84, 1341.43, 654.6, 1352.7, 645.52, 1362.68, 635.52, 1371.45, 624.54, 1379.07, 612.47, 1385.61, 599.28, 1391.11, 584.97, 1395.62, 569.63, 1399.19, 553.41, 1401.89, 536.46, 1403.81, 518.96, 1405.01, 501.06, 1405.55, 482.89, 1405.47, 464.59, 1404.8, 446.26, 1403.54, 428, 1401.67, 409.93, 1399.16, 392.12, 1395.96, 374.67, 1392.04, 357.67, 1387.33, 341.21, 1381.79, 325.37, 1375.38, 310.22, 1368.06, 295.8, 1359.81, 282.17, 1350.62, 269.35, 1340.48, 257.37, 1329.44, 246.29, 1317.55, 236.16, 1304.87, 227.03, 1291.51, 219, 1277.57, 212.1, 1263.14, 206.42, 1248.32, 201.98, 1233.21, 198.82, 1217.88, 196.96, 1202.43, 196.4, 1186.98, 197.16, 1171.67, 199.22, 1156.65, 202.55, 1142.09, 207.15, 1128.12, 212.97, 1114.85, 220, 1102.3, 228.25, 1090.39, 237.75, 1079, 248.56, 1067.95, 260.75, 1057.03, 274.32, 1045.98, 289.22, 1034.48, 305.31, 1022.14, 322.38, 1008.52, 340.1, 993.2, 358.01, 975.87, 375.51, 956.41, 391.9, 934.93, 406.49, 911.75, 418.78, 887.22, 428.41, 861.67, 435.21, 835.35, 439.02, 808.48, 439.65, 781.39, 436.85, 754.6, 430.4, 728.86, 420.29, 704.99, 406.94, 683.61, 391.13, 664.93, 373.88, 648.7, 356.13, 634.44, 338.57, 621.6, 321.67, 609.66, 305.68, 598.19, 290.76, 586.87, 277.01, 575.41, 264.45, 563.62, 253.07, 551.31, 242.8, 538.37, 233.59, 524.71, 225.39, 510.34, 218.17, 495.29, 211.92, 479.66, 206.63, 463.54, 202.3, 447.06, 198.94, 430.31, 196.54, 413.38, 195.1, 396.38, 194.62, 379.39, 195.1, 362.5, 196.55, 345.83, 198.97, 329.51, 202.36, 313.68, 206.73, 298.51, 212.08, 284.16, 218.41, 270.82, 225.7, 258.62, 233.93, 247.69, 243.08, 238.1, 253.09, 229.92, 263.91, 223.22, 275.45, 218.07, 287.6, 214.53, 300.2, 212.63, 313.12, 212.41, 326.32, 213.86, 339.87, 217.02, 353.98, 221.86, 368.91, 228.34, 385.07, 236.1, 402.87, 244.6, 422.71, 252.92, 445.03, 259.79, 469.93, 263.82, 496.69, 264.32, 523.69, 261.79, 549.21, 257.56, 572.18, 253.13, 592.15, 249.74, 609.07, 248.06, 623.16, 248.2, 634.75, 250.07, 644.46, 253.68, 653.2, 259.06, 661.33, 266.82, 669.24, 276.96, 677.05, 288.88, 684.12, 302.24, 690.26, 316.83, 695.41, 332.45, 699.59, 348.99, 702.88, 366.33, 705.38, 384.35, 707.22, 402.95, 708.53, 422.03, 709.44, 441.48, 710.08)
+closed = true
+width = 3.0
+default_color = Color(0.894, 0.918, 0.957, 0.92)
+joint_mode = 2
+
+[node name="StartFinishLine" type="Node2D" parent="TrackVisuals" unique_id=1021061332]
+
+[node name="Check_00" type="Polygon2D" parent="TrackVisuals/StartFinishLine" unique_id=1658168554]
+color = Color(0.96, 0.97, 0.99, 1)
+polygon = PackedVector2Array(618.42, 712.57, 629.41, 712.68, 629.3, 723.68, 618.3, 723.57)
+
+[node name="Check_01" type="Polygon2D" parent="TrackVisuals/StartFinishLine" unique_id=1808056379]
+color = Color(0.08, 0.09, 0.11, 1)
+polygon = PackedVector2Array(618.3, 723.57, 629.3, 723.68, 629.19, 734.68, 618.19, 734.57)
+
+[node name="Check_02" type="Polygon2D" parent="TrackVisuals/StartFinishLine" unique_id=1777215570]
+color = Color(0.96, 0.97, 0.99, 1)
+polygon = PackedVector2Array(618.19, 734.57, 629.19, 734.68, 629.08, 745.68, 618.08, 745.57)
+
+[node name="Check_03" type="Polygon2D" parent="TrackVisuals/StartFinishLine" unique_id=1493386028]
+color = Color(0.08, 0.09, 0.11, 1)
+polygon = PackedVector2Array(618.08, 745.57, 629.08, 745.68, 628.97, 756.68, 617.97, 756.57)
+
+[node name="Check_04" type="Polygon2D" parent="TrackVisuals/StartFinishLine" unique_id=3018565]
+color = Color(0.96, 0.97, 0.99, 1)
+polygon = PackedVector2Array(617.97, 756.57, 628.97, 756.68, 628.85, 767.68, 617.85, 767.57)
+
+[node name="Check_05" type="Polygon2D" parent="TrackVisuals/StartFinishLine" unique_id=1203449449]
+color = Color(0.08, 0.09, 0.11, 1)
+polygon = PackedVector2Array(617.85, 767.57, 628.85, 767.68, 628.74, 778.68, 617.74, 778.57)
+
+[node name="Check_06" type="Polygon2D" parent="TrackVisuals/StartFinishLine" unique_id=597553953]
+color = Color(0.96, 0.97, 0.99, 1)
+polygon = PackedVector2Array(617.74, 778.57, 628.74, 778.68, 628.63, 789.68, 617.63, 789.57)
+
+[node name="Check_07" type="Polygon2D" parent="TrackVisuals/StartFinishLine" unique_id=62660129]
+color = Color(0.08, 0.09, 0.11, 1)
+polygon = PackedVector2Array(617.63, 789.57, 628.63, 789.68, 628.52, 800.68, 617.52, 800.57)
+
+[node name="Check_08" type="Polygon2D" parent="TrackVisuals/StartFinishLine" unique_id=841020059]
+color = Color(0.96, 0.97, 0.99, 1)
+polygon = PackedVector2Array(617.52, 800.57, 628.52, 800.68, 628.4, 811.68, 617.4, 811.56)
+
+[node name="Check_09" type="Polygon2D" parent="TrackVisuals/StartFinishLine" unique_id=903978348]
+color = Color(0.08, 0.09, 0.11, 1)
+polygon = PackedVector2Array(617.4, 811.56, 628.4, 811.68, 628.29, 822.68, 617.29, 822.56)
+
+[node name="Check_10" type="Polygon2D" parent="TrackVisuals/StartFinishLine" unique_id=418285358]
+color = Color(0.08, 0.09, 0.11, 1)
+polygon = PackedVector2Array(629.41, 712.68, 640.41, 712.79, 640.3, 723.79, 629.3, 723.68)
+
+[node name="Check_11" type="Polygon2D" parent="TrackVisuals/StartFinishLine" unique_id=1597034393]
+color = Color(0.96, 0.97, 0.99, 1)
+polygon = PackedVector2Array(629.3, 723.68, 640.3, 723.79, 640.19, 734.79, 629.19, 734.68)
+
+[node name="Check_12" type="Polygon2D" parent="TrackVisuals/StartFinishLine" unique_id=2027881753]
+color = Color(0.08, 0.09, 0.11, 1)
+polygon = PackedVector2Array(629.19, 734.68, 640.19, 734.79, 640.08, 745.79, 629.08, 745.68)
+
+[node name="Check_13" type="Polygon2D" parent="TrackVisuals/StartFinishLine" unique_id=386749945]
+color = Color(0.96, 0.97, 0.99, 1)
+polygon = PackedVector2Array(629.08, 745.68, 640.08, 745.79, 639.96, 756.79, 628.97, 756.68)
+
+[node name="Check_14" type="Polygon2D" parent="TrackVisuals/StartFinishLine" unique_id=600326446]
+color = Color(0.08, 0.09, 0.11, 1)
+polygon = PackedVector2Array(628.97, 756.68, 639.96, 756.79, 639.85, 767.79, 628.85, 767.68)
+
+[node name="Check_15" type="Polygon2D" parent="TrackVisuals/StartFinishLine" unique_id=1948119316]
+color = Color(0.96, 0.97, 0.99, 1)
+polygon = PackedVector2Array(628.85, 767.68, 639.85, 767.79, 639.74, 778.79, 628.74, 778.68)
+
+[node name="Check_16" type="Polygon2D" parent="TrackVisuals/StartFinishLine" unique_id=658723700]
+color = Color(0.08, 0.09, 0.11, 1)
+polygon = PackedVector2Array(628.74, 778.68, 639.74, 778.79, 639.63, 789.79, 628.63, 789.68)
+
+[node name="Check_17" type="Polygon2D" parent="TrackVisuals/StartFinishLine" unique_id=547290118]
+color = Color(0.96, 0.97, 0.99, 1)
+polygon = PackedVector2Array(628.63, 789.68, 639.63, 789.79, 639.51, 800.79, 628.52, 800.68)
+
+[node name="Check_18" type="Polygon2D" parent="TrackVisuals/StartFinishLine" unique_id=551816152]
+color = Color(0.08, 0.09, 0.11, 1)
+polygon = PackedVector2Array(628.52, 800.68, 639.51, 800.79, 639.4, 811.79, 628.4, 811.68)
+
+[node name="Check_19" type="Polygon2D" parent="TrackVisuals/StartFinishLine" unique_id=419860252]
+color = Color(0.96, 0.97, 0.99, 1)
+polygon = PackedVector2Array(628.4, 811.68, 639.4, 811.79, 639.29, 822.79, 628.29, 822.68)
+
+[node name="Chevron_0" type="Line2D" parent="TrackVisuals/StartFinishLine" unique_id=376106761]
+points = PackedVector2Array(734.03, 750.75, 755.85, 768.98, 733.66, 786.75)
+width = 4.0
+default_color = Color(1, 1, 1, 0.35)
+joint_mode = 2
+begin_cap_mode = 2
+end_cap_mode = 2
+
+[node name="Chevron_1" type="Line2D" parent="TrackVisuals/StartFinishLine" unique_id=1043309453]
+points = PackedVector2Array(769.03, 751.11, 790.84, 769.34, 768.66, 787.11)
+width = 4.0
+default_color = Color(1, 1, 1, 0.35)
+joint_mode = 2
+begin_cap_mode = 2
+end_cap_mode = 2
+
+[node name="Chevron_2" type="Line2D" parent="TrackVisuals/StartFinishLine" unique_id=693112994]
+points = PackedVector2Array(804.03, 751.47, 825.84, 769.69, 803.66, 787.47)
+width = 4.0
+default_color = Color(1, 1, 1, 0.35)
+joint_mode = 2
+begin_cap_mode = 2
+end_cap_mode = 2
+
+[node name="Scenery" type="Node2D" parent="." unique_id=1843693626]
+z_index = -2
+
+[node name="InfieldPaddock" type="Node2D" parent="Scenery" unique_id=1505466648]
+
+[node name="ConcreteApron" type="Polygon2D" parent="Scenery/InfieldPaddock" unique_id=165906719]
+color = Color(0.188, 0.208, 0.243, 1)
+polygon = PackedVector2Array(545, 505, 1185, 505, 1185, 645, 545, 645)
+
+[node name="ApronBorder" type="Line2D" parent="Scenery/InfieldPaddock" unique_id=2090929851]
+points = PackedVector2Array(545, 505, 1185, 505, 1185, 645, 545, 645)
+closed = true
+width = 2.0
+default_color = Color(0.32, 0.36, 0.42, 1)
+
+[node name="GarageShadow" type="Polygon2D" parent="Scenery/InfieldPaddock" unique_id=783469643]
+color = Color(0.086, 0.102, 0.133, 1)
+polygon = PackedVector2Array(686, 536, 1056, 536, 1056, 610, 686, 610)
+
+[node name="GarageRoof" type="Polygon2D" parent="Scenery/InfieldPaddock" unique_id=1141092102]
+color = Color(0.831, 0.863, 0.91, 1)
+polygon = PackedVector2Array(680, 528, 1048, 528, 1048, 600, 680, 600)
+
+[node name="GarageAccent" type="Polygon2D" parent="Scenery/InfieldPaddock" unique_id=680033018]
+color = Color(0.855, 0.188, 0.22, 1)
+polygon = PackedVector2Array(680, 528, 1048, 528, 1048, 539, 680, 539)
+
+[node name="GarageInnerRoof" type="Polygon2D" parent="Scenery/InfieldPaddock" unique_id=1005866002]
+color = Color(0.675, 0.714, 0.769, 1)
+polygon = PackedVector2Array(696, 548, 1032, 548, 1032, 590, 696, 590)
+
+[node name="Skylight_0" type="Polygon2D" parent="Scenery/InfieldPaddock" unique_id=1648012807]
+color = Color(0.212, 0.267, 0.345, 1)
+polygon = PackedVector2Array(728, 554, 764, 554, 764, 584, 728, 584)
+
+[node name="Skylight_1" type="Polygon2D" parent="Scenery/InfieldPaddock" unique_id=1641181067]
+color = Color(0.212, 0.267, 0.345, 1)
+polygon = PackedVector2Array(784, 554, 820, 554, 820, 584, 784, 584)
+
+[node name="Skylight_2" type="Polygon2D" parent="Scenery/InfieldPaddock" unique_id=64263317]
+color = Color(0.212, 0.267, 0.345, 1)
+polygon = PackedVector2Array(840, 554, 876, 554, 876, 584, 840, 584)
+
+[node name="Skylight_3" type="Polygon2D" parent="Scenery/InfieldPaddock" unique_id=384726997]
+color = Color(0.212, 0.267, 0.345, 1)
+polygon = PackedVector2Array(896, 554, 932, 554, 932, 584, 896, 584)
+
+[node name="Skylight_4" type="Polygon2D" parent="Scenery/InfieldPaddock" unique_id=29638159]
+color = Color(0.212, 0.267, 0.345, 1)
+polygon = PackedVector2Array(952, 554, 988, 554, 988, 584, 952, 584)
+
+[node name="Skylight_5" type="Polygon2D" parent="Scenery/InfieldPaddock" unique_id=469537182]
+color = Color(0.212, 0.267, 0.345, 1)
+polygon = PackedVector2Array(1008, 554, 1044, 554, 1044, 584, 1008, 584)
+
+[node name="HelipadPad" type="Polygon2D" parent="Scenery/InfieldPaddock" unique_id=879201461]
+color = Color(0.133, 0.149, 0.188, 1)
+polygon = PackedVector2Array(645, 575, 643.81, 584.06, 640.31, 592.5, 634.75, 599.75, 627.5, 605.31, 619.06, 608.81, 610, 610, 600.94, 608.81, 592.5, 605.31, 585.25, 599.75, 579.69, 592.5, 576.19, 584.06, 575, 575, 576.19, 565.94, 579.69, 557.5, 585.25, 550.25, 592.5, 544.69, 600.94, 541.19, 610, 540, 619.06, 541.19, 627.5, 544.69, 634.75, 550.25, 640.31, 557.5, 643.81, 565.94)
+
+[node name="HelipadRing" type="Line2D" parent="Scenery/InfieldPaddock" unique_id=2088672298]
+points = PackedVector2Array(643, 575, 641.88, 583.54, 638.58, 591.5, 633.33, 598.33, 626.5, 603.58, 618.54, 606.88, 610, 608, 601.46, 606.88, 593.5, 603.58, 586.67, 598.33, 581.42, 591.5, 578.12, 583.54, 577, 575, 578.12, 566.46, 581.42, 558.5, 586.67, 551.67, 593.5, 546.42, 601.46, 543.12, 610, 542, 618.54, 543.12, 626.5, 546.42, 633.33, 551.67, 638.58, 558.5, 641.88, 566.46)
+closed = true
+width = 3.0
+default_color = Color(0.933, 0.753, 0.18, 1)
+
+[node name="Heli_H_L" type="Polygon2D" parent="Scenery/InfieldPaddock" unique_id=1236903198]
+color = Color(0.941, 0.957, 0.98, 1)
+polygon = PackedVector2Array(597, 559, 603, 559, 603, 591, 597, 591)
+
+[node name="Heli_H_R" type="Polygon2D" parent="Scenery/InfieldPaddock" unique_id=1641623770]
+color = Color(0.941, 0.957, 0.98, 1)
+polygon = PackedVector2Array(617, 559, 623, 559, 623, 591, 617, 591)
+
+[node name="Heli_H_Mid" type="Polygon2D" parent="Scenery/InfieldPaddock" unique_id=734174362]
+color = Color(0.941, 0.957, 0.98, 1)
+polygon = PackedVector2Array(597, 572, 623, 572, 623, 578, 597, 578)
+
+[node name="TowerShadow" type="Polygon2D" parent="Scenery/InfieldPaddock" unique_id=129913298]
+color = Color(0.086, 0.102, 0.133, 1)
+polygon = PackedVector2Array(1088, 536, 1148, 536, 1148, 616, 1088, 616)
+
+[node name="TowerBase" type="Polygon2D" parent="Scenery/InfieldPaddock" unique_id=193685021]
+color = Color(0.173, 0.204, 0.259, 1)
+polygon = PackedVector2Array(1084, 530, 1144, 530, 1144, 610, 1084, 610)
+
+[node name="TowerGlass" type="Polygon2D" parent="Scenery/InfieldPaddock" unique_id=1845862717]
+color = Color(0.133, 0.596, 0.949, 1)
+polygon = PackedVector2Array(1092, 540, 1136, 540, 1136, 600, 1092, 600)
+
+[node name="MainGrandstand" type="Node2D" parent="Scenery" unique_id=1512035060]
+
+[node name="StandShadow" type="Polygon2D" parent="Scenery/MainGrandstand" unique_id=1570563583]
+color = Color(0.078, 0.094, 0.125, 1)
+polygon = PackedVector2Array(642, 836, 1062, 836, 1062, 888, 642, 888)
+
+[node name="StandBase" type="Polygon2D" parent="Scenery/MainGrandstand" unique_id=976807200]
+color = Color(0.196, 0.227, 0.282, 1)
+polygon = PackedVector2Array(638, 832, 1056, 832, 1056, 882, 638, 882)
+
+[node name="StandTrim" type="Polygon2D" parent="Scenery/MainGrandstand" unique_id=1486900734]
+color = Color(0.133, 0.62, 0.961, 1)
+polygon = PackedVector2Array(638, 832, 1056, 832, 1056, 838, 638, 838)
+
+[node name="StandTier1" type="Polygon2D" parent="Scenery/MainGrandstand" unique_id=1871631899]
+color = Color(0.29, 0.329, 0.4, 1)
+polygon = PackedVector2Array(648, 843, 1046, 843, 1046, 852, 648, 852)
+
+[node name="StandTier2" type="Polygon2D" parent="Scenery/MainGrandstand" unique_id=931980277]
+color = Color(0.361, 0.408, 0.486, 1)
+polygon = PackedVector2Array(648, 856, 1046, 856, 1046, 865, 648, 865)
+
+[node name="StandTier3" type="Polygon2D" parent="Scenery/MainGrandstand" unique_id=1431338642]
+color = Color(0.439, 0.486, 0.573, 1)
+polygon = PackedVector2Array(648, 869, 1046, 869, 1046, 877, 648, 877)
+
+[node name="StandRib_0" type="Polygon2D" parent="Scenery/MainGrandstand" unique_id=584779869]
+color = Color(0.125, 0.149, 0.188, 1)
+polygon = PackedVector2Array(690, 832, 695, 832, 695, 882, 690, 882)
+
+[node name="StandRib_1" type="Polygon2D" parent="Scenery/MainGrandstand" unique_id=1524602208]
+color = Color(0.125, 0.149, 0.188, 1)
+polygon = PackedVector2Array(760, 832, 765, 832, 765, 882, 760, 882)
+
+[node name="StandRib_2" type="Polygon2D" parent="Scenery/MainGrandstand" unique_id=711026701]
+color = Color(0.125, 0.149, 0.188, 1)
+polygon = PackedVector2Array(830, 832, 835, 832, 835, 882, 830, 882)
+
+[node name="StandRib_3" type="Polygon2D" parent="Scenery/MainGrandstand" unique_id=1355670339]
+color = Color(0.125, 0.149, 0.188, 1)
+polygon = PackedVector2Array(900, 832, 905, 832, 905, 882, 900, 882)
+
+[node name="StandRib_4" type="Polygon2D" parent="Scenery/MainGrandstand" unique_id=1650404178]
+color = Color(0.125, 0.149, 0.188, 1)
+polygon = PackedVector2Array(970, 832, 975, 832, 975, 882, 970, 882)
+
+[node name="Trees" type="Node2D" parent="Scenery" unique_id=521351459]
+
+[node name="Tree_00" type="Node2D" parent="Scenery/Trees" unique_id=1763587684]
+position = Vector2(72, 82)
+
+[node name="Shadow" type="Polygon2D" parent="Scenery/Trees/Tree_00" unique_id=1925248308]
+color = Color(0.047, 0.094, 0.063, 0.68)
+polygon = PackedVector2Array(30, 5, 26.52, 18, 17, 27.52, 4, 31, -9, 27.52, -18.52, 18, -22, 5, -18.52, -8, -9, -17.52, 4, -21, 17, -17.52, 26.52, -8)
+
+[node name="CanopyDark" type="Polygon2D" parent="Scenery/Trees/Tree_00" unique_id=1784920852]
+color = Color(0.11, 0.282, 0.165, 1)
+polygon = PackedVector2Array(26, 0, 22.52, 13, 13, 22.52, 0, 26, -13, 22.52, -22.52, 13, -26, 0, -22.52, -13, -13, -22.52, 0, -26, 13, -22.52, 22.52, -13)
+
+[node name="CanopyMid" type="Polygon2D" parent="Scenery/Trees/Tree_00" unique_id=818687434]
+color = Color(0.165, 0.384, 0.22, 1)
+polygon = PackedVector2Array(15.08, -2.08, 11.8, 8.01, 3.22, 14.24, -7.38, 14.24, -15.96, 8.01, -19.24, -2.08, -15.96, -12.17, -7.38, -18.4, 3.22, -18.4, 11.8, -12.17)
+
+[node name="CanopyLight" type="Polygon2D" parent="Scenery/Trees/Tree_00" unique_id=1518261747]
+color = Color(0.227, 0.494, 0.282, 1)
+polygon = PackedVector2Array(5.72, -3.64, 2.98, 2.98, -3.64, 5.72, -10.26, 2.98, -13, -3.64, -10.26, -10.26, -3.64, -13, 2.98, -10.26)
+
+[node name="Tree_01" type="Node2D" parent="Scenery/Trees" unique_id=996162654]
+position = Vector2(122, 54)
+
+[node name="Shadow" type="Polygon2D" parent="Scenery/Trees/Tree_01" unique_id=750356315]
+color = Color(0.047, 0.094, 0.063, 0.68)
+polygon = PackedVector2Array(24, 5, 21.32, 15, 14, 22.32, 4, 25, -6, 22.32, -13.32, 15, -16, 5, -13.32, -5, -6, -12.32, 4, -15, 14, -12.32, 21.32, -5)
+
+[node name="CanopyDark" type="Polygon2D" parent="Scenery/Trees/Tree_01" unique_id=1639636523]
+color = Color(0.11, 0.282, 0.165, 1)
+polygon = PackedVector2Array(20, 0, 17.32, 10, 10, 17.32, 0, 20, -10, 17.32, -17.32, 10, -20, 0, -17.32, -10, -10, -17.32, 0, -20, 10, -17.32, 17.32, -10)
+
+[node name="CanopyMid" type="Polygon2D" parent="Scenery/Trees/Tree_01" unique_id=1696167155]
+color = Color(0.165, 0.384, 0.22, 1)
+polygon = PackedVector2Array(11.6, -1.6, 9.08, 6.16, 2.48, 10.95, -5.68, 10.95, -12.28, 6.16, -14.8, -1.6, -12.28, -9.36, -5.68, -14.15, 2.48, -14.15, 9.08, -9.36)
+
+[node name="CanopyLight" type="Polygon2D" parent="Scenery/Trees/Tree_01" unique_id=1999200026]
+color = Color(0.227, 0.494, 0.282, 1)
+polygon = PackedVector2Array(4.4, -2.8, 2.29, 2.29, -2.8, 4.4, -7.89, 2.29, -10, -2.8, -7.89, -7.89, -2.8, -10, 2.29, -7.89)
+
+[node name="Tree_02" type="Node2D" parent="Scenery/Trees" unique_id=1389961306]
+position = Vector2(56, 142)
+
+[node name="Shadow" type="Polygon2D" parent="Scenery/Trees/Tree_02" unique_id=504652964]
+color = Color(0.047, 0.094, 0.063, 0.68)
+polygon = PackedVector2Array(23, 5, 20.45, 14.5, 13.5, 21.45, 4, 24, -5.5, 21.45, -12.45, 14.5, -15, 5, -12.45, -4.5, -5.5, -11.45, 4, -14, 13.5, -11.45, 20.45, -4.5)
+
+[node name="CanopyDark" type="Polygon2D" parent="Scenery/Trees/Tree_02" unique_id=1670024559]
+color = Color(0.11, 0.282, 0.165, 1)
+polygon = PackedVector2Array(19, 0, 16.45, 9.5, 9.5, 16.45, 0, 19, -9.5, 16.45, -16.45, 9.5, -19, 0, -16.45, -9.5, -9.5, -16.45, 0, -19, 9.5, -16.45, 16.45, -9.5)
+
+[node name="CanopyMid" type="Polygon2D" parent="Scenery/Trees/Tree_02" unique_id=1150186386]
+color = Color(0.165, 0.384, 0.22, 1)
+polygon = PackedVector2Array(11.02, -1.52, 8.63, 5.85, 2.36, 10.41, -5.4, 10.41, -11.67, 5.85, -14.06, -1.52, -11.67, -8.89, -5.4, -13.45, 2.36, -13.45, 8.63, -8.89)
+
+[node name="CanopyLight" type="Polygon2D" parent="Scenery/Trees/Tree_02" unique_id=1147530346]
+color = Color(0.227, 0.494, 0.282, 1)
+polygon = PackedVector2Array(4.18, -2.66, 2.18, 2.18, -2.66, 4.18, -7.5, 2.18, -9.5, -2.66, -7.5, -7.5, -2.66, -9.5, 2.18, -7.5)
+
+[node name="Tree_03" type="Node2D" parent="Scenery/Trees" unique_id=1824870782]
+position = Vector2(1536, 78)
+
+[node name="Shadow" type="Polygon2D" parent="Scenery/Trees/Tree_03" unique_id=612891267]
+color = Color(0.047, 0.094, 0.063, 0.68)
+polygon = PackedVector2Array(29, 5, 25.65, 17.5, 16.5, 26.65, 4, 30, -8.5, 26.65, -17.65, 17.5, -21, 5, -17.65, -7.5, -8.5, -16.65, 4, -20, 16.5, -16.65, 25.65, -7.5)
+
+[node name="CanopyDark" type="Polygon2D" parent="Scenery/Trees/Tree_03" unique_id=1585340900]
+color = Color(0.11, 0.282, 0.165, 1)
+polygon = PackedVector2Array(25, 0, 21.65, 12.5, 12.5, 21.65, 0, 25, -12.5, 21.65, -21.65, 12.5, -25, 0, -21.65, -12.5, -12.5, -21.65, 0, -25, 12.5, -21.65, 21.65, -12.5)
+
+[node name="CanopyMid" type="Polygon2D" parent="Scenery/Trees/Tree_03" unique_id=1493765377]
+color = Color(0.165, 0.384, 0.22, 1)
+polygon = PackedVector2Array(14.5, -2, 11.35, 7.7, 3.1, 13.69, -7.1, 13.69, -15.35, 7.7, -18.5, -2, -15.35, -11.7, -7.1, -17.69, 3.1, -17.69, 11.35, -11.7)
+
+[node name="CanopyLight" type="Polygon2D" parent="Scenery/Trees/Tree_03" unique_id=432852273]
+color = Color(0.227, 0.494, 0.282, 1)
+polygon = PackedVector2Array(5.5, -3.5, 2.86, 2.86, -3.5, 5.5, -9.86, 2.86, -12.5, -3.5, -9.86, -9.86, -3.5, -12.5, 2.86, -9.86)
+
+[node name="Tree_04" type="Node2D" parent="Scenery/Trees" unique_id=27009107]
+position = Vector2(1490, 50)
+
+[node name="Shadow" type="Polygon2D" parent="Scenery/Trees/Tree_04" unique_id=810584242]
+color = Color(0.047, 0.094, 0.063, 0.68)
+polygon = PackedVector2Array(23, 5, 20.45, 14.5, 13.5, 21.45, 4, 24, -5.5, 21.45, -12.45, 14.5, -15, 5, -12.45, -4.5, -5.5, -11.45, 4, -14, 13.5, -11.45, 20.45, -4.5)
+
+[node name="CanopyDark" type="Polygon2D" parent="Scenery/Trees/Tree_04" unique_id=1823899438]
+color = Color(0.11, 0.282, 0.165, 1)
+polygon = PackedVector2Array(19, 0, 16.45, 9.5, 9.5, 16.45, 0, 19, -9.5, 16.45, -16.45, 9.5, -19, 0, -16.45, -9.5, -9.5, -16.45, 0, -19, 9.5, -16.45, 16.45, -9.5)
+
+[node name="CanopyMid" type="Polygon2D" parent="Scenery/Trees/Tree_04" unique_id=1809312015]
+color = Color(0.165, 0.384, 0.22, 1)
+polygon = PackedVector2Array(11.02, -1.52, 8.63, 5.85, 2.36, 10.41, -5.4, 10.41, -11.67, 5.85, -14.06, -1.52, -11.67, -8.89, -5.4, -13.45, 2.36, -13.45, 8.63, -8.89)
+
+[node name="CanopyLight" type="Polygon2D" parent="Scenery/Trees/Tree_04" unique_id=1461034787]
+color = Color(0.227, 0.494, 0.282, 1)
+polygon = PackedVector2Array(4.18, -2.66, 2.18, 2.18, -2.66, 4.18, -7.5, 2.18, -9.5, -2.66, -7.5, -7.5, -2.66, -9.5, 2.18, -7.5)
+
+[node name="Tree_05" type="Node2D" parent="Scenery/Trees" unique_id=580516204]
+position = Vector2(1548, 136)
+
+[node name="Shadow" type="Polygon2D" parent="Scenery/Trees/Tree_05" unique_id=344752886]
+color = Color(0.047, 0.094, 0.063, 0.68)
+polygon = PackedVector2Array(22, 5, 19.59, 14, 13, 20.59, 4, 23, -5, 20.59, -11.59, 14, -14, 5, -11.59, -4, -5, -10.59, 4, -13, 13, -10.59, 19.59, -4)
+
+[node name="CanopyDark" type="Polygon2D" parent="Scenery/Trees/Tree_05" unique_id=1278084379]
+color = Color(0.11, 0.282, 0.165, 1)
+polygon = PackedVector2Array(18, 0, 15.59, 9, 9, 15.59, 0, 18, -9, 15.59, -15.59, 9, -18, 0, -15.59, -9, -9, -15.59, 0, -18, 9, -15.59, 15.59, -9)
+
+[node name="CanopyMid" type="Polygon2D" parent="Scenery/Trees/Tree_05" unique_id=756695752]
+color = Color(0.165, 0.384, 0.22, 1)
+polygon = PackedVector2Array(10.44, -1.44, 8.17, 5.54, 2.23, 9.86, -5.11, 9.86, -11.05, 5.54, -13.32, -1.44, -11.05, -8.42, -5.11, -12.74, 2.23, -12.74, 8.17, -8.42)
+
+[node name="CanopyLight" type="Polygon2D" parent="Scenery/Trees/Tree_05" unique_id=738339779]
+color = Color(0.227, 0.494, 0.282, 1)
+polygon = PackedVector2Array(3.96, -2.52, 2.06, 2.06, -2.52, 3.96, -7.1, 2.06, -9, -2.52, -7.1, -7.1, -2.52, -9, 2.06, -7.1)
+
+[node name="Tree_06" type="Node2D" parent="Scenery/Trees" unique_id=780960728]
+position = Vector2(1542, 818)
+
+[node name="Shadow" type="Polygon2D" parent="Scenery/Trees/Tree_06" unique_id=84161034]
+color = Color(0.047, 0.094, 0.063, 0.68)
+polygon = PackedVector2Array(28, 5, 24.78, 17, 16, 25.78, 4, 29, -8, 25.78, -16.78, 17, -20, 5, -16.78, -7, -8, -15.78, 4, -19, 16, -15.78, 24.78, -7)
+
+[node name="CanopyDark" type="Polygon2D" parent="Scenery/Trees/Tree_06" unique_id=1456967499]
+color = Color(0.11, 0.282, 0.165, 1)
+polygon = PackedVector2Array(24, 0, 20.78, 12, 12, 20.78, 0, 24, -12, 20.78, -20.78, 12, -24, 0, -20.78, -12, -12, -20.78, 0, -24, 12, -20.78, 20.78, -12)
+
+[node name="CanopyMid" type="Polygon2D" parent="Scenery/Trees/Tree_06" unique_id=1363812248]
+color = Color(0.165, 0.384, 0.22, 1)
+polygon = PackedVector2Array(13.92, -1.92, 10.89, 7.39, 2.97, 13.14, -6.81, 13.14, -14.73, 7.39, -17.76, -1.92, -14.73, -11.23, -6.81, -16.98, 2.97, -16.98, 10.89, -11.23)
+
+[node name="CanopyLight" type="Polygon2D" parent="Scenery/Trees/Tree_06" unique_id=1298801488]
+color = Color(0.227, 0.494, 0.282, 1)
+polygon = PackedVector2Array(5.28, -3.36, 2.75, 2.75, -3.36, 5.28, -9.47, 2.75, -12, -3.36, -9.47, -9.47, -3.36, -12, 2.75, -9.47)
+
+[node name="Tree_07" type="Node2D" parent="Scenery/Trees" unique_id=910572572]
+position = Vector2(1488, 854)
+
+[node name="Shadow" type="Polygon2D" parent="Scenery/Trees/Tree_07" unique_id=1285148608]
+color = Color(0.047, 0.094, 0.063, 0.68)
+polygon = PackedVector2Array(24, 5, 21.32, 15, 14, 22.32, 4, 25, -6, 22.32, -13.32, 15, -16, 5, -13.32, -5, -6, -12.32, 4, -15, 14, -12.32, 21.32, -5)
+
+[node name="CanopyDark" type="Polygon2D" parent="Scenery/Trees/Tree_07" unique_id=26759484]
+color = Color(0.11, 0.282, 0.165, 1)
+polygon = PackedVector2Array(20, 0, 17.32, 10, 10, 17.32, 0, 20, -10, 17.32, -17.32, 10, -20, 0, -17.32, -10, -10, -17.32, 0, -20, 10, -17.32, 17.32, -10)
+
+[node name="CanopyMid" type="Polygon2D" parent="Scenery/Trees/Tree_07" unique_id=2105689686]
+color = Color(0.165, 0.384, 0.22, 1)
+polygon = PackedVector2Array(11.6, -1.6, 9.08, 6.16, 2.48, 10.95, -5.68, 10.95, -12.28, 6.16, -14.8, -1.6, -12.28, -9.36, -5.68, -14.15, 2.48, -14.15, 9.08, -9.36)
+
+[node name="CanopyLight" type="Polygon2D" parent="Scenery/Trees/Tree_07" unique_id=1964444497]
+color = Color(0.227, 0.494, 0.282, 1)
+polygon = PackedVector2Array(4.4, -2.8, 2.29, 2.29, -2.8, 4.4, -7.89, 2.29, -10, -2.8, -7.89, -7.89, -2.8, -10, 2.29, -7.89)
+
+[node name="Tree_08" type="Node2D" parent="Scenery/Trees" unique_id=636414365]
+position = Vector2(1548, 758)
+
+[node name="Shadow" type="Polygon2D" parent="Scenery/Trees/Tree_08" unique_id=751708453]
+color = Color(0.047, 0.094, 0.063, 0.68)
+polygon = PackedVector2Array(21, 5, 18.72, 13.5, 12.5, 19.72, 4, 22, -4.5, 19.72, -10.72, 13.5, -13, 5, -10.72, -3.5, -4.5, -9.72, 4, -12, 12.5, -9.72, 18.72, -3.5)
+
+[node name="CanopyDark" type="Polygon2D" parent="Scenery/Trees/Tree_08" unique_id=391236719]
+color = Color(0.11, 0.282, 0.165, 1)
+polygon = PackedVector2Array(17, 0, 14.72, 8.5, 8.5, 14.72, 0, 17, -8.5, 14.72, -14.72, 8.5, -17, 0, -14.72, -8.5, -8.5, -14.72, 0, -17, 8.5, -14.72, 14.72, -8.5)
+
+[node name="CanopyMid" type="Polygon2D" parent="Scenery/Trees/Tree_08" unique_id=24139508]
+color = Color(0.165, 0.384, 0.22, 1)
+polygon = PackedVector2Array(9.86, -1.36, 7.72, 5.23, 2.11, 9.31, -4.83, 9.31, -10.44, 5.23, -12.58, -1.36, -10.44, -7.95, -4.83, -12.03, 2.11, -12.03, 7.72, -7.95)
+
+[node name="CanopyLight" type="Polygon2D" parent="Scenery/Trees/Tree_08" unique_id=559985604]
+color = Color(0.227, 0.494, 0.282, 1)
+polygon = PackedVector2Array(3.74, -2.38, 1.95, 1.95, -2.38, 3.74, -6.71, 1.95, -8.5, -2.38, -6.71, -6.71, -2.38, -8.5, 1.95, -6.71)
+
+[node name="Tree_09" type="Node2D" parent="Scenery/Trees" unique_id=1684662436]
+position = Vector2(70, 828)
+
+[node name="Shadow" type="Polygon2D" parent="Scenery/Trees/Tree_09" unique_id=1647516697]
+color = Color(0.047, 0.094, 0.063, 0.68)
+polygon = PackedVector2Array(30, 5, 26.52, 18, 17, 27.52, 4, 31, -9, 27.52, -18.52, 18, -22, 5, -18.52, -8, -9, -17.52, 4, -21, 17, -17.52, 26.52, -8)
+
+[node name="CanopyDark" type="Polygon2D" parent="Scenery/Trees/Tree_09" unique_id=187052684]
+color = Color(0.11, 0.282, 0.165, 1)
+polygon = PackedVector2Array(26, 0, 22.52, 13, 13, 22.52, 0, 26, -13, 22.52, -22.52, 13, -26, 0, -22.52, -13, -13, -22.52, 0, -26, 13, -22.52, 22.52, -13)
+
+[node name="CanopyMid" type="Polygon2D" parent="Scenery/Trees/Tree_09" unique_id=1094925264]
+color = Color(0.165, 0.384, 0.22, 1)
+polygon = PackedVector2Array(15.08, -2.08, 11.8, 8.01, 3.22, 14.24, -7.38, 14.24, -15.96, 8.01, -19.24, -2.08, -15.96, -12.17, -7.38, -18.4, 3.22, -18.4, 11.8, -12.17)
+
+[node name="CanopyLight" type="Polygon2D" parent="Scenery/Trees/Tree_09" unique_id=1001320401]
+color = Color(0.227, 0.494, 0.282, 1)
+polygon = PackedVector2Array(5.72, -3.64, 2.98, 2.98, -3.64, 5.72, -10.26, 2.98, -13, -3.64, -10.26, -10.26, -3.64, -13, 2.98, -10.26)
+
+[node name="Tree_10" type="Node2D" parent="Scenery/Trees" unique_id=1224211897]
+position = Vector2(124, 858)
+
+[node name="Shadow" type="Polygon2D" parent="Scenery/Trees/Tree_10" unique_id=902964795]
+color = Color(0.047, 0.094, 0.063, 0.68)
+polygon = PackedVector2Array(24, 5, 21.32, 15, 14, 22.32, 4, 25, -6, 22.32, -13.32, 15, -16, 5, -13.32, -5, -6, -12.32, 4, -15, 14, -12.32, 21.32, -5)
+
+[node name="CanopyDark" type="Polygon2D" parent="Scenery/Trees/Tree_10" unique_id=1034768607]
+color = Color(0.11, 0.282, 0.165, 1)
+polygon = PackedVector2Array(20, 0, 17.32, 10, 10, 17.32, 0, 20, -10, 17.32, -17.32, 10, -20, 0, -17.32, -10, -10, -17.32, 0, -20, 10, -17.32, 17.32, -10)
+
+[node name="CanopyMid" type="Polygon2D" parent="Scenery/Trees/Tree_10" unique_id=159886335]
+color = Color(0.165, 0.384, 0.22, 1)
+polygon = PackedVector2Array(11.6, -1.6, 9.08, 6.16, 2.48, 10.95, -5.68, 10.95, -12.28, 6.16, -14.8, -1.6, -12.28, -9.36, -5.68, -14.15, 2.48, -14.15, 9.08, -9.36)
+
+[node name="CanopyLight" type="Polygon2D" parent="Scenery/Trees/Tree_10" unique_id=1712214362]
+color = Color(0.227, 0.494, 0.282, 1)
+polygon = PackedVector2Array(4.4, -2.8, 2.29, 2.29, -2.8, 4.4, -7.89, 2.29, -10, -2.8, -7.89, -7.89, -2.8, -10, 2.29, -7.89)
+
+[node name="Tree_11" type="Node2D" parent="Scenery/Trees" unique_id=1064660658]
+position = Vector2(58, 768)
+
+[node name="Shadow" type="Polygon2D" parent="Scenery/Trees/Tree_11" unique_id=659380637]
+color = Color(0.047, 0.094, 0.063, 0.68)
+polygon = PackedVector2Array(22, 5, 19.59, 14, 13, 20.59, 4, 23, -5, 20.59, -11.59, 14, -14, 5, -11.59, -4, -5, -10.59, 4, -13, 13, -10.59, 19.59, -4)
+
+[node name="CanopyDark" type="Polygon2D" parent="Scenery/Trees/Tree_11" unique_id=1153595473]
+color = Color(0.11, 0.282, 0.165, 1)
+polygon = PackedVector2Array(18, 0, 15.59, 9, 9, 15.59, 0, 18, -9, 15.59, -15.59, 9, -18, 0, -15.59, -9, -9, -15.59, 0, -18, 9, -15.59, 15.59, -9)
+
+[node name="CanopyMid" type="Polygon2D" parent="Scenery/Trees/Tree_11" unique_id=383650271]
+color = Color(0.165, 0.384, 0.22, 1)
+polygon = PackedVector2Array(10.44, -1.44, 8.17, 5.54, 2.23, 9.86, -5.11, 9.86, -11.05, 5.54, -13.32, -1.44, -11.05, -8.42, -5.11, -12.74, 2.23, -12.74, 8.17, -8.42)
+
+[node name="CanopyLight" type="Polygon2D" parent="Scenery/Trees/Tree_11" unique_id=183410145]
+color = Color(0.227, 0.494, 0.282, 1)
+polygon = PackedVector2Array(3.96, -2.52, 2.06, 2.06, -2.52, 3.96, -7.1, 2.06, -9, -2.52, -7.1, -7.1, -2.52, -9, 2.06, -7.1)
+
+[node name="Tree_12" type="Node2D" parent="Scenery/Trees" unique_id=581746539]
+position = Vector2(825, 102)
+
+[node name="Shadow" type="Polygon2D" parent="Scenery/Trees/Tree_12" unique_id=1311629345]
+color = Color(0.047, 0.094, 0.063, 0.68)
+polygon = PackedVector2Array(26, 5, 23.05, 16, 15, 24.05, 4, 27, -7, 24.05, -15.05, 16, -18, 5, -15.05, -6, -7, -14.05, 4, -17, 15, -14.05, 23.05, -6)
+
+[node name="CanopyDark" type="Polygon2D" parent="Scenery/Trees/Tree_12" unique_id=195335039]
+color = Color(0.11, 0.282, 0.165, 1)
+polygon = PackedVector2Array(22, 0, 19.05, 11, 11, 19.05, 0, 22, -11, 19.05, -19.05, 11, -22, 0, -19.05, -11, -11, -19.05, 0, -22, 11, -19.05, 19.05, -11)
+
+[node name="CanopyMid" type="Polygon2D" parent="Scenery/Trees/Tree_12" unique_id=121416028]
+color = Color(0.165, 0.384, 0.22, 1)
+polygon = PackedVector2Array(12.76, -1.76, 9.99, 6.77, 2.73, 12.05, -6.25, 12.05, -13.51, 6.77, -16.28, -1.76, -13.51, -10.29, -6.25, -15.57, 2.73, -15.57, 9.99, -10.29)
+
+[node name="CanopyLight" type="Polygon2D" parent="Scenery/Trees/Tree_12" unique_id=1551512100]
+color = Color(0.227, 0.494, 0.282, 1)
+polygon = PackedVector2Array(4.84, -3.08, 2.52, 2.52, -3.08, 4.84, -8.68, 2.52, -11, -3.08, -8.68, -8.68, -3.08, -11, 2.52, -8.68)
+
+[node name="Tree_13" type="Node2D" parent="Scenery/Trees" unique_id=1466638923]
+position = Vector2(870, 78)
+
+[node name="Shadow" type="Polygon2D" parent="Scenery/Trees/Tree_13" unique_id=1719799574]
+color = Color(0.047, 0.094, 0.063, 0.68)
+polygon = PackedVector2Array(22, 5, 19.59, 14, 13, 20.59, 4, 23, -5, 20.59, -11.59, 14, -14, 5, -11.59, -4, -5, -10.59, 4, -13, 13, -10.59, 19.59, -4)
+
+[node name="CanopyDark" type="Polygon2D" parent="Scenery/Trees/Tree_13" unique_id=766699895]
+color = Color(0.11, 0.282, 0.165, 1)
+polygon = PackedVector2Array(18, 0, 15.59, 9, 9, 15.59, 0, 18, -9, 15.59, -15.59, 9, -18, 0, -15.59, -9, -9, -15.59, 0, -18, 9, -15.59, 15.59, -9)
+
+[node name="CanopyMid" type="Polygon2D" parent="Scenery/Trees/Tree_13" unique_id=1823921950]
+color = Color(0.165, 0.384, 0.22, 1)
+polygon = PackedVector2Array(10.44, -1.44, 8.17, 5.54, 2.23, 9.86, -5.11, 9.86, -11.05, 5.54, -13.32, -1.44, -11.05, -8.42, -5.11, -12.74, 2.23, -12.74, 8.17, -8.42)
+
+[node name="CanopyLight" type="Polygon2D" parent="Scenery/Trees/Tree_13" unique_id=317623147]
+color = Color(0.227, 0.494, 0.282, 1)
+polygon = PackedVector2Array(3.96, -2.52, 2.06, 2.06, -2.52, 3.96, -7.1, 2.06, -9, -2.52, -7.1, -7.1, -2.52, -9, 2.06, -7.1)
+
+[node name="Tree_14" type="Node2D" parent="Scenery/Trees" unique_id=1829489101]
+position = Vector2(775, 82)
+
+[node name="Shadow" type="Polygon2D" parent="Scenery/Trees/Tree_14" unique_id=882686789]
+color = Color(0.047, 0.094, 0.063, 0.68)
+polygon = PackedVector2Array(21, 5, 18.72, 13.5, 12.5, 19.72, 4, 22, -4.5, 19.72, -10.72, 13.5, -13, 5, -10.72, -3.5, -4.5, -9.72, 4, -12, 12.5, -9.72, 18.72, -3.5)
+
+[node name="CanopyDark" type="Polygon2D" parent="Scenery/Trees/Tree_14" unique_id=194549902]
+color = Color(0.11, 0.282, 0.165, 1)
+polygon = PackedVector2Array(17, 0, 14.72, 8.5, 8.5, 14.72, 0, 17, -8.5, 14.72, -14.72, 8.5, -17, 0, -14.72, -8.5, -8.5, -14.72, 0, -17, 8.5, -14.72, 14.72, -8.5)
+
+[node name="CanopyMid" type="Polygon2D" parent="Scenery/Trees/Tree_14" unique_id=1562001559]
+color = Color(0.165, 0.384, 0.22, 1)
+polygon = PackedVector2Array(9.86, -1.36, 7.72, 5.23, 2.11, 9.31, -4.83, 9.31, -10.44, 5.23, -12.58, -1.36, -10.44, -7.95, -4.83, -12.03, 2.11, -12.03, 7.72, -7.95)
+
+[node name="CanopyLight" type="Polygon2D" parent="Scenery/Trees/Tree_14" unique_id=622447626]
+color = Color(0.227, 0.494, 0.282, 1)
+polygon = PackedVector2Array(3.74, -2.38, 1.95, 1.95, -2.38, 3.74, -6.71, 1.95, -8.5, -2.38, -6.71, -6.71, -2.38, -8.5, 1.95, -6.71)
+
+[node name="Tree_15" type="Node2D" parent="Scenery/Trees" unique_id=1462605172]
+position = Vector2(1248, 315)
+
+[node name="Shadow" type="Polygon2D" parent="Scenery/Trees/Tree_15" unique_id=1874433966]
+color = Color(0.047, 0.094, 0.063, 0.68)
+polygon = PackedVector2Array(28, 5, 24.78, 17, 16, 25.78, 4, 29, -8, 25.78, -16.78, 17, -20, 5, -16.78, -7, -8, -15.78, 4, -19, 16, -15.78, 24.78, -7)
+
+[node name="CanopyDark" type="Polygon2D" parent="Scenery/Trees/Tree_15" unique_id=1392212310]
+color = Color(0.11, 0.282, 0.165, 1)
+polygon = PackedVector2Array(24, 0, 20.78, 12, 12, 20.78, 0, 24, -12, 20.78, -20.78, 12, -24, 0, -20.78, -12, -12, -20.78, 0, -24, 12, -20.78, 20.78, -12)
+
+[node name="CanopyMid" type="Polygon2D" parent="Scenery/Trees/Tree_15" unique_id=216065033]
+color = Color(0.165, 0.384, 0.22, 1)
+polygon = PackedVector2Array(13.92, -1.92, 10.89, 7.39, 2.97, 13.14, -6.81, 13.14, -14.73, 7.39, -17.76, -1.92, -14.73, -11.23, -6.81, -16.98, 2.97, -16.98, 10.89, -11.23)
+
+[node name="CanopyLight" type="Polygon2D" parent="Scenery/Trees/Tree_15" unique_id=1789275548]
+color = Color(0.227, 0.494, 0.282, 1)
+polygon = PackedVector2Array(5.28, -3.36, 2.75, 2.75, -3.36, 5.28, -9.47, 2.75, -12, -3.36, -9.47, -9.47, -3.36, -12, 2.75, -9.47)
+
+[node name="Tree_16" type="Node2D" parent="Scenery/Trees" unique_id=988681345]
+position = Vector2(1292, 348)
+
+[node name="Shadow" type="Polygon2D" parent="Scenery/Trees/Tree_16" unique_id=127178920]
+color = Color(0.047, 0.094, 0.063, 0.68)
+polygon = PackedVector2Array(23, 5, 20.45, 14.5, 13.5, 21.45, 4, 24, -5.5, 21.45, -12.45, 14.5, -15, 5, -12.45, -4.5, -5.5, -11.45, 4, -14, 13.5, -11.45, 20.45, -4.5)
+
+[node name="CanopyDark" type="Polygon2D" parent="Scenery/Trees/Tree_16" unique_id=393531976]
+color = Color(0.11, 0.282, 0.165, 1)
+polygon = PackedVector2Array(19, 0, 16.45, 9.5, 9.5, 16.45, 0, 19, -9.5, 16.45, -16.45, 9.5, -19, 0, -16.45, -9.5, -9.5, -16.45, 0, -19, 9.5, -16.45, 16.45, -9.5)
+
+[node name="CanopyMid" type="Polygon2D" parent="Scenery/Trees/Tree_16" unique_id=565823205]
+color = Color(0.165, 0.384, 0.22, 1)
+polygon = PackedVector2Array(11.02, -1.52, 8.63, 5.85, 2.36, 10.41, -5.4, 10.41, -11.67, 5.85, -14.06, -1.52, -11.67, -8.89, -5.4, -13.45, 2.36, -13.45, 8.63, -8.89)
+
+[node name="CanopyLight" type="Polygon2D" parent="Scenery/Trees/Tree_16" unique_id=1324201377]
+color = Color(0.227, 0.494, 0.282, 1)
+polygon = PackedVector2Array(4.18, -2.66, 2.18, 2.18, -2.66, 4.18, -7.5, 2.18, -9.5, -2.66, -7.5, -7.5, -2.66, -9.5, 2.18, -7.5)
+
+[node name="Tree_17" type="Node2D" parent="Scenery/Trees" unique_id=1092249398]
+position = Vector2(1208, 348)
+
+[node name="Shadow" type="Polygon2D" parent="Scenery/Trees/Tree_17" unique_id=1802106098]
+color = Color(0.047, 0.094, 0.063, 0.68)
+polygon = PackedVector2Array(21, 5, 18.72, 13.5, 12.5, 19.72, 4, 22, -4.5, 19.72, -10.72, 13.5, -13, 5, -10.72, -3.5, -4.5, -9.72, 4, -12, 12.5, -9.72, 18.72, -3.5)
+
+[node name="CanopyDark" type="Polygon2D" parent="Scenery/Trees/Tree_17" unique_id=913397396]
+color = Color(0.11, 0.282, 0.165, 1)
+polygon = PackedVector2Array(17, 0, 14.72, 8.5, 8.5, 14.72, 0, 17, -8.5, 14.72, -14.72, 8.5, -17, 0, -14.72, -8.5, -8.5, -14.72, 0, -17, 8.5, -14.72, 14.72, -8.5)
+
+[node name="CanopyMid" type="Polygon2D" parent="Scenery/Trees/Tree_17" unique_id=1461283446]
+color = Color(0.165, 0.384, 0.22, 1)
+polygon = PackedVector2Array(9.86, -1.36, 7.72, 5.23, 2.11, 9.31, -4.83, 9.31, -10.44, 5.23, -12.58, -1.36, -10.44, -7.95, -4.83, -12.03, 2.11, -12.03, 7.72, -7.95)
+
+[node name="CanopyLight" type="Polygon2D" parent="Scenery/Trees/Tree_17" unique_id=375186992]
+color = Color(0.227, 0.494, 0.282, 1)
+polygon = PackedVector2Array(3.74, -2.38, 1.95, 1.95, -2.38, 3.74, -6.71, 1.95, -8.5, -2.38, -6.71, -6.71, -2.38, -8.5, 1.95, -6.71)
+
+[node name="Tree_18" type="Node2D" parent="Scenery/Trees" unique_id=1392231640]
+position = Vector2(430, 322)
+
+[node name="Shadow" type="Polygon2D" parent="Scenery/Trees/Tree_18" unique_id=1272426424]
+color = Color(0.047, 0.094, 0.063, 0.68)
+polygon = PackedVector2Array(27, 5, 23.92, 16.5, 15.5, 24.92, 4, 28, -7.5, 24.92, -15.92, 16.5, -19, 5, -15.92, -6.5, -7.5, -14.92, 4, -18, 15.5, -14.92, 23.92, -6.5)
+
+[node name="CanopyDark" type="Polygon2D" parent="Scenery/Trees/Tree_18" unique_id=1995308350]
+color = Color(0.11, 0.282, 0.165, 1)
+polygon = PackedVector2Array(23, 0, 19.92, 11.5, 11.5, 19.92, 0, 23, -11.5, 19.92, -19.92, 11.5, -23, 0, -19.92, -11.5, -11.5, -19.92, 0, -23, 11.5, -19.92, 19.92, -11.5)
+
+[node name="CanopyMid" type="Polygon2D" parent="Scenery/Trees/Tree_18" unique_id=392326439]
+color = Color(0.165, 0.384, 0.22, 1)
+polygon = PackedVector2Array(13.34, -1.84, 10.44, 7.08, 2.85, 12.6, -6.53, 12.6, -14.12, 7.08, -17.02, -1.84, -14.12, -10.76, -6.53, -16.28, 2.85, -16.28, 10.44, -10.76)
+
+[node name="CanopyLight" type="Polygon2D" parent="Scenery/Trees/Tree_18" unique_id=1654503917]
+color = Color(0.227, 0.494, 0.282, 1)
+polygon = PackedVector2Array(5.06, -3.22, 2.63, 2.63, -3.22, 5.06, -9.07, 2.63, -11.5, -3.22, -9.07, -9.07, -3.22, -11.5, 2.63, -9.07)
+
+[node name="Tree_19" type="Node2D" parent="Scenery/Trees" unique_id=631026016]
+position = Vector2(474, 296)
+
+[node name="Shadow" type="Polygon2D" parent="Scenery/Trees/Tree_19" unique_id=2058839792]
+color = Color(0.047, 0.094, 0.063, 0.68)
+polygon = PackedVector2Array(22, 5, 19.59, 14, 13, 20.59, 4, 23, -5, 20.59, -11.59, 14, -14, 5, -11.59, -4, -5, -10.59, 4, -13, 13, -10.59, 19.59, -4)
+
+[node name="CanopyDark" type="Polygon2D" parent="Scenery/Trees/Tree_19" unique_id=1286632962]
+color = Color(0.11, 0.282, 0.165, 1)
+polygon = PackedVector2Array(18, 0, 15.59, 9, 9, 15.59, 0, 18, -9, 15.59, -15.59, 9, -18, 0, -15.59, -9, -9, -15.59, 0, -18, 9, -15.59, 15.59, -9)
+
+[node name="CanopyMid" type="Polygon2D" parent="Scenery/Trees/Tree_19" unique_id=1317100442]
+color = Color(0.165, 0.384, 0.22, 1)
+polygon = PackedVector2Array(10.44, -1.44, 8.17, 5.54, 2.23, 9.86, -5.11, 9.86, -11.05, 5.54, -13.32, -1.44, -11.05, -8.42, -5.11, -12.74, 2.23, -12.74, 8.17, -8.42)
+
+[node name="CanopyLight" type="Polygon2D" parent="Scenery/Trees/Tree_19" unique_id=817425523]
+color = Color(0.227, 0.494, 0.282, 1)
+polygon = PackedVector2Array(3.96, -2.52, 2.06, 2.06, -2.52, 3.96, -7.1, 2.06, -9, -2.52, -7.1, -7.1, -2.52, -9, 2.06, -7.1)
+
+[node name="Tree_20" type="Node2D" parent="Scenery/Trees" unique_id=1837886478]
+position = Vector2(390, 288)
+
+[node name="Shadow" type="Polygon2D" parent="Scenery/Trees/Tree_20" unique_id=354173184]
+color = Color(0.047, 0.094, 0.063, 0.68)
+polygon = PackedVector2Array(21, 5, 18.72, 13.5, 12.5, 19.72, 4, 22, -4.5, 19.72, -10.72, 13.5, -13, 5, -10.72, -3.5, -4.5, -9.72, 4, -12, 12.5, -9.72, 18.72, -3.5)
+
+[node name="CanopyDark" type="Polygon2D" parent="Scenery/Trees/Tree_20" unique_id=1669570322]
+color = Color(0.11, 0.282, 0.165, 1)
+polygon = PackedVector2Array(17, 0, 14.72, 8.5, 8.5, 14.72, 0, 17, -8.5, 14.72, -14.72, 8.5, -17, 0, -14.72, -8.5, -8.5, -14.72, 0, -17, 8.5, -14.72, 14.72, -8.5)
+
+[node name="CanopyMid" type="Polygon2D" parent="Scenery/Trees/Tree_20" unique_id=975581307]
+color = Color(0.165, 0.384, 0.22, 1)
+polygon = PackedVector2Array(9.86, -1.36, 7.72, 5.23, 2.11, 9.31, -4.83, 9.31, -10.44, 5.23, -12.58, -1.36, -10.44, -7.95, -4.83, -12.03, 2.11, -12.03, 7.72, -7.95)
+
+[node name="CanopyLight" type="Polygon2D" parent="Scenery/Trees/Tree_20" unique_id=1447457415]
+color = Color(0.227, 0.494, 0.282, 1)
+polygon = PackedVector2Array(3.74, -2.38, 1.95, 1.95, -2.38, 3.74, -6.71, 1.95, -8.5, -2.38, -6.71, -6.71, -2.38, -8.5, 1.95, -6.71)
+
+[node name="Walls" type="StaticBody2D" parent="." unique_id=431893732]
+
+[node name="InnerWall" type="CollisionPolygon2D" parent="Walls" unique_id=1186313183]
+polygon = PackedVector2Array(461.2, 710.54, 481.11, 710.89, 501.13, 711.2, 521.19, 711.48, 541.27, 711.73, 561.35, 711.97, 581.42, 712.19, 601.48, 712.38, 621.54, 712.55, 641.6, 712.69, 661.67, 712.8, 681.76, 712.89, 701.87, 712.97, 722.01, 713.05, 742.17, 713.13, 762.37, 713.23, 782.6, 713.36, 802.85, 713.53, 823.12, 713.75, 843.4, 714.03, 863.67, 714.35, 883.9, 714.73, 904.09, 715.13, 924.22, 715.55, 944.26, 715.94, 964.21, 716.29, 984.06, 716.55, 1003.79, 716.69, 1023.41, 716.67, 1042.92, 716.44, 1062.32, 715.98, 1081.61, 715.24, 1100.81, 714.21, 1119.93, 712.85, 1138.97, 711.15, 1157.92, 709.09, 1176.74, 706.66, 1195.45, 703.84, 1213.97, 700.61, 1232.23, 696.95, 1250.1, 692.81, 1267.47, 688.13, 1284.2, 682.86, 1300.11, 676.93, 1315.05, 670.27, 1328.86, 662.84, 1341.43, 654.6, 1352.7, 645.52, 1362.68, 635.52, 1371.45, 624.54, 1379.07, 612.47, 1385.61, 599.28, 1391.11, 584.97, 1395.62, 569.63, 1399.19, 553.41, 1401.89, 536.46, 1403.81, 518.96, 1405.01, 501.06, 1405.55, 482.89, 1405.47, 464.59, 1404.8, 446.26, 1403.54, 428, 1401.67, 409.93, 1399.16, 392.12, 1395.96, 374.67, 1392.04, 357.67, 1387.33, 341.21, 1381.79, 325.37, 1375.38, 310.22, 1368.06, 295.8, 1359.81, 282.17, 1350.62, 269.35, 1340.48, 257.37, 1329.44, 246.29, 1317.55, 236.16, 1304.87, 227.03, 1291.51, 219, 1277.57, 212.1, 1263.14, 206.42, 1248.32, 201.98, 1233.21, 198.82, 1217.88, 196.96, 1202.43, 196.4, 1186.98, 197.16, 1171.67, 199.22, 1156.65, 202.55, 1142.09, 207.15, 1128.12, 212.97, 1114.85, 220, 1102.3, 228.25, 1090.39, 237.75, 1079, 248.56, 1067.95, 260.75, 1057.03, 274.32, 1045.98, 289.22, 1034.48, 305.31, 1022.14, 322.38, 1008.52, 340.1, 993.2, 358.01, 975.87, 375.51, 956.41, 391.9, 934.93, 406.49, 911.75, 418.78, 887.22, 428.41, 861.67, 435.21, 835.35, 439.02, 808.48, 439.65, 781.39, 436.85, 754.6, 430.4, 728.86, 420.29, 704.99, 406.94, 683.61, 391.13, 664.93, 373.88, 648.7, 356.13, 634.44, 338.57, 621.6, 321.67, 609.66, 305.68, 598.19, 290.76, 586.87, 277.01, 575.41, 264.45, 563.62, 253.07, 551.31, 242.8, 538.37, 233.59, 524.71, 225.39, 510.34, 218.17, 495.29, 211.92, 479.66, 206.63, 463.54, 202.3, 447.06, 198.94, 430.31, 196.54, 413.38, 195.1, 396.38, 194.62, 379.39, 195.1, 362.5, 196.55, 345.83, 198.97, 329.51, 202.36, 313.68, 206.73, 298.51, 212.08, 284.16, 218.41, 270.82, 225.7, 258.62, 233.93, 247.69, 243.08, 238.1, 253.09, 229.92, 263.91, 223.22, 275.45, 218.07, 287.6, 214.53, 300.2, 212.63, 313.12, 212.41, 326.32, 213.86, 339.87, 217.02, 353.98, 221.86, 368.91, 228.34, 385.07, 236.1, 402.87, 244.6, 422.71, 252.92, 445.03, 259.79, 469.93, 263.82, 496.69, 264.32, 523.69, 261.79, 549.21, 257.56, 572.18, 253.13, 592.15, 249.74, 609.07, 248.06, 623.16, 248.2, 634.75, 250.07, 644.46, 253.68, 653.2, 259.06, 661.33, 266.82, 669.24, 276.96, 677.05, 288.88, 684.12, 302.24, 690.26, 316.83, 695.41, 332.45, 699.59, 348.99, 702.88, 366.33, 705.38, 384.35, 707.22, 402.95, 708.53, 422.03, 709.44, 441.48, 710.08)
+
+[node name="OuterWall_Q0" type="CollisionPolygon2D" parent="Walls" unique_id=1966291940]
+polygon = PackedVector2Array(458.93, 820.51, 479.28, 820.88, 499.53, 821.19, 519.73, 821.47, 539.91, 821.73, 560.1, 821.97, 580.29, 822.19, 600.5, 822.38, 620.71, 822.55, 640.91, 822.68, 661.11, 822.8, 681.28, 822.89, 701.44, 822.97, 721.57, 823.05, 741.67, 823.13, 761.74, 823.23, 781.78, 823.36, 801.79, 823.53, 821.78, 823.74, 841.77, 824.02, 861.77, 824.34, 881.79, 824.71, 901.86, 825.11, 922, 825.52, 942.21, 825.92, 962.52, 826.28, 982.94, 826.55, 1003.47, 826.69, 1024.12, 826.67, 1044.88, 826.43, 1065.73, 825.93, 1086.68, 825.13, 1107.68, 823.99, 1128.73, 822.49, 1149.8, 820.61, 1170.88, 818.32, 1191.99, 815.6, 1213.11, 812.41, 1234.25, 808.73, 1255.47, 804.46, 1276.82, 799.51, 1298.33, 793.72, 1320, 786.87, 1341.79, 778.73, 1363.6, 768.98, 1385.21, 757.31, 1398.53, 779.64, 1375.08, 792.31, 1351.64, 802.79, 1328.46, 811.46, 1305.62, 818.67, 1283.14, 824.73, 1260.97, 829.88, 1239.04, 834.28, 1217.28, 838.08, 1195.6, 841.35, 1173.95, 844.14, 1152.36, 846.48, 1130.81, 848.41, 1109.31, 849.94, 1087.87, 851.1, 1066.54, 851.91, 1045.34, 852.42, 1024.28, 852.67, 1003.4, 852.69, 982.68, 852.55, 962.12, 852.27, 941.73, 851.92, 921.47, 851.52, 901.33, 851.1, 881.29, 850.7, 861.32, 850.33, 841.38, 850.01, 821.47, 849.74, 801.55, 849.53, 781.59, 849.36, 761.59, 849.23, 741.55, 849.13, 721.47, 849.05, 701.34, 848.97, 681.17, 848.89, 660.97, 848.8, 640.75, 848.68, 620.51, 848.55, 600.27, 848.38, 580.03, 848.18, 559.8, 847.97, 539.59, 847.72, 519.38, 847.46, 499.15, 847.19, 478.85, 846.88, 458.39, 846.51)
+
+[node name="OuterWall_Q1" type="CollisionPolygon2D" parent="Walls" unique_id=96933286]
+polygon = PackedVector2Array(1385.21, 757.31, 1406.27, 743.46, 1426.29, 727.27, 1444.72, 708.8, 1461.05, 688.35, 1474.94, 666.41, 1486.3, 643.57, 1495.27, 620.33, 1502.14, 597.06, 1507.25, 573.97, 1510.91, 551.17, 1513.38, 528.65, 1514.88, 506.38, 1515.54, 484.31, 1515.45, 462.35, 1514.65, 440.45, 1513.13, 418.53, 1510.85, 396.57, 1507.74, 374.51, 1503.68, 352.36, 1498.54, 330.14, 1492.16, 307.9, 1484.41, 285.74, 1475.12, 263.84, 1464.21, 242.37, 1451.62, 221.58, 1437.36, 201.7, 1421.49, 182.96, 1404.13, 165.53, 1385.39, 149.57, 1365.4, 135.18, 1344.27, 122.48, 1322.14, 111.54, 1299.12, 102.47, 1275.39, 95.36, 1251.11, 90.28, 1226.49, 87.29, 1201.71, 86.41, 1176.96, 87.62, 1152.39, 90.92, 1128.13, 96.32, 1104.31, 103.84, 1081.14, 113.51, 1058.85, 125.33, 1037.77, 139.16, 1018.21, 154.74, 1001.15, 135.12, 1022.52, 118.11, 1045.61, 102.95, 1070.03, 90, 1095.38, 79.42, 1121.38, 71.21, 1147.83, 65.32, 1174.6, 61.73, 1201.54, 60.41, 1228.52, 61.37, 1255.34, 64.63, 1281.78, 70.16, 1307.63, 77.9, 1332.67, 87.77, 1356.74, 99.66, 1379.7, 113.47, 1401.43, 129.1, 1421.78, 146.44, 1440.64, 165.37, 1457.86, 185.71, 1473.32, 207.26, 1486.94, 229.74, 1498.7, 252.87, 1508.66, 276.38, 1516.94, 300.02, 1523.71, 323.63, 1529.14, 347.09, 1533.4, 370.35, 1536.66, 393.41, 1539.04, 416.3, 1540.61, 439.07, 1541.45, 461.82, 1541.54, 484.64, 1540.85, 507.64, 1539.28, 530.94, 1536.67, 554.64, 1532.79, 578.83, 1527.32, 603.54, 1519.89, 628.69, 1510.1, 654.04, 1497.6, 679.16, 1482.23, 703.43, 1464.12, 726.12, 1443.69, 746.59, 1421.6, 764.46, 1398.53, 779.64)
+
+[node name="OuterWall_Q2" type="CollisionPolygon2D" parent="Walls" unique_id=1310497111]
+polygon = PackedVector2Array(1018.21, 154.74, 1000.39, 171.62, 984.37, 189.23, 970.03, 207.01, 957.08, 224.44, 945.16, 241.1, 933.92, 256.67, 923.02, 270.88, 912.21, 283.59, 901.24, 294.7, 889.94, 304.25, 878.16, 312.28, 865.8, 318.83, 852.9, 323.9, 839.59, 327.45, 826.12, 329.41, 812.81, 329.74, 799.92, 328.42, 787.63, 325.48, 775.96, 320.89, 764.76, 314.59, 753.83, 306.45, 742.98, 296.37, 732.08, 284.38, 720.98, 270.67, 709.47, 255.5, 697.32, 239.23, 684.23, 222.23, 669.94, 204.91, 654.25, 187.74, 637.07, 171.18, 618.47, 155.68, 598.62, 141.56, 577.77, 129.03, 556.19, 118.18, 534.07, 108.98, 511.58, 101.36, 488.82, 95.24, 465.87, 90.56, 442.78, 87.25, 419.59, 85.27, 396.36, 84.62, 373.12, 85.28, 349.9, 87.28, 326.74, 90.64, 303.66, 95.44, 297.55, 70.17, 322.23, 65.03, 346.93, 61.45, 371.64, 59.33, 396.36, 58.62, 421.06, 59.32, 445.73, 61.41, 470.32, 64.94, 494.8, 69.94, 519.12, 76.48, 543.24, 84.65, 567.02, 94.54, 590.31, 106.26, 612.86, 119.8, 634.34, 135.08, 654.43, 151.83, 672.89, 169.61, 689.58, 187.87, 704.57, 206.03, 718.04, 223.52, 730.24, 239.86, 741.43, 254.62, 751.79, 267.42, 761.43, 278.05, 770.42, 286.43, 778.89, 292.77, 787.1, 297.4, 795.44, 300.68, 804.3, 302.79, 813.83, 303.76, 823.94, 303.5, 834.37, 301.98, 844.79, 299.2, 854.94, 295.21, 864.74, 290.01, 874.23, 283.53, 883.6, 275.6, 893.06, 266, 902.82, 254.52, 913.07, 241.14, 924.05, 225.93, 936.06, 209.13, 949.47, 191.1, 964.62, 172.32, 981.81, 153.43, 1001.15, 135.12)
+
+[node name="OuterWall_Q3" type="CollisionPolygon2D" parent="Walls" unique_id=748113795]
+polygon = PackedVector2Array(303.66, 95.44, 280.7, 101.79, 257.93, 109.83, 235.47, 119.77, 213.53, 131.79, 192.41, 146.09, 172.52, 162.77, 154.31, 181.81, 138.27, 203.08, 124.81, 226.32, 114.27, 251.18, 106.94, 277.29, 103, 304.15, 102.51, 331.16, 105.31, 357.62, 110.86, 382.8, 118.37, 406.19, 126.82, 427.43, 135.14, 446.54, 142.52, 463.71, 148.32, 479.08, 152.22, 492.93, 154.21, 505.92, 154.42, 519.11, 152.9, 533.61, 149.77, 550.22, 145.48, 569.56, 141.06, 592.14, 138.18, 618.01, 138.84, 646.59, 144.77, 676.25, 156.45, 704.63, 173.18, 730.07, 193.36, 751.11, 215, 767.94, 237.64, 781.46, 260.82, 792.16, 284.17, 800.45, 307.41, 806.7, 330.35, 811.29, 352.86, 814.55, 374.89, 816.81, 396.45, 818.33, 417.59, 819.35, 438.39, 820.03, 458.93, 820.51, 458.39, 846.51, 437.66, 846.02, 416.54, 845.33, 394.92, 844.29, 372.66, 842.71, 349.68, 840.36, 325.94, 836.91, 301.49, 832.02, 276.45, 825.28, 251.03, 816.25, 225.53, 804.47, 200.36, 789.42, 175.99, 770.46, 152.88, 746.32, 133.47, 716.79, 119.87, 683.76, 112.99, 649.38, 112.21, 616.79, 115.37, 588.13, 120.03, 564.22, 124.3, 545.03, 127.16, 529.92, 128.44, 518.03, 128.3, 508.1, 126.79, 498.37, 123.6, 487.12, 118.4, 473.4, 111.28, 456.86, 102.83, 437.44, 93.91, 415, 85.77, 389.61, 79.65, 361.81, 76.54, 332.31, 77.09, 302.03, 81.51, 271.87, 89.74, 242.58, 101.55, 214.7, 116.6, 188.7, 134.51, 164.97, 154.75, 143.79, 176.76, 125.33, 199.99, 109.6, 223.96, 96.45, 248.34, 85.67, 272.9, 76.98, 297.55, 70.17)
+
+[node name="Checkpoints" type="Node2D" parent="." unique_id=1684783686]
+
+[node name="Checkpoint_00" type="Area2D" parent="Checkpoints" unique_id=1030404918]
+position = Vector2(721.79, 768.05)
+rotation = 0.00397
+collision_layer = 4
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Checkpoints/Checkpoint_00" unique_id=1685576732]
+shape = SubResource("RectangleShape2D_checkpoint")
+
+[node name="Checkpoint_01" type="Area2D" parent="Checkpoints" unique_id=1391139256]
+position = Vector2(882.85, 769.72)
+rotation = 0.01921
+collision_layer = 4
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Checkpoints/Checkpoint_01" unique_id=765268063]
+shape = SubResource("RectangleShape2D_checkpoint")
+
+[node name="Checkpoint_02" type="Area2D" parent="Checkpoints" unique_id=1063833910]
+position = Vector2(1023.77, 771.67)
+rotation = -0.00639
+collision_layer = 4
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Checkpoints/Checkpoint_02" unique_id=482958799]
+shape = SubResource("RectangleShape2D_checkpoint")
+
+[node name="Checkpoint_03" type="Area2D" parent="Checkpoints" unique_id=331708848]
+position = Vector2(1184.37, 761.13)
+rotation = -0.13907
+collision_layer = 4
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Checkpoints/Checkpoint_03" unique_id=663566991]
+shape = SubResource("RectangleShape2D_checkpoint")
+
+[node name="Checkpoint_04" type="Area2D" parent="Checkpoints" unique_id=2102483396]
+position = Vector2(1320.95, 727.83)
+rotation = -0.38861
+collision_layer = 4
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Checkpoints/Checkpoint_04" unique_id=1022949629]
+shape = SubResource("RectangleShape2D_checkpoint")
+
+[node name="Checkpoint_05" type="Area2D" parent="Checkpoints" unique_id=409371997]
+position = Vector2(1435.95, 621.42)
+rotation = -1.15638
+collision_layer = 4
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Checkpoints/Checkpoint_05" unique_id=313961491]
+shape = SubResource("RectangleShape2D_checkpoint")
+
+[node name="Checkpoint_06" type="Area2D" parent="Checkpoints" unique_id=1883758166]
+position = Vector2(1460.55, 483.6)
+rotation = -1.55794
+collision_layer = 4
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Checkpoints/Checkpoint_06" unique_id=1009285521]
+shape = SubResource("RectangleShape2D_checkpoint")
+
+[node name="Checkpoint_07" type="Area2D" parent="Checkpoints" unique_id=1573561120]
+position = Vector2(1439.75, 324.56)
+rotation = -1.87853
+collision_layer = 4
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Checkpoints/Checkpoint_07" unique_id=370870331]
+shape = SubResource("RectangleShape2D_checkpoint")
+
+[node name="Checkpoint_08" type="Area2D" parent="Checkpoints" unique_id=159492236]
+position = Vector2(1366.79, 205.91)
+rotation = -2.39523
+collision_layer = 4
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Checkpoints/Checkpoint_08" unique_id=3150116]
+shape = SubResource("RectangleShape2D_checkpoint")
+
+[node name="Checkpoint_09" type="Area2D" parent="Checkpoints" unique_id=1651512420]
+position = Vector2(1222.18, 142.13)
+rotation = -3.06327
+collision_layer = 4
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Checkpoints/Checkpoint_09" unique_id=665423058]
+shape = SubResource("RectangleShape2D_checkpoint")
+
+[node name="Checkpoint_10" type="Area2D" parent="Checkpoints" unique_id=728681379]
+position = Vector2(1086.85, 172.66)
+rotation = 2.60743
+collision_layer = 4
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Checkpoints/Checkpoint_10" unique_id=1217599114]
+shape = SubResource("RectangleShape2D_checkpoint")
+
+[node name="Checkpoint_11" type="Area2D" parent="Checkpoints" unique_id=1124957533]
+position = Vector2(978.03, 289.52)
+rotation = 2.21099
+collision_layer = 4
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Checkpoints/Checkpoint_11" unique_id=137860640]
+shape = SubResource("RectangleShape2D_checkpoint")
+
+[node name="Checkpoint_12" type="Area2D" parent="Checkpoints" unique_id=61176657]
+position = Vector2(870.06, 376.16)
+rotation = 2.8243
+collision_layer = 4
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Checkpoints/Checkpoint_12" unique_id=1929261424]
+shape = SubResource("RectangleShape2D_checkpoint")
+
+[node name="Checkpoint_13" type="Area2D" parent="Checkpoints" unique_id=1528141677]
+position = Vector2(718.72, 348.79)
+rotation = -2.44931
+collision_layer = 4
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Checkpoints/Checkpoint_13" unique_id=746790068]
+shape = SubResource("RectangleShape2D_checkpoint")
+
+[node name="Checkpoint_14" type="Area2D" parent="Checkpoints" unique_id=793942272]
+position = Vector2(628.4, 240.96)
+rotation = -2.28556
+collision_layer = 4
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Checkpoints/Checkpoint_14" unique_id=1752798388]
+shape = SubResource("RectangleShape2D_checkpoint")
+
+[node name="Checkpoint_15" type="Area2D" parent="Checkpoints" unique_id=1570846025]
+position = Vector2(495.62, 153.99)
+rotation = -2.84717
+collision_layer = 4
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Checkpoints/Checkpoint_15" unique_id=134067111]
+shape = SubResource("RectangleShape2D_checkpoint")
+
+[node name="Checkpoint_16" type="Area2D" parent="Checkpoints" unique_id=1155384314]
+position = Vector2(356.2, 141.91)
+rotation = 3.0268
+collision_layer = 4
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Checkpoints/Checkpoint_16" unique_id=1120860517]
+shape = SubResource("RectangleShape2D_checkpoint")
+
+[node name="Checkpoint_17" type="Area2D" parent="Checkpoints" unique_id=1239013732]
+position = Vector2(210.1, 202.92)
+rotation = 2.38924
+collision_layer = 4
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Checkpoints/Checkpoint_17" unique_id=366522194]
+shape = SubResource("RectangleShape2D_checkpoint")
+
+[node name="Checkpoint_18" type="Area2D" parent="Checkpoints" unique_id=597997724]
+position = Vector2(157.46, 328.74)
+rotation = 1.52671
+collision_layer = 4
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Checkpoints/Checkpoint_18" unique_id=1561635675]
+shape = SubResource("RectangleShape2D_checkpoint")
+
+[node name="Checkpoint_19" type="Area2D" parent="Checkpoints" unique_id=892193979]
+position = Vector2(206, 481.43)
+rotation = 1.36019
+collision_layer = 4
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Checkpoints/Checkpoint_19" unique_id=1220283802]
+shape = SubResource("RectangleShape2D_checkpoint")
+
+[node name="Checkpoint_20" type="Area2D" parent="Checkpoints" unique_id=612851383]
+position = Vector2(193.12, 620.59)
+rotation = 1.61767
+collision_layer = 4
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Checkpoints/Checkpoint_20" unique_id=878997169]
+shape = SubResource("RectangleShape2D_checkpoint")
+
+[node name="Checkpoint_21" type="Area2D" parent="Checkpoints" unique_id=1081573537]
+position = Vector2(281.53, 741.21)
+rotation = 0.38609
+collision_layer = 4
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Checkpoints/Checkpoint_21" unique_id=276965424]
+shape = SubResource("RectangleShape2D_checkpoint")
+
+[node name="Checkpoint_22" type="Area2D" parent="Checkpoints" unique_id=1198115299]
+position = Vector2(419.81, 764.39)
+rotation = 0.04038
+collision_layer = 4
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Checkpoints/Checkpoint_22" unique_id=914602859]
+shape = SubResource("RectangleShape2D_checkpoint")
+
+[node name="Checkpoint_23" type="Area2D" parent="Checkpoints" unique_id=134783365]
+position = Vector2(628.85, 767.68)
+rotation = 0.01022
+collision_layer = 4
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Checkpoints/Checkpoint_23" unique_id=1545278875]
+shape = SubResource("RectangleShape2D_checkpoint")
+
+[node name="SpawnPoint" type="Marker2D" parent="." unique_id=1363105243]
+position = Vector2(580.86, 767.19)
+rotation = 0.01022
+
+[node name="HUD" type="CanvasLayer" parent="." unique_id=322033975]
+script = ExtResource("2_hud")
+
+[node name="StatsPanel" type="Panel" parent="HUD" unique_id=1784110273]
+offset_left = 14.0
+offset_top = 14.0
+offset_right = 248.0
+offset_bottom = 114.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_panel")
+
+[node name="StatsLabel" type="Label" parent="HUD" unique_id=1159449133]
+offset_left = 28.0
+offset_top = 24.0
+offset_right = 236.0
+offset_bottom = 108.0
+theme_override_colors/font_color = Color(0.94, 0.96, 1, 1)
+theme_override_font_sizes/font_size = 20
+text = "Поколение: 1
+Живых: 50 / 50
+Рекорд: 0"
+
+[node name="SpeedButton" type="Button" parent="HUD" unique_id=859290898]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -168.0
+offset_top = 14.0
+offset_right = -14.0
+offset_bottom = 54.0
+grow_horizontal = 0
+theme_override_colors/font_color = Color(0.94, 0.96, 1, 1)
+theme_override_font_sizes/font_size = 18
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_btn_pressed")
+theme_override_styles/hover = SubResource("StyleBoxFlat_btn_hover")
+text = "Скорость: x1"
+
+[node name="CircuitBadge" type="Label" parent="HUD" unique_id=926468944]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -320.0
+offset_top = -34.0
+offset_right = -16.0
+offset_bottom = -10.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_colors/font_color = Color(0.85, 0.9, 0.98, 0.65)
+theme_override_font_sizes/font_size = 14
+text = "NEURO CIRCUIT GP  •  50 AGENTS"
+horizontal_alignment = 2
