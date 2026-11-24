@@ -22,6 +22,10 @@ window/size/viewport_height=720
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
 
+[dotnet]
+
+project/assembly_name="NeuroCars"
+
 [input_devices]
 
 pointing/emulate_touch_from_mouse=true
@@ -29,6 +33,14 @@ pointing/emulate_touch_from_mouse=true
 [physics]
 
 3d/physics_engine="Jolt Physics"
+
+[layer_names]
+
+2d_physics/layer_1="Walls"
+2d_physics/layer_2="Cars"
+2d_physics/layer_3="LethalObstacles"
+2d_physics/layer_4="Checkpoints"
+2d_physics/layer_5="Pedestrians"
 
 [rendering]
 

@@ -1,0 +1,86 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/track/dynamic_track_gate.gd" id="1_gate"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_barrier"]
+size = Vector2(14, 110)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_safety"]
+size = Vector2(46, 122)
+
+[node name="DynamicTrackGate" type="StaticBody2D"]
+collision_layer = 1
+collision_mask = 0
+script = ExtResource("1_gate")
+
+[node name="BarrierCollision" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_barrier")
+disabled = true
+
+[node name="SafetySensor" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+monitorable = false
+
+[node name="SafetyShape" type="CollisionShape2D" parent="SafetySensor"]
+shape = SubResource("RectangleShape2D_safety")
+
+[node name="OpenVisual" type="Node2D" parent="."]
+
+[node name="ThresholdMarkTop" type="Polygon2D" parent="OpenVisual"]
+color = Color(0.2, 0.92, 0.45, 0.26)
+polygon = PackedVector2Array(-4, -52, 4, -52, 4, -36, -4, -36)
+
+[node name="ThresholdMarkMid" type="Polygon2D" parent="OpenVisual"]
+color = Color(0.2, 0.92, 0.45, 0.26)
+polygon = PackedVector2Array(-4, -10, 4, -10, 4, 10, -4, 10)
+
+[node name="ThresholdMarkBot" type="Polygon2D" parent="OpenVisual"]
+color = Color(0.2, 0.92, 0.45, 0.26)
+polygon = PackedVector2Array(-4, 36, 4, 36, 4, 52, -4, 52)
+
+[node name="ClosedVisual" type="Node2D" parent="."]
+visible = false
+
+[node name="BeamShadow" type="Polygon2D" parent="ClosedVisual"]
+position = Vector2(2, 2)
+color = Color(0.03, 0.04, 0.06, 0.55)
+polygon = PackedVector2Array(-7, -55, 7, -55, 7, 55, -7, 55)
+
+[node name="BeamCore" type="Polygon2D" parent="ClosedVisual"]
+color = Color(0.16, 0.19, 0.24, 1)
+polygon = PackedVector2Array(-7, -55, 7, -55, 7, 55, -7, 55)
+
+[node name="Stripe_0" type="Polygon2D" parent="ClosedVisual"]
+color = Color(0.95, 0.18, 0.22, 1)
+polygon = PackedVector2Array(-5.5, -52, 5.5, -52, 5.5, -34, -5.5, -34)
+
+[node name="Stripe_1" type="Polygon2D" parent="ClosedVisual"]
+color = Color(0.96, 0.97, 0.99, 1)
+polygon = PackedVector2Array(-5.5, -34, 5.5, -34, 5.5, -18, -5.5, -18)
+
+[node name="Stripe_2" type="Polygon2D" parent="ClosedVisual"]
+color = Color(0.95, 0.18, 0.22, 1)
+polygon = PackedVector2Array(-5.5, -18, 5.5, -18, 5.5, 0, -5.5, 0)
+
+[node name="Stripe_3" type="Polygon2D" parent="ClosedVisual"]
+color = Color(0.96, 0.97, 0.99, 1)
+polygon = PackedVector2Array(-5.5, 0, 5.5, 0, 5.5, 18, -5.5, 18)
+
+[node name="Stripe_4" type="Polygon2D" parent="ClosedVisual"]
+color = Color(0.95, 0.18, 0.22, 1)
+polygon = PackedVector2Array(-5.5, 18, 5.5, 18, 5.5, 36, -5.5, 36)
+
+[node name="Stripe_5" type="Polygon2D" parent="ClosedVisual"]
+color = Color(0.96, 0.97, 0.99, 1)
+polygon = PackedVector2Array(-5.5, 36, 5.5, 36, 5.5, 52, -5.5, 52)
+
+[node name="BeaconLeft" type="Polygon2D" parent="."]
+position = Vector2(0, -59)
+color = Color(0.18, 0.94, 0.44, 1)
+polygon = PackedVector2Array(8, 0, 5.6, 5.6, 0, 8, -5.6, 5.6, -8, 0, -5.6, -5.6, 0, -8, 5.6, -5.6)
+
+[node name="BeaconRight" type="Polygon2D" parent="."]
+position = Vector2(0, 59)
+color = Color(0.18, 0.94, 0.44, 1)
+polygon = PackedVector2Array(8, 0, 5.6, 5.6, 0, 8, -5.6, 5.6, -8, 0, -5.6, -5.6, 0, -8, 5.6, -5.6)

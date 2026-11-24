@@ -1,0 +1,31 @@
+class_name SimulationConfig
+extends RefCounted
+
+const LAYER_WALLS: int = 1
+const LAYER_CARS: int = 2
+const LAYER_LETHAL_OBSTACLES: int = 4
+const LAYER_CHECKPOINTS: int = 8
+const LAYER_PEDESTRIANS: int = 16
+
+const CAR_COLLISION_MASK: int = LAYER_WALLS | LAYER_LETHAL_OBSTACLES
+const SENSOR_COLLISION_MASK: int = LAYER_WALLS | LAYER_LETHAL_OBSTACLES | LAYER_PEDESTRIANS
+
+const DEFAULT_NETWORK_LAYERS: Array[int] = [13, 14, 8, 2]
+
+const PEDESTRIAN_WHIP_PENALTY: float = 350.0
+const PEDESTRIAN_RECOVERY_DURATION: float = 3.5
+const PEDESTRIAN_ACCEL_FACTOR: float = 0.18
+const PEDESTRIAN_HIT_COOLDOWN: float = 5.0
+
+const ROCK_CRASH_PENALTY: float = 120.0
+const STOP_SIGN_CRASH_PENALTY: float = 150.0
+const BARRIER_CRASH_PENALTY: float = 150.0
+const WALL_CRASH_PENALTY: float = 40.0
+
+const SHORTCUT_BONUS: float = 240.0
+const LAP_COMPLETION_BONUS: float = 650.0
+
+const BASE_GENERATION_TIME: float = 80.0
+const EXTRA_TIME_PER_LAP: float = 28.0
+const MAX_GENERATION_TIME: float = 260.0
+const MIN_PASSABLE_CORRIDOR_WIDTH: float = 42.0

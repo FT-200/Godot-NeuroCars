@@ -1,0 +1,162 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/ui/hud.gd" id="1_hud"]
+[ext_resource type="Theme" path="res://resources/themes/hud_theme.tres" id="2_theme"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_alert"]
+bg_color = Color(0.08, 0.14, 0.22, 0.92)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.98, 0.72, 0.16, 0.95)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[node name="HUD" type="CanvasLayer"]
+script = ExtResource("1_hud")
+
+[node name="StatsPanel" type="PanelContainer" parent="."]
+offset_left = 14.0
+offset_top = 14.0
+offset_right = 410.0
+offset_bottom = 176.0
+theme = ExtResource("2_theme")
+
+[node name="Margin" type="MarginContainer" parent="StatsPanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 14
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 14
+theme_override_constants/margin_bottom = 10
+
+[node name="VBox" type="VBoxContainer" parent="StatsPanel/Margin"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="MapTitleLabel" type="Label" parent="StatsPanel/Margin/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.42, 0.84, 1, 1)
+theme_override_font_sizes/font_size = 17
+text = "Nürburgring Nordschleife  ★☆☆☆☆☆"
+
+[node name="StatsLabel" type="Label" parent="StatsPanel/Margin/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.94, 0.96, 1, 1)
+theme_override_font_sizes/font_size = 15
+text = "Поколение: 1   |   Таймер: 80s
+Живых: 50 / 50   |   Рекорд: 0
+Круг лидера: 0 (смена на 3)"
+
+[node name="RouteLabel" type="Label" parent="StatsPanel/Margin/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.45, 0.96, 0.65, 1)
+theme_override_font_sizes/font_size = 14
+text = "Маршрут: Маршрут A (Основной)"
+
+[node name="ObstaclesLabel" type="Label" parent="StatsPanel/Margin/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.98, 0.78, 0.42, 1)
+theme_override_font_sizes/font_size = 13
+text = "Преграды: 0 (К:0 П:0 С:0 Б:0)"
+
+[node name="TopBar" type="PanelContainer" parent="."]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -830.0
+offset_top = 14.0
+offset_right = -14.0
+offset_bottom = 58.0
+grow_horizontal = 0
+theme = ExtResource("2_theme")
+
+[node name="HBox" type="HBoxContainer" parent="TopBar"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="MapSelector" type="OptionButton" parent="TopBar/HBox"]
+custom_minimum_size = Vector2(230, 36)
+layout_mode = 2
+focus_mode = 0
+
+[node name="TransferCheck" type="CheckButton" parent="TopBar/HBox"]
+layout_mode = 2
+focus_mode = 0
+text = "Перенос мозга"
+
+[node name="SpeedButton" type="Button" parent="TopBar/HBox"]
+custom_minimum_size = Vector2(126, 36)
+layout_mode = 2
+focus_mode = 0
+text = "Скорость: x1"
+
+[node name="CameraButton" type="Button" parent="TopBar/HBox"]
+custom_minimum_size = Vector2(138, 36)
+layout_mode = 2
+focus_mode = 0
+text = "Камера: Обзор"
+
+[node name="RouteButton" type="Button" parent="TopBar/HBox"]
+custom_minimum_size = Vector2(148, 36)
+layout_mode = 2
+focus_mode = 0
+text = "Маршрут [M]"
+
+[node name="AlertBanner" type="PanelContainer" parent="."]
+visible = false
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -260.0
+offset_top = 74.0
+offset_right = 260.0
+offset_bottom = 114.0
+grow_horizontal = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_alert")
+
+[node name="Margin" type="MarginContainer" parent="AlertBanner"]
+layout_mode = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 6
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 6
+
+[node name="AlertLabel" type="Label" parent="AlertBanner/Margin"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.88, 0.48, 1)
+theme_override_font_sizes/font_size = 16
+text = "Смена маршрута!"
+horizontal_alignment = 1
+
+[node name="HotkeysLabel" type="Label" parent="."]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 16.0
+offset_top = -34.0
+offset_right = 680.0
+offset_bottom = -10.0
+grow_vertical = 0
+theme_override_colors/font_color = Color(0.85, 0.9, 0.98, 0.72)
+theme_override_font_sizes/font_size = 13
+text = "[1-6] Карты  •  [R] Лучи  •  [C] Камера  •  [M] Маршрут  •  [G] Ворота  •  [Space] След. поколение"
+
+[node name="CircuitBadge" type="Label" parent="."]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -380.0
+offset_top = -34.0
+offset_right = -16.0
+offset_bottom = -10.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_colors/font_color = Color(0.85, 0.9, 0.98, 0.65)
+theme_override_font_sizes/font_size = 14
+text = "NÜRBURGRING NORDSCHLEIFE  •  50 AGENTS"
+horizontal_alignment = 2
