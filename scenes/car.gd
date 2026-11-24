@@ -13,6 +13,8 @@ var time_alive: float = 0.0
 @onready var sensors: Array = $Sensors.get_children()
 
 func _ready() -> void:
+	add_to_group("cars") # <--- НОВОЕ ОТ МЕНЯ добавляем машину в общий список
+	input_pickable = true # <--- НОВОЕ ОТ МЕНЯ разрешаем кликать по машине
 	if brain == null:
 		brain = NeuralNetwork.new(sensors.size(), 6, 2)
 
@@ -60,3 +62,10 @@ func die() -> void:
 	is_alive = false
 	modulate = Color(1, 1, 1, 0.25) # Делаем полупрозрачной после аварии
 	crashed.emit(self)
+
+# <--- НОВОЕ ОТ МЕНЯ обработка клика левой кнопкой мыши по машине
+func _input_event(_viewport: Viewport, event: InputEvent, _shape_idx: int) -> void:
+	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
+		var pip = get_tree().get_first_node_in_group("pip_screen")
+		if pip:
+			pip.watch_car(self)
