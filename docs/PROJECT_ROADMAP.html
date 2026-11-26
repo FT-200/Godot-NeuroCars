@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html lang="ru">
-<head>
+<html lang="ru"><head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Godot-NeuroCars — Родмап, Архитектура и Защита ПМ 07</title>
@@ -749,7 +748,7 @@
   "meta": {
     "project": "Godot-NeuroCars",
     "docType": "roadmap",
-    "revision": 1,
+    "revision": 2,
     "updatedAt": "2026-11-26"
   },
   "audit": {
@@ -784,9 +783,21 @@
         "Санжар": "Прототип мини-экрана слежки за машинкой в отдельной ветке feature/pip-camera"
       },
       "milestones": [
-        { "id": "m0-1", "text": "Разделены слои core / ai / agents / track / obstacles / ui", "done": true },
-        { "id": "m0-2", "text": "Реализованы 9 сенсоров RayCast2D, граф чекпоинтов и 4 типа преград", "done": true },
-        { "id": "m0-3", "text": "Подготовлен первый прототип PiP-камеры в feature/pip-camera", "done": true }
+        {
+          "id": "m0-1",
+          "text": "Разделены слои core / ai / agents / track / obstacles / ui",
+          "done": true
+        },
+        {
+          "id": "m0-2",
+          "text": "Реализованы 9 сенсоров RayCast2D, граф чекпоинтов и 4 типа преград",
+          "done": true
+        },
+        {
+          "id": "m0-3",
+          "text": "Подготовлен первый прототип PiP-камеры в feature/pip-camera",
+          "done": true
+        }
       ]
     },
     {
@@ -802,10 +813,26 @@
         "Санжар": "Перенос PiP-экрана слежки из feature/pip-camera в scenes/ui/pip_watcher.tscn + scripts/ui/pip_watcher.gd"
       },
       "milestones": [
-        { "id": "m1-1", "text": "Best-Branch перенесён в чистый main, scenes/car.tscn удалён, git config настроен у всех 4", "done": false },
-        { "id": "m1-2", "text": "PiP-камера Санжара работает в новой архитектуре через сигналы и клик/тап по машине", "done": false },
-        { "id": "m1-3", "text": "Каждый участник прокомментировал свои .gd модули (зачем метод/формула, а не пересказ синтаксиса)", "done": false },
-        { "id": "m1-4", "text": "Написан корневой README.md со схемой проекта, ролями и инструкцией запуска", "done": false }
+        {
+          "id": "m1-1",
+          "text": "Best-Branch перенесён в чистый main, scenes/car.tscn удалён, git config настроен у всех 4",
+          "done": false
+        },
+        {
+          "id": "m1-2",
+          "text": "PiP-камера Санжара работает в новой архитектуре через сигналы и клик/тап по машине",
+          "done": true
+        },
+        {
+          "id": "m1-3",
+          "text": "Каждый участник прокомментировал свои .gd модули (зачем метод/формула, а не пересказ синтаксиса)",
+          "done": false
+        },
+        {
+          "id": "m1-4",
+          "text": "Написан корневой README.md со схемой проекта, ролями и инструкцией запуска",
+          "done": false
+        }
       ]
     },
     {
@@ -821,9 +848,21 @@
         "Санжар": "Тач-кнопки HUD ([Лучи], [Ворота], [След. поколение]), кнопки ◀/▶/✕ на PiP, удаление десктопной строки хоткеев, Safe Area"
       },
       "milestones": [
-        { "id": "m2-1", "text": "Pinch-to-zoom и свайп-панорамирование работают плавно на сенсорном экране без конфликта с тапом по машине", "done": false },
-        { "id": "m2-2", "text": "Все действия ([R], [G], [Space], переключение PiP) доступны с тач-кнопок и не обрезаются вырезом экрана", "done": false },
-        { "id": "m2-3", "text": "Собран первый Debug .apk и успешно запущен минимум на 2 Android-телефонах команды", "done": false }
+        {
+          "id": "m2-1",
+          "text": "Pinch-to-zoom и свайп-панорамирование работают плавно на сенсорном экране без конфликта с тапом по машине",
+          "done": false
+        },
+        {
+          "id": "m2-2",
+          "text": "Все действия ([R], [G], [Space], переключение PiP) доступны с тач-кнопок и не обрезаются вырезом экрана",
+          "done": false
+        },
+        {
+          "id": "m2-3",
+          "text": "Собран первый Debug .apk и успешно запущен минимум на 2 Android-телефонах команды",
+          "done": false
+        }
       ]
     },
     {
@@ -839,9 +878,21 @@
         "Санжар": "Unassigned -> Главный кандидат на экран Главного меню / Паузы и панель статистики/мозгов (по согласованию с ТЗ недели)"
       },
       "milestones": [
-        { "id": "m3-1", "text": "Работает сохранение и загрузка лучшего мозга по каждой карте (user://brains/*.json) с проверкой совместимости слоёв", "done": false },
-        { "id": "m3-2", "text": "Есть Главное меню / Пауза и корректная реакция на сворачивание/возврат приложения на Android", "done": false },
-        { "id": "m3-3", "text": "На HUD или в модалке отображается динамика поколений (рекорд / средний фитнес / стагнация)", "done": false }
+        {
+          "id": "m3-1",
+          "text": "Работает сохранение и загрузка лучшего мозга по каждой карте (user://brains/*.json) с проверкой совместимости слоёв",
+          "done": false
+        },
+        {
+          "id": "m3-2",
+          "text": "Есть Главное меню / Пауза и корректная реакция на сворачивание/возврат приложения на Android",
+          "done": false
+        },
+        {
+          "id": "m3-3",
+          "text": "На HUD или в модалке отображается динамика поколений (рекорд / средний фитнес / стагнация)",
+          "done": false
+        }
       ]
     },
     {
@@ -857,8 +908,16 @@
         "Санжар": "Unassigned / Гибкий ассистент: реализация еженедельного ТЗ преподавателя + чек-лист ручного теста на смартфоне"
       },
       "milestones": [
-        { "id": "m4-1", "text": "Стабильная работа симуляции на Android при скорости x5 без зависания тач-интерфейса", "done": false },
-        { "id": "m4-2", "text": "Закрыты все индивидуальные требования из еженедельных заданий преподавателя", "done": false }
+        {
+          "id": "m4-1",
+          "text": "Стабильная работа симуляции на Android при скорости x5 без зависания тач-интерфейса",
+          "done": false
+        },
+        {
+          "id": "m4-2",
+          "text": "Закрыты все индивидуальные требования из еженедельных заданий преподавателя",
+          "done": false
+        }
       ]
     },
     {
@@ -874,9 +933,21 @@
         "Санжар": "Защита PiP-слежки, мобильного UI/HUD, сценариев тестирования .apk на смартфонах"
       },
       "milestones": [
-        { "id": "m5-1", "text": "Собран подписанный Release .apk и прикреплён к GitHub Release v1.0.0 (без .keystore в репозитории)", "done": false },
-        { "id": "m5-2", "text": "Пройден полный смоук-тест на Android: старт, обучение, смена 6 карт, перенос/сохранение мозга, PiP, поворот/пауза", "done": false },
-        { "id": "m5-3", "text": "Каждый из 4 участников уверенно отвечает по своему блоку вопросов к защите", "done": false }
+        {
+          "id": "m5-1",
+          "text": "Собран подписанный Release .apk и прикреплён к GitHub Release v1.0.0 (без .keystore в репозитории)",
+          "done": false
+        },
+        {
+          "id": "m5-2",
+          "text": "Пройден полный смоук-тест на Android: старт, обучение, смена 6 карт, перенос/сохранение мозга, PiP, поворот/пауза",
+          "done": false
+        },
+        {
+          "id": "m5-3",
+          "text": "Каждый из 4 участников уверенно отвечает по своему блоку вопросов к защите",
+          "done": false
+        }
       ]
     },
     {
@@ -892,8 +963,16 @@
         "Санжар": "Гибкая помощь с любым выбранным бонусным модулем"
       },
       "milestones": [
-        { "id": "mb-1", "text": "[Опционально] Визуализация графа нейронов [13, 14, 8, 2] для живой демонстрации на защите", "done": false },
-        { "id": "mb-2", "text": "[По запросу препода] Режим «Игрок vs Чемпион ИИ» с экранным рулём и педалями", "done": false }
+        {
+          "id": "mb-1",
+          "text": "[Опционально] Визуализация графа нейронов [13, 14, 8, 2] для живой демонстрации на защите",
+          "done": false
+        },
+        {
+          "id": "mb-2",
+          "text": "[По запросу препода] Режим «Игрок vs Чемпион ИИ» с экранным рулём и педалями",
+          "done": false
+        }
       ]
     }
   ],
@@ -930,28 +1009,133 @@
     }
   ],
   "fileMap": [
-    { "path": "scripts/core/simulation_manager.gd", "type": "class_name SimulationManager", "owner": "Тамерлан", "desc": "Главный цикл поколений, загрузка карт, лидер, таймер, перенос мозга между картами." },
-    { "path": "scripts/core/simulation_config.gd", "type": "class_name SimulationConfig", "owner": "Тамерлан", "desc": "Единые константы: битовые слои физики, [13,14,8,2], штрафы, бонусы, тайминги." },
-    { "path": "scripts/core/map_registry.gd", "type": "class_name MapRegistry", "owner": "Даниал", "desc": "Каталог 6 трасс (название, звёзды сложности, путь к сцене, размер популяции)." },
-    { "path": "scripts/ai/neural_network.gd", "type": "class_name NeuralNetwork", "owner": "Бахтияр", "desc": "MLP произвольной топологии, Xavier-инициализация, predict(), crossover(), mutate(), JSON to_dict/from_dict." },
-    { "path": "scripts/ai/genetic_evolver.gd", "type": "class_name GeneticEvolver", "owner": "Бахтияр", "desc": "Эволюция популяции: элитизм (4), турнирный отбор, инъекция 3 случайных мозгов, адаптация мутации." },
-    { "path": "scripts/ai/brain_storage.gd [План]", "type": "class_name BrainStorage", "owner": "Бахтияр", "desc": "Сохранение и загрузка весов лучшего мозга в user://brains/ с метаданными карты и рекорда." },
-    { "path": "scripts/agents/car.gd + scenes/agents/car.tscn", "type": "class_name Car", "owner": "Тамерлан", "desc": "Физика машинки, 9 RayCast2D, сбор 13 входов, штраф от пешехода, отрисовка лучей и тап-выбор." },
-    { "path": "scripts/track/track_map.gd", "type": "class_name TrackMap", "owner": "Даниал", "desc": "Координатор конкретной карты: граф чекпоинтов, переключение маршрутов A/B/C, управление воротами." },
-    { "path": "scripts/track/track_geometry_builder.gd", "type": "class_name TrackGeometryBuilder", "owner": "Даниал", "desc": "Сплайны Катмулла-Рома, склейка полотна и стен, генерация бордюров и поребриков." },
-    { "path": "scripts/track/dynamic_track_gate.gd", "type": "class_name DynamicTrackGate", "owner": "Даниал", "desc": "Управляемые ворота (OPEN/WARNING/CLOSED) с SafetySensor, чтобы не замуровывать машины." },
-    { "path": "scripts/track/obstacle_spawner.gd", "type": "class_name ObstacleSpawner", "owner": "Даниал", "desc": "Случайный спавн 4 типов преград по слотам активного маршрута с гарантией проезда >= 42 px." },
-    { "path": "scripts/obstacles/*", "type": "ObstacleBase / PedestrianObstacle", "owner": "Даниал", "desc": "3 фатальных объекта (Rock, StopSign, Barrier) и патрулирующий пешеход (Area2D)." },
-    { "path": "scripts/ui/camera_controller.gd", "type": "class_name CameraController", "owner": "Тамерлан", "desc": "Режимы Обзор / Лидер, сглаженный зум и панорамирование (добавить мультитач для Android)." },
-    { "path": "scripts/ui/hud.gd + scenes/ui/hud.tscn", "type": "class_name SimulationHUD", "owner": "Санжар", "desc": "Телеметрия, переключение карт, скорость x1..x10, баннер событий и будущие тач-кнопки." },
-    { "path": "scripts/ui/pip_watcher.gd [Из ветки Санжара]", "type": "class_name PipWatcher", "owner": "Санжар", "desc": "Мини-окно слежения (SubViewport) за выбранной машинкой с кнопками ◀/▶/✕ для смартфона." }
+    {
+      "path": "scripts/core/simulation_manager.gd",
+      "type": "class_name SimulationManager",
+      "owner": "Тамерлан",
+      "desc": "Главный цикл поколений, загрузка карт, лидер, таймер, перенос мозга между картами."
+    },
+    {
+      "path": "scripts/core/simulation_config.gd",
+      "type": "class_name SimulationConfig",
+      "owner": "Тамерлан",
+      "desc": "Единые константы: битовые слои физики, [13,14,8,2], штрафы, бонусы, тайминги."
+    },
+    {
+      "path": "scripts/core/map_registry.gd",
+      "type": "class_name MapRegistry",
+      "owner": "Даниал",
+      "desc": "Каталог 6 трасс (название, звёзды сложности, путь к сцене, размер популяции)."
+    },
+    {
+      "path": "scripts/ai/neural_network.gd",
+      "type": "class_name NeuralNetwork",
+      "owner": "Бахтияр",
+      "desc": "MLP произвольной топологии, Xavier-инициализация, predict(), crossover(), mutate(), JSON to_dict/from_dict."
+    },
+    {
+      "path": "scripts/ai/genetic_evolver.gd",
+      "type": "class_name GeneticEvolver",
+      "owner": "Бахтияр",
+      "desc": "Эволюция популяции: элитизм (4), турнирный отбор, инъекция 3 случайных мозгов, адаптация мутации."
+    },
+    {
+      "path": "scripts/ai/brain_storage.gd [План]",
+      "type": "class_name BrainStorage",
+      "owner": "Бахтияр",
+      "desc": "Сохранение и загрузка весов лучшего мозга в user://brains/ с метаданными карты и рекорда."
+    },
+    {
+      "path": "scripts/agents/car.gd + scenes/agents/car.tscn",
+      "type": "class_name Car",
+      "owner": "Тамерлан",
+      "desc": "Физика машинки, 9 RayCast2D, сбор 13 входов, штраф от пешехода, отрисовка лучей и тап-выбор."
+    },
+    {
+      "path": "scripts/track/track_map.gd",
+      "type": "class_name TrackMap",
+      "owner": "Даниал",
+      "desc": "Координатор конкретной карты: граф чекпоинтов, переключение маршрутов A/B/C, управление воротами."
+    },
+    {
+      "path": "scripts/track/track_geometry_builder.gd",
+      "type": "class_name TrackGeometryBuilder",
+      "owner": "Даниал",
+      "desc": "Сплайны Катмулла-Рома, склейка полотна и стен, генерация бордюров и поребриков."
+    },
+    {
+      "path": "scripts/track/dynamic_track_gate.gd",
+      "type": "class_name DynamicTrackGate",
+      "owner": "Даниал",
+      "desc": "Управляемые ворота (OPEN/WARNING/CLOSED) с SafetySensor, чтобы не замуровывать машины."
+    },
+    {
+      "path": "scripts/track/obstacle_spawner.gd",
+      "type": "class_name ObstacleSpawner",
+      "owner": "Даниал",
+      "desc": "Случайный спавн 4 типов преград по слотам активного маршрута с гарантией проезда >= 42 px."
+    },
+    {
+      "path": "scripts/obstacles/*",
+      "type": "ObstacleBase / PedestrianObstacle",
+      "owner": "Даниал",
+      "desc": "3 фатальных объекта (Rock, StopSign, Barrier) и патрулирующий пешеход (Area2D)."
+    },
+    {
+      "path": "scripts/ui/camera_controller.gd",
+      "type": "class_name CameraController",
+      "owner": "Тамерлан",
+      "desc": "Режимы Обзор / Лидер, сглаженный зум и панорамирование (добавить мультитач для Android)."
+    },
+    {
+      "path": "scripts/ui/hud.gd + scenes/ui/hud.tscn",
+      "type": "class_name SimulationHUD",
+      "owner": "Санжар",
+      "desc": "Телеметрия, переключение карт, скорость x1..x10, баннер событий и будущие тач-кнопки."
+    },
+    {
+      "path": "scripts/ui/pip_watcher.gd [Из ветки Санжара]",
+      "type": "class_name PipWatcher",
+      "owner": "Санжар",
+      "desc": "Мини-окно слежения (SubViewport) за выбранной машинкой с кнопками ◀/▶/✕ для смартфона."
+    }
   ],
   "physicsLayers": [
-    { "layer": "Layer 1", "name": "Walls", "mask": "1 (2^0)", "entities": "Стены трассы (StaticBody2D) и закрытые DynamicTrackGate", "note": "Участвует и в коллизии машины, и в лучах сенсоров." },
-    { "layer": "Layer 2", "name": "Cars", "mask": "2 (2^1)", "entities": "Агенты Car (CharacterBody2D)", "note": "Машины НЕ сталкиваются друг с другом (mask=5 не включает бит 2), иначе 50 машин толпились бы на старте." },
-    { "layer": "Layer 3", "name": "LethalObstacles", "mask": "4 (2^2)", "entities": "RockObstacle, StopSignObstacle, BarrierObstacle", "note": "Car collision_mask = 1 | 4 = 5 -> мгновенная гибель die() при касании стены или преграды." },
-    { "layer": "Layer 4", "name": "Checkpoints", "mask": "8 (2^3)", "entities": "CheckpointNode (Area2D)", "note": "Лучи сенсоров игнорируют чекпоинты (21 не включает бит 8), иначе машины пугались бы финишной линии." },
-    { "layer": "Layer 5", "name": "Pedestrians", "mask": "16 (2^4)", "entities": "PedestrianObstacle (Area2D, monitorable=true)", "note": "Sensor collision_mask = 1 | 4 | 16 = 21 -> лучи видят пешехода заранее (жёлтый цвет), но машина проезжает с кнутом и штрафом скорости." }
+    {
+      "layer": "Layer 1",
+      "name": "Walls",
+      "mask": "1 (2^0)",
+      "entities": "Стены трассы (StaticBody2D) и закрытые DynamicTrackGate",
+      "note": "Участвует и в коллизии машины, и в лучах сенсоров."
+    },
+    {
+      "layer": "Layer 2",
+      "name": "Cars",
+      "mask": "2 (2^1)",
+      "entities": "Агенты Car (CharacterBody2D)",
+      "note": "Машины НЕ сталкиваются друг с другом (mask=5 не включает бит 2), иначе 50 машин толпились бы на старте."
+    },
+    {
+      "layer": "Layer 3",
+      "name": "LethalObstacles",
+      "mask": "4 (2^2)",
+      "entities": "RockObstacle, StopSignObstacle, BarrierObstacle",
+      "note": "Car collision_mask = 1 | 4 = 5 -> мгновенная гибель die() при касании стены или преграды."
+    },
+    {
+      "layer": "Layer 4",
+      "name": "Checkpoints",
+      "mask": "8 (2^3)",
+      "entities": "CheckpointNode (Area2D)",
+      "note": "Лучи сенсоров игнорируют чекпоинты (21 не включает бит 8), иначе машины пугались бы финишной линии."
+    },
+    {
+      "layer": "Layer 5",
+      "name": "Pedestrians",
+      "mask": "16 (2^4)",
+      "entities": "PedestrianObstacle (Area2D, monitorable=true)",
+      "note": "Sensor collision_mask = 1 | 4 | 16 = 21 -> лучи видят пешехода заранее (жёлтый цвет), но машина проезжает с кнутом и штрафом скорости."
+    }
   ],
   "gitRules": {
     "workflow": [
@@ -1496,6 +1680,4 @@
     }
 
     renderAll();
-  </script>
-</body>
-</html>
+  </script></body></html>
