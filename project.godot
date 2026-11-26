@@ -30,10 +30,6 @@ project/assembly_name="NeuroCars"
 
 pointing/emulate_touch_from_mouse=true
 
-[physics]
-
-3d/physics_engine="Jolt Physics"
-
 [layer_names]
 
 2d_physics/layer_1="Walls"
@@ -41,6 +37,10 @@ pointing/emulate_touch_from_mouse=true
 2d_physics/layer_3="LethalObstacles"
 2d_physics/layer_4="Checkpoints"
 2d_physics/layer_5="Pedestrians"
+
+[physics]
+
+3d/physics_engine="Jolt Physics"
 
 [rendering]
 

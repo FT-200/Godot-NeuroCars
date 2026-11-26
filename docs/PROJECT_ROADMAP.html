@@ -1,0 +1,1501 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Godot-NeuroCars — Родмап, Архитектура и Защита ПМ 07</title>
+  <style>
+    :root {
+      --bg: #0b1018;
+      --bg-elev: #111927;
+      --bg-card: #151f30;
+      --bg-soft: #1b283d;
+      --border: #253652;
+      --border-strong: #2f4b75;
+      --text: #eef3fb;
+      --text-muted: #98a9c4;
+      --accent: #249ef8;
+      --accent-soft: rgba(36, 158, 248, 0.14);
+      --green: #2ee585;
+      --green-soft: rgba(46, 229, 133, 0.14);
+      --amber: #f5b82e;
+      --amber-soft: rgba(245, 184, 46, 0.15);
+      --red: #f2495c;
+      --red-soft: rgba(242, 73, 92, 0.15);
+      --purple: #a78bfa;
+      --purple-soft: rgba(167, 139, 250, 0.15);
+      --radius: 12px;
+      --shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+    }
+
+    * { box-sizing: border-box; }
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: radial-gradient(circle at top right, #122038 0%, var(--bg) 52%);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Inter, Arial, sans-serif;
+      line-height: 1.5;
+      min-height: 100vh;
+    }
+
+    code, pre {
+      font-family: "Cascadia Code", "JetBrains Mono", Consolas, monospace;
+      font-size: 0.9em;
+    }
+    code {
+      background: rgba(36, 158, 248, 0.12);
+      color: #8fd0ff;
+      padding: 2px 6px;
+      border-radius: 6px;
+      border: 1px solid rgba(36, 158, 248, 0.22);
+      word-break: break-word;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(11, 16, 24, 0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .topbar-inner {
+      max-width: 1320px;
+      margin: 0 auto;
+      padding: 12px 18px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .brand-badge {
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, #249ef8, #14629e);
+      display: grid;
+      place-items: center;
+      font-weight: 800;
+      font-size: 16px;
+      color: #fff;
+      box-shadow: 0 4px 14px rgba(36, 158, 248, 0.35);
+    }
+    .brand h1 {
+      margin: 0;
+      font-size: 1.08rem;
+      font-weight: 700;
+      letter-spacing: 0.2px;
+    }
+    .brand-sub {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .nav-tabs {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .nav-link {
+      text-decoration: none;
+      color: var(--text-muted);
+      background: var(--bg-elev);
+      border: 1px solid var(--border);
+      padding: 8px 14px;
+      border-radius: 9px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      transition: 0.16s ease;
+    }
+    .nav-link:hover { border-color: var(--accent); color: var(--text); }
+    .nav-link.active {
+      background: var(--accent-soft);
+      border-color: var(--accent);
+      color: #8fd0ff;
+    }
+
+    .container {
+      max-width: 1320px;
+      margin: 0 auto;
+      padding: 20px 18px 64px;
+      display: flex;
+      flex-direction: column;
+      gap: 22px;
+    }
+
+    .toolbar {
+      background: var(--bg-elev);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      box-shadow: var(--shadow);
+    }
+    .toolbar-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .btn-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    button, .btn {
+      cursor: pointer;
+      border: 1px solid var(--border-strong);
+      background: var(--bg-soft);
+      color: var(--text);
+      padding: 8px 13px;
+      border-radius: 9px;
+      font-size: 0.86rem;
+      font-weight: 600;
+      transition: 0.15s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    button:hover {
+      border-color: var(--accent);
+      background: #21324d;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, #249ef8, #1673c2);
+      border-color: #3db0ff;
+      color: #fff;
+    }
+    .btn-primary:hover { filter: brightness(1.08); background: linear-gradient(135deg, #249ef8, #1673c2); }
+    .btn-success {
+      background: rgba(46, 229, 133, 0.16);
+      border-color: rgba(46, 229, 133, 0.55);
+      color: #93f7c0;
+    }
+    .btn-danger {
+      background: var(--red-soft);
+      border-color: rgba(242, 73, 92, 0.5);
+      color: #ff9ba6;
+    }
+    .btn-sm { padding: 5px 9px; font-size: 0.78rem; border-radius: 7px; }
+
+    .sync-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+    }
+    .sync-pill.dirty {
+      border-color: var(--amber);
+      background: var(--amber-soft);
+      color: #ffd97d;
+    }
+    .sync-pill.clean {
+      border-color: rgba(46, 229, 133, 0.4);
+      color: #93f7c0;
+    }
+
+    .progress-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .progress-head {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+    .progress-track {
+      width: 100%;
+      height: 11px;
+      background: #0b111b;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      overflow: hidden;
+    }
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #249ef8, #2ee585);
+      width: 0%;
+      transition: width 0.25s ease;
+    }
+
+    .banner-conflict {
+      background: var(--amber-soft);
+      border: 1px solid var(--amber);
+      border-radius: var(--radius);
+      padding: 12px 16px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      font-size: 0.9rem;
+    }
+
+    .section-card {
+      background: var(--bg-elev);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px;
+      box-shadow: var(--shadow);
+    }
+    .section-header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 14px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--border);
+    }
+    .section-title {
+      margin: 0;
+      font-size: 1.15rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .section-sub {
+      color: var(--text-muted);
+      font-size: 0.86rem;
+      margin: 0;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
+      gap: 14px;
+    }
+    .box {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px;
+    }
+    .box h3 {
+      margin: 0 0 10px;
+      font-size: 0.98rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .box ul {
+      margin: 0;
+      padding-left: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+      font-size: 0.88rem;
+      color: #dbe5f5;
+    }
+
+    .stages-list {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .stage-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--accent);
+      border-radius: 11px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .stage-card.status-DONE { border-left-color: var(--green); }
+    .stage-card.status-IN_PROGRESS { border-left-color: var(--amber); }
+    .stage-card.status-BACKLOG { border-left-color: var(--purple); }
+
+    .stage-top {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 10px;
+    }
+    .stage-title-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px;
+    }
+    .stage-title {
+      margin: 0;
+      font-size: 1.04rem;
+      font-weight: 700;
+    }
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 3px 9px;
+      border-radius: 999px;
+      font-size: 0.74rem;
+      font-weight: 700;
+      border: 1px solid transparent;
+    }
+    .pill-DONE { background: var(--green-soft); color: #84f5b8; border-color: rgba(46, 229, 133, 0.35); }
+    .pill-IN_PROGRESS { background: var(--amber-soft); color: #ffd97d; border-color: rgba(245, 184, 46, 0.4); }
+    .pill-PLANNED { background: var(--accent-soft); color: #8fd0ff; border-color: rgba(36, 158, 248, 0.35); }
+    .pill-BACKLOG { background: var(--purple-soft); color: #d3c2ff; border-color: rgba(167, 139, 250, 0.38); }
+    .pill-role { background: #1d2a40; color: #c7d6ee; border-color: var(--border-strong); }
+
+    .stage-desc {
+      margin: 0;
+      font-size: 0.89rem;
+      color: var(--text-muted);
+    }
+    .stage-roles-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 8px;
+    }
+    .role-chip {
+      background: rgba(11, 16, 24, 0.65);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 8px 10px;
+      font-size: 0.82rem;
+    }
+    .role-chip strong { color: #8fd0ff; }
+
+    .milestones {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .milestone-item {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 10px;
+      background: rgba(11, 16, 24, 0.55);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 8px 10px;
+      font-size: 0.87rem;
+    }
+    .milestone-label {
+      display: flex;
+      align-items: flex-start;
+      gap: 9px;
+      cursor: pointer;
+      flex: 1;
+    }
+    .milestone-label input[type="checkbox"] {
+      margin-top: 3px;
+      width: 16px;
+      height: 16px;
+      accent-color: var(--green);
+      cursor: pointer;
+    }
+    .milestone-done { text-decoration: line-through; color: var(--text-muted); }
+
+    .flow-steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 10px;
+    }
+    .flow-step {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 12px;
+      position: relative;
+    }
+    .flow-num {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 800;
+      color: var(--accent);
+      background: var(--accent-soft);
+      padding: 2px 7px;
+      border-radius: 999px;
+      margin-bottom: 6px;
+    }
+    .flow-step h4 { margin: 0 0 5px; font-size: 0.92rem; }
+    .flow-step p { margin: 0; font-size: 0.82rem; color: var(--text-muted); }
+
+    .table-wrap {
+      overflow-x: auto;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.85rem;
+      background: var(--bg-card);
+    }
+    th, td {
+      padding: 10px 12px;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+    }
+    th {
+      background: #101826;
+      color: #a9bedd;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+    tr:last-child td { border-bottom: none; }
+
+    details {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 10px 14px;
+    }
+    details + details { margin-top: 8px; }
+    summary {
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 0.92rem;
+      color: #dbe8ff;
+      list-style: none;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+    summary::-webkit-details-marker { display: none; }
+    summary::after { content: "▾"; color: var(--accent); font-size: 0.9rem; }
+    details[open] summary::after { content: "▴"; }
+    details .qa-body {
+      margin-top: 10px;
+      padding-top: 10px;
+      border-top: 1px solid var(--border);
+      font-size: 0.87rem;
+      color: #d0dcf0;
+    }
+
+    select, input[type="text"], textarea {
+      background: #0c121d;
+      color: var(--text);
+      border: 1px solid var(--border-strong);
+      border-radius: 8px;
+      padding: 7px 10px;
+      font-family: inherit;
+      font-size: 0.86rem;
+    }
+    select:focus, input[type="text"]:focus, textarea:focus {
+      outline: none;
+      border-color: var(--accent);
+    }
+
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(4, 7, 13, 0.78);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      z-index: 100;
+    }
+    .modal-backdrop.open { display: flex; }
+    .modal {
+      width: 100%;
+      max-width: 640px;
+      max-height: 90vh;
+      overflow-y: auto;
+      background: var(--bg-elev);
+      border: 1px solid var(--border-strong);
+      border-radius: 14px;
+      padding: 20px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .modal h3 { margin: 0; font-size: 1.08rem; }
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      font-size: 0.84rem;
+      color: var(--text-muted);
+    }
+    .toast {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      background: #132238;
+      border: 1px solid var(--accent);
+      color: var(--text);
+      padding: 10px 15px;
+      border-radius: 10px;
+      font-size: 0.86rem;
+      font-weight: 600;
+      box-shadow: var(--shadow);
+      z-index: 120;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(8px);
+      transition: 0.2s ease;
+    }
+    .toast.show { opacity: 1; transform: translateY(0); }
+
+    @media (max-width: 680px) {
+      .topbar-inner { padding: 10px 12px; }
+      .container { padding: 14px 12px 54px; }
+      .section-card { padding: 14px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand">
+        <div class="brand-badge">NC</div>
+        <div>
+          <h1>Godot-NeuroCars • Родмап и Архитектура (ПМ 07)</h1>
+          <div class="brand-sub">Академический проект колледжа • Симулятор нейроэволюции гонок → Production .apk</div>
+        </div>
+      </div>
+      <nav class="nav-tabs" aria-label="Навигация по документам">
+        <a class="nav-link active" href="PROJECT_ROADMAP.html">🗺️ Родмап и Архитектура</a>
+        <a class="nav-link" href="TEAM_PLAN.html">👥 Командный План и Задачи</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <div id="conflict-banner" class="banner-conflict" style="display:none;"></div>
+
+    <section class="toolbar">
+      <div class="toolbar-row">
+        <div class="btn-group">
+          <button class="btn-primary" id="btn-add-stage">+ Добавить этап / требование препода</button>
+          <button class="btn-success" id="btn-save-html">💾 Сохранить .html (для Git)</button>
+          <button id="btn-export-txt">📄 Скачать .txt</button>
+          <button id="btn-reset-cache">↺ Сброс кэша к файлу</button>
+        </div>
+        <div id="sync-indicator" class="sync-pill clean">Git rev #1 • Синхронизировано</div>
+      </div>
+      <div class="progress-wrap">
+        <div class="progress-head">
+          <span>Общая готовность проекта до чистовой сдачи ПМ 07 (.apk)</span>
+          <strong id="overall-progress-text">0 / 0 вех (0%)</strong>
+        </div>
+        <div class="progress-track">
+          <div id="overall-progress-fill" class="progress-fill"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-card">
+      <div class="section-header">
+        <div>
+          <h2 class="section-title">🔍 Аудит текущей точки старта (ветка <code>Best-Branch</code>, коммит <code>cbf1eaa</code>)</h2>
+          <p class="section-sub">Честный разбор: что уже работает в Godot 4.7 (Mobile renderer) и какие 7 блокеров отделяют проект от чистого GitHub и .apk на смартфоне.</p>
+        </div>
+      </div>
+      <div class="grid-2" id="audit-container"></div>
+    </section>
+
+    <section class="section-card">
+      <div class="section-header">
+        <div>
+          <h2 class="section-title">🗺️ Поэтапный Родмап (Пн → Чт PR/тест → Пт/Пн сдача)</h2>
+          <p class="section-sub">Редактируйте этапы, отмечайте вехи, меняйте статусы и добавляйте новые еженедельные требования преподавателя. После правок нажмите «💾 Сохранить .html (для Git)».</p>
+        </div>
+      </div>
+      <div class="stages-list" id="stages-container"></div>
+    </section>
+
+    <section class="section-card">
+      <div class="section-header">
+        <div>
+          <h2 class="section-title">🧠 Интерактивная карта архитектуры («Что за что отвечает»)</h2>
+          <p class="section-sub">Учебный навигатор для всех 4 участников: как данные проходят за 1 кадр симуляции, кто владеет какими файлами и зачем нужны битовые маски.</p>
+        </div>
+      </div>
+
+      <h3 style="margin:0 0 10px; font-size:0.96rem;">Поток данных одного физического шага симуляции (<code>_physics_process</code>)</h3>
+      <div class="flow-steps" id="flow-container"></div>
+
+      <h3 style="margin:20px 0 10px; font-size:0.96rem;">Карта файлов и папок проекта по владельцам</h3>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Путь в репозитории</th>
+              <th>Класс / Тип</th>
+              <th>Ответственный</th>
+              <th>За что отвечает простыми словами</th>
+            </tr>
+          </thead>
+          <tbody id="files-table-body"></tbody>
+        </table>
+      </div>
+
+      <h3 style="margin:20px 0 10px; font-size:0.96rem;">Контракт 2D-слоёв и битовых масок физики (<code>project.godot</code> + <code>SimulationConfig</code>)</h3>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Layer</th>
+              <th>Имя слоя</th>
+              <th>Битовая маска</th>
+              <th>Кто находится на слое</th>
+              <th>Почему маска машины = 5, а сенсоров = 21</th>
+            </tr>
+          </thead>
+          <tbody id="layers-table-body"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="section-card">
+      <div class="section-header">
+        <div>
+          <h2 class="section-title">🎓 Стандарт Git/GitHub и Подготовка к Защите ПМ 07</h2>
+          <p class="section-sub">Правила работы команды без конфликтов сцен <code>.tscn</code> и шпаргалка ответов на каверзные вопросы преподавателя.</p>
+        </div>
+      </div>
+      <div class="grid-2" id="git-rules-container" style="margin-bottom:18px;"></div>
+      <h3 style="margin:0 0 10px; font-size:0.96rem;">Типовые вопросы преподавателя на защите и сильные академические ответы</h3>
+      <div id="qa-container"></div>
+    </section>
+  </main>
+
+  <div id="stage-modal" class="modal-backdrop" role="dialog" aria-modal="true">
+    <div class="modal">
+      <h3 id="modal-title">Редактировать этап</h3>
+      <input type="hidden" id="m-stage-id">
+      <div class="field">
+        Название этапа
+        <input type="text" id="m-title" placeholder="Например: Этап 6 — Неделя 6 (Новое задание преподавателя)">
+      </div>
+      <div class="grid-2">
+        <div class="field">
+          Неделя / Срок
+          <input type="text" id="m-timeframe" placeholder="Неделя 6 (Пн–Пн)">
+        </div>
+        <div class="field">
+          Статус
+          <select id="m-status">
+            <option value="PLANNED">PLANNED (Запланирован)</option>
+            <option value="IN_PROGRESS">IN_PROGRESS (В работе)</option>
+            <option value="DONE">DONE (Готов)</option>
+            <option value="BACKLOG">BACKLOG (Резерв)</option>
+          </select>
+        </div>
+      </div>
+      <div class="field">
+        Цель и краткое описание
+        <textarea id="m-summary" rows="3"></textarea>
+      </div>
+      <div class="grid-2">
+        <div class="field">
+          Зона Даниала
+          <input type="text" id="m-role-danial">
+        </div>
+        <div class="field">
+          Зона Тамерлана
+          <input type="text" id="m-role-tamerlan">
+        </div>
+        <div class="field">
+          Зона Бахтияра
+          <input type="text" id="m-role-bakhtiyar">
+        </div>
+        <div class="field">
+          Зона Санжара (Unassigned / Assistant)
+          <input type="text" id="m-role-sanzhar">
+        </div>
+      </div>
+      <div class="btn-group" style="justify-content:flex-end; margin-top:6px;">
+        <button id="m-cancel">Отмена</button>
+        <button class="btn-primary" id="m-save">Применить</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast" class="toast"></div>
+
+  <!-- =========================================================================
+       ИНСТРУКЦИЯ ПО РУЧНОМУ / ИИ-РЕДАКТИРОВАНИЮ ДЛЯ GIT:
+       Все динамические данные Родмапа хранятся ТОЛЬКО в JSON-блоке ниже.
+       При правке вручную или через ИИ:
+       1) Увеличьте meta.revision на +1, чтобы браузеры команды автоматически
+          подтянули обновление после git pull.
+       2) Используйте отступы 2 пробела для чистого git diff.
+       ========================================================================= -->
+  <script id="app-data" type="application/json">
+{
+  "meta": {
+    "project": "Godot-NeuroCars",
+    "docType": "roadmap",
+    "revision": 1,
+    "updatedAt": "2026-11-26"
+  },
+  "audit": {
+    "working": [
+      "Модульная 6-слойная структура (core, ai, agents, track, obstacles, ui) в ветке Best-Branch (Godot 4.7, renderer=mobile).",
+      "Рабочий MLP [13, 14, 8, 2] в NeuralNetwork: активация tanh, веса Xavier/Glorot, кроссовер по нейронам, мутация и готовые to_dict()/from_dict().",
+      "Генетический оптимизатор GeneticEvolver: элитизм (4 лучших), турнирная селекция (топ-10), инъекция 3 случайных особей, буст мутации при стагнации.",
+      "6 процедурно-векторных карт (map_01..map_06) с графом чекпоинтов CheckpointNode, шорткатами, безопасными воротами DynamicTrackGate (SafetySensor) и сменой маршрута каждые 3 круга.",
+      "4 типа препятствий (Rock, StopSign, Barrier, патрулирующий PedestrianObstacle с штрафом и замедлением разгона) и гарантией коридора объезда >= 42 px."
+    ],
+    "blockers": [
+      "Рассинхрон Git: main застрял на первом прототипе (67b25c0), актуальный код в Best-Branch, а PiP-камера Санжара (a8224a8) ответвлена от старого main и ещё не интегрирована.",
+      "Технический долг репозитория: остался битый дубликат scenes/car.tscn (ссылается на удалённый scripts/car.gd), нет корневого README.md, в .gitignore нет *.apk/*.aab/*.keystore, у автора feature/pip-camera указан student <you@example.com>.",
+      "Камера работает только от мыши (колесо + ПКМ/СКМ в camera_controller.gd): на Android нет pinch-to-zoom двумя пальцами и свайп-панорамирования.",
+      "Десктопные хоткеи без кнопок: [R] лучи, [G] ворота, [Space] следующее поколение в simulation_manager.gd не имеют сенсорных кнопок на HUD, а внизу висит подсказка клавиш.",
+      "Мелкий тап-таргет и отсутствие UI слежения в новом HUD: машина 40x20 px при зуме 0.36 слишком мала для пальца, нужна увеличенная тач-зона и кнопки ◀/▶/✕ на PiP-панели.",
+      "Нет сохранения прогресса обучения (user://) и нет Android-продакшен обвязки (Главное меню/Пауза, фиксация Landscape, Safe Area, обработка сворачивания, export_presets.cfg).",
+      "Нулевые комментарии в .gd файлах: проект пересобран с помощью ИИ, поэтому без осознанного комментирования каждым участником защита перед преподавателем ПМ 07 под риском."
+    ]
+  },
+  "stages": [
+    {
+      "id": "stage-0",
+      "title": "Этап 0 — Базовый прототип и модульное ядро симуляции",
+      "timeframe": "База (выполнено до 25.11)",
+      "status": "DONE",
+      "summary": "Переход от монолитного main.gd к 6 слоям ответственности, 9 лучей, 6 карт, граф маршрутов, ворота и спавнер препятствий в ветке Best-Branch.",
+      "roles": {
+        "Даниал": "Архитектура папок, 6 сцен карт, TrackGeometryBuilder, ObstacleSpawner",
+        "Тамерлан": "Сборка прототипа и миграция базовой логики машины и симуляции",
+        "Бахтияр": "Прототип MLP и базовой эволюционной логики",
+        "Санжар": "Прототип мини-экрана слежки за машинкой в отдельной ветке feature/pip-camera"
+      },
+      "milestones": [
+        { "id": "m0-1", "text": "Разделены слои core / ai / agents / track / obstacles / ui", "done": true },
+        { "id": "m0-2", "text": "Реализованы 9 сенсоров RayCast2D, граф чекпоинтов и 4 типа преград", "done": true },
+        { "id": "m0-3", "text": "Подготовлен первый прототип PiP-камеры в feature/pip-camera", "done": true }
+      ]
+    },
+    {
+      "id": "stage-1",
+      "title": "Этап 1 — Чистый GitHub, интеграция PiP-камеры и академический разбор кода",
+      "timeframe": "Неделя 1 (Пн → Чт PR / Пт–Пн сдача)",
+      "status": "IN_PROGRESS",
+      "summary": "Приводим репозиторий в порядок для сдачи: чистый main, удаление битых сцен, перенос PiP-модуля Санжара в новую архитектуру и осмысленное комментирование каждого скрипта.",
+      "roles": {
+        "Даниал": "Очистка scenes/car.tscn, .gitignore под Android, слияние Best-Branch -> main, README.md, правила Git",
+        "Тамерлан": "Сигнал выбора и тач-зона в car.gd/car.tscn, комментарии к car.gd и simulation_manager.gd",
+        "Бахтияр": "Математический разбор и комментарии к neural_network.gd и genetic_evolver.gd",
+        "Санжар": "Перенос PiP-экрана слежки из feature/pip-camera в scenes/ui/pip_watcher.tscn + scripts/ui/pip_watcher.gd"
+      },
+      "milestones": [
+        { "id": "m1-1", "text": "Best-Branch перенесён в чистый main, scenes/car.tscn удалён, git config настроен у всех 4", "done": false },
+        { "id": "m1-2", "text": "PiP-камера Санжара работает в новой архитектуре через сигналы и клик/тап по машине", "done": false },
+        { "id": "m1-3", "text": "Каждый участник прокомментировал свои .gd модули (зачем метод/формула, а не пересказ синтаксиса)", "done": false },
+        { "id": "m1-4", "text": "Написан корневой README.md со схемой проекта, ролями и инструкцией запуска", "done": false }
+      ]
+    },
+    {
+      "id": "stage-2",
+      "title": "Этап 2 — Мобильная тач-адаптация и первый живой Debug .apk",
+      "timeframe": "Неделя 2 (Пн → Чт PR / Пт–Пн сдача)",
+      "status": "PLANNED",
+      "summary": "Убираем всю зависимость от мыши и клавиатуры, адаптируем интерфейс под телефоны с вырезами и собираем первый рабочий Debug .apk для тестов на смартфонах команды.",
+      "roles": {
+        "Даниал": "Фиксация Landscape-ориентации, настройка Android SDK/export_presets.cfg, проверка масштаба карт на экране",
+        "Тамерлан": "Мультитач-камера (pinch-to-zoom + свайп 1 пальцем) в camera_controller.gd, события тапа",
+        "Бахтияр": "Логирование ключевых метрик поколений для проверки скорости обучения на телефоне",
+        "Санжар": "Тач-кнопки HUD ([Лучи], [Ворота], [След. поколение]), кнопки ◀/▶/✕ на PiP, удаление десктопной строки хоткеев, Safe Area"
+      },
+      "milestones": [
+        { "id": "m2-1", "text": "Pinch-to-zoom и свайп-панорамирование работают плавно на сенсорном экране без конфликта с тапом по машине", "done": false },
+        { "id": "m2-2", "text": "Все действия ([R], [G], [Space], переключение PiP) доступны с тач-кнопок и не обрезаются вырезом экрана", "done": false },
+        { "id": "m2-3", "text": "Собран первый Debug .apk и успешно запущен минимум на 2 Android-телефонах команды", "done": false }
+      ]
+    },
+    {
+      "id": "stage-3",
+      "title": "Этап 3 — Сохранение мозгов (user://), Меню/Пауза и устойчивость Android",
+      "timeframe": "Неделя 3 (Пн → Чт PR / Пт–Пн сдача)",
+      "status": "PLANNED",
+      "summary": "Делаем из прототипа полноценное мобильное приложение: прогресс ИИ не теряется при закрытии, есть экран старта, пауза и аналитика эволюции.",
+      "roles": {
+        "Даниал": "Ревью архитектуры новых модулей, сохранение чистоты репозитория, сборка тестового .apk №2",
+        "Тамерлан": "Интеграция паузы, автосохранения при сворачивании (NOTIFICATION_APPLICATION_PAUSED) и кнопки управления мозгами",
+        "Бахтияр": "Модули brain_storage.gd (сохранение/загрузка весов по картам в user://) и evolution_metrics.gd (история фитнеса)",
+        "Санжар": "Unassigned -> Главный кандидат на экран Главного меню / Паузы и панель статистики/мозгов (по согласованию с ТЗ недели)"
+      },
+      "milestones": [
+        { "id": "m3-1", "text": "Работает сохранение и загрузка лучшего мозга по каждой карте (user://brains/*.json) с проверкой совместимости слоёв", "done": false },
+        { "id": "m3-2", "text": "Есть Главное меню / Пауза и корректная реакция на сворачивание/возврат приложения на Android", "done": false },
+        { "id": "m3-3", "text": "На HUD или в модалке отображается динамика поколений (рекорд / средний фитнес / стагнация)", "done": false }
+      ]
+    },
+    {
+      "id": "stage-4",
+      "title": "Этап 4 — Профилирование производительности Android и задания ТЗ недели",
+      "timeframe": "Неделя 4 (Пн → Чт PR / Пт–Пн сдача)",
+      "status": "PLANNED",
+      "summary": "Оптимизируем 60 FPS на смартфонах при ускорении x5/x10 и закладываем буфер под текущие требования преподавателя.",
+      "roles": {
+        "Даниал": "Проверка коллизий/полигонов карт на слабых телефонах, координация еженедельного задания препода",
+        "Тамерлан": "Пресеты размера популяции (25 / 35 / 50 машин), оптимизация отрисовки лучей и физики на x5/x10",
+        "Бахтияр": "Калибровка параметров GeneticEvolver для быстрой сходимости даже при малой мобильной популяции (25 машин)",
+        "Санжар": "Unassigned / Гибкий ассистент: реализация еженедельного ТЗ преподавателя + чек-лист ручного теста на смартфоне"
+      },
+      "milestones": [
+        { "id": "m4-1", "text": "Стабильная работа симуляции на Android при скорости x5 без зависания тач-интерфейса", "done": false },
+        { "id": "m4-2", "text": "Закрыты все индивидуальные требования из еженедельных заданий преподавателя", "done": false }
+      ]
+    },
+    {
+      "id": "stage-5",
+      "title": "Этап 5 — Финальный Release .apk, GitHub Release v1.0.0 и Защита ПМ 07",
+      "timeframe": "Неделя 5 (Финал модуля)",
+      "status": "PLANNED",
+      "summary": "Подписываем Release .apk, оформляем тег/релиз на GitHub, фиксируем протокол тестирования на реальных устройствах и репетируем академическую защиту.",
+      "roles": {
+        "Даниал": "Финальная зачистка веток, Release .apk (keystore вне Git!), GitHub Release v1.0.0, защита архитектуры и карт",
+        "Тамерлан": "Защита физики машины, сенсорики, камеры, жизненного цикла и мобильной оптимизации",
+        "Бахтияр": "Защита математической модели перцептрона [13,14,8,2], генетического отбора и сериализации",
+        "Санжар": "Защита PiP-слежки, мобильного UI/HUD, сценариев тестирования .apk на смартфонах"
+      },
+      "milestones": [
+        { "id": "m5-1", "text": "Собран подписанный Release .apk и прикреплён к GitHub Release v1.0.0 (без .keystore в репозитории)", "done": false },
+        { "id": "m5-2", "text": "Пройден полный смоук-тест на Android: старт, обучение, смена 6 карт, перенос/сохранение мозга, PiP, поворот/пауза", "done": false },
+        { "id": "m5-3", "text": "Каждый из 4 участников уверенно отвечает по своему блоку вопросов к защите", "done": false }
+      ]
+    },
+    {
+      "id": "stage-backlog",
+      "title": "Backlog — Резервные идеи (только если останется время или попросит преподаватель)",
+      "timeframe": "По запросу",
+      "status": "BACKLOG",
+      "summary": "Фичи сверх базового продакшена .apk. Не брать в работу, пока не закрыты Этапы 1–5 и все пункты ТЗ преподавателя.",
+      "roles": {
+        "Даниал": "Идеи новых карт (7+) или режим турнира сохранённых чемпионов",
+        "Тамерлан": "Опционально: режим ручного заезда игрока против лучшего ИИ (если преподаватель всё-таки попросит гонку)",
+        "Бахтияр": "Визуализатор активных нейронов и весов лидера прямо в HUD",
+        "Санжар": "Гибкая помощь с любым выбранным бонусным модулем"
+      },
+      "milestones": [
+        { "id": "mb-1", "text": "[Опционально] Визуализация графа нейронов [13, 14, 8, 2] для живой демонстрации на защите", "done": false },
+        { "id": "mb-2", "text": "[По запросу препода] Режим «Игрок vs Чемпион ИИ» с экранным рулём и педалями", "done": false }
+      ]
+    }
+  ],
+  "architectureFlow": [
+    {
+      "step": "1. Сенсоры и среда",
+      "title": "RayCast2D + CheckpointNode",
+      "desc": "9 лучей на маске 21 (стены, препятствия, пешеходы) измеряют дистанции; TrackMap выдаёт координаты следующего открытого чекпоинта."
+    },
+    {
+      "step": "2. Вектор признаков",
+      "title": "Car._collect_inputs() [13 чисел]",
+      "desc": "9 нормированных дистанций (0..1) + 2 проекции цели (forward_dot, right_dot) + скорость/max + таймер штрафа пешехода."
+    },
+    {
+      "step": "3. Инференс мозга",
+      "title": "NeuralNetwork.predict()",
+      "desc": "Матричное умножение по слоям [13 -> 14 -> 8 -> 2] с активацией tanh. На выходе steer (-1..1) и throttle."
+    },
+    {
+      "step": "4. Физика и награда",
+      "title": "CharacterBody2D.move_and_collide()",
+      "desc": "Плавный разгон/торможение, начисление fitness за дистанцию, чекпоинты, шорткаты (+240) и круги (+650), либо die() / штраф пешехода."
+    },
+    {
+      "step": "5. Смена маршрута",
+      "title": "TrackMap + DynamicTrackGate",
+      "desc": "Каждые 3 круга лидера открывается новая ветвь (A/B/C), старые ворота безопасно закрываются через SafetySensor, спавнятся новые преграды."
+    },
+    {
+      "step": "6. Эволюция",
+      "title": "SimulationManager + GeneticEvolver",
+      "desc": "Когда живых 0 или вышел таймер, отбираются 4 элиты, делаются кроссовер и мутация (с бустом при стагнации >= 3), рождается новое поколение."
+    }
+  ],
+  "fileMap": [
+    { "path": "scripts/core/simulation_manager.gd", "type": "class_name SimulationManager", "owner": "Тамерлан", "desc": "Главный цикл поколений, загрузка карт, лидер, таймер, перенос мозга между картами." },
+    { "path": "scripts/core/simulation_config.gd", "type": "class_name SimulationConfig", "owner": "Тамерлан", "desc": "Единые константы: битовые слои физики, [13,14,8,2], штрафы, бонусы, тайминги." },
+    { "path": "scripts/core/map_registry.gd", "type": "class_name MapRegistry", "owner": "Даниал", "desc": "Каталог 6 трасс (название, звёзды сложности, путь к сцене, размер популяции)." },
+    { "path": "scripts/ai/neural_network.gd", "type": "class_name NeuralNetwork", "owner": "Бахтияр", "desc": "MLP произвольной топологии, Xavier-инициализация, predict(), crossover(), mutate(), JSON to_dict/from_dict." },
+    { "path": "scripts/ai/genetic_evolver.gd", "type": "class_name GeneticEvolver", "owner": "Бахтияр", "desc": "Эволюция популяции: элитизм (4), турнирный отбор, инъекция 3 случайных мозгов, адаптация мутации." },
+    { "path": "scripts/ai/brain_storage.gd [План]", "type": "class_name BrainStorage", "owner": "Бахтияр", "desc": "Сохранение и загрузка весов лучшего мозга в user://brains/ с метаданными карты и рекорда." },
+    { "path": "scripts/agents/car.gd + scenes/agents/car.tscn", "type": "class_name Car", "owner": "Тамерлан", "desc": "Физика машинки, 9 RayCast2D, сбор 13 входов, штраф от пешехода, отрисовка лучей и тап-выбор." },
+    { "path": "scripts/track/track_map.gd", "type": "class_name TrackMap", "owner": "Даниал", "desc": "Координатор конкретной карты: граф чекпоинтов, переключение маршрутов A/B/C, управление воротами." },
+    { "path": "scripts/track/track_geometry_builder.gd", "type": "class_name TrackGeometryBuilder", "owner": "Даниал", "desc": "Сплайны Катмулла-Рома, склейка полотна и стен, генерация бордюров и поребриков." },
+    { "path": "scripts/track/dynamic_track_gate.gd", "type": "class_name DynamicTrackGate", "owner": "Даниал", "desc": "Управляемые ворота (OPEN/WARNING/CLOSED) с SafetySensor, чтобы не замуровывать машины." },
+    { "path": "scripts/track/obstacle_spawner.gd", "type": "class_name ObstacleSpawner", "owner": "Даниал", "desc": "Случайный спавн 4 типов преград по слотам активного маршрута с гарантией проезда >= 42 px." },
+    { "path": "scripts/obstacles/*", "type": "ObstacleBase / PedestrianObstacle", "owner": "Даниал", "desc": "3 фатальных объекта (Rock, StopSign, Barrier) и патрулирующий пешеход (Area2D)." },
+    { "path": "scripts/ui/camera_controller.gd", "type": "class_name CameraController", "owner": "Тамерлан", "desc": "Режимы Обзор / Лидер, сглаженный зум и панорамирование (добавить мультитач для Android)." },
+    { "path": "scripts/ui/hud.gd + scenes/ui/hud.tscn", "type": "class_name SimulationHUD", "owner": "Санжар", "desc": "Телеметрия, переключение карт, скорость x1..x10, баннер событий и будущие тач-кнопки." },
+    { "path": "scripts/ui/pip_watcher.gd [Из ветки Санжара]", "type": "class_name PipWatcher", "owner": "Санжар", "desc": "Мини-окно слежения (SubViewport) за выбранной машинкой с кнопками ◀/▶/✕ для смартфона." }
+  ],
+  "physicsLayers": [
+    { "layer": "Layer 1", "name": "Walls", "mask": "1 (2^0)", "entities": "Стены трассы (StaticBody2D) и закрытые DynamicTrackGate", "note": "Участвует и в коллизии машины, и в лучах сенсоров." },
+    { "layer": "Layer 2", "name": "Cars", "mask": "2 (2^1)", "entities": "Агенты Car (CharacterBody2D)", "note": "Машины НЕ сталкиваются друг с другом (mask=5 не включает бит 2), иначе 50 машин толпились бы на старте." },
+    { "layer": "Layer 3", "name": "LethalObstacles", "mask": "4 (2^2)", "entities": "RockObstacle, StopSignObstacle, BarrierObstacle", "note": "Car collision_mask = 1 | 4 = 5 -> мгновенная гибель die() при касании стены или преграды." },
+    { "layer": "Layer 4", "name": "Checkpoints", "mask": "8 (2^3)", "entities": "CheckpointNode (Area2D)", "note": "Лучи сенсоров игнорируют чекпоинты (21 не включает бит 8), иначе машины пугались бы финишной линии." },
+    { "layer": "Layer 5", "name": "Pedestrians", "mask": "16 (2^4)", "entities": "PedestrianObstacle (Area2D, monitorable=true)", "note": "Sensor collision_mask = 1 | 4 | 16 = 21 -> лучи видят пешехода заранее (жёлтый цвет), но машина проезжает с кнутом и штрафом скорости." }
+  ],
+  "gitRules": {
+    "workflow": [
+      "Ветка main — всегда рабочая и собираемая версия. Прямые коммиты в main запрещены, только через Pull Request к Даниалу.",
+      "Формат рабочих веток на задачу: feature/tamerlan-touch-camera, feature/sanzhar-pip-ui, feature/bakhtiyar-brain-save, fix/danial-cleanup.",
+      "Никогда не редактировать одну .tscn сцену вдвоём параллельно! Из-за текстовых UUID в Godot мерж .tscn даёт сложные конфликты — сначала договоритесь в TEAM_PLAN.",
+      "Еженедельный ритм: Понедельник (разбор ТЗ препода) → Вт–Ср (код + комментарии) → Четверг (PR в main + сборка и живой тест .apk) → Пятница/Понедельник (сдача)."
+    ],
+    "hygiene": [
+      "У каждого на ПК настроен реальный git config user.name и user.email (никаких student <you@example.com>).",
+      "Осмысленные коммиты: feat: ..., fix: ..., docs: ..., refactor: ... (без 'обнова' или '123').",
+      "Ключи подписи Android (*.keystore, *.jks) и сами сборки (*.apk, *.aab) НЕ коммитятся в Git (лежат в .gitignore и в GitHub Releases)."
+    ]
+  },
+  "qaItems": [
+    {
+      "q": "Почему вы используете нейроэволюцию (генетический алгоритм), а не градиентный спуск / backpropagation?",
+      "a": "В симуляторе нет размеченного датасета 'правильный угол руля для каждого кадра'. Агент оценивается только интегральной наградой (fitness) за прохождение чекпоинтов, скорость и объезд преград. Генетический алгоритм позволяет оптимизировать веса [13, 14, 8, 2] напрямую по функции приспособленности без вычисления градиентов через физический движок."
+    },
+    {
+      "q": "Зачем в Car 13 входов и именно эти 4 группы признаков?",
+      "a": "9 лучей RayCast2D (-75°..+75°, 280 px) дают локальную геометрию коридора и преград; 2 проекции вектора цели (forward_dot, right_dot) подсказывают направление на развилках и при смене маршрута; нормированная скорость нужна, чтобы сеть соотносила тормозной путь с поворотом; таймер штрафа пешехода сигнализирует, что машина временно в режиме ограниченного разгона."
+    },
+    {
+      "q": "Как вы гарантируете, что случайный спавн препятствий не заблокирует трассу намертво?",
+      "a": "ObstacleSpawner хранит для каждого слота касательную и полуширину полотна road_half_width. При выборе бокового смещения проверяется инвариант max(W_half - offset - W_obs, W_half + offset - W_obs) >= 42 px при ширине машины 20 px, плюс выдерживается отступ >= 220 px от старта и >= 155 px между преградами."
+    },
+    {
+      "q": "Как устроена защита от замуровывания машин при закрытии динамических ворот?",
+      "a": "В DynamicTrackGate встроен отдельный Area2D-датчик SafetySensor, сканирующий слой Cars (маска 2). При переходе в CLOSED ворота сначала переходят в WARNING и удерживают коллизию выключенной, пока в створе находятся машины (в пределах grace-окна 0.6 с)."
+    },
+    {
+      "q": "Чем отличаются _process и _physics_process в Godot и почему нейросеть крутится в _physics_process?",
+      "a": "_physics_process вызывается с фиксированным шагом (по умолчанию 60 Гц), синхронно с физическим сервером и RayCast2D. Это критично для детерминированности обучения: при ускорении симуляции x5/x10 или просадке FPS на телефоне физика и сенсоры не 'простреливают' стены и чекпоинты."
+    },
+    {
+      "q": "Как приложение адаптировано именно под мобильные устройства (ПМ 07), а не просто скомпилировано с ПК?",
+      "a": "Используется renderer='mobile', landscape-ориентация и Safe Area отступы от вырезов; управление камерой переведено на мультитач (pinch-to-zoom и свайп); все хоткеи заменены сенсорными кнопками; добавлен PiP-просмотр выбранной машины с тач-кнопками; прогресс обучения сохраняется в user:// через FileAccess и при сворачивании приложения (NOTIFICATION_APPLICATION_PAUSED); проверены пресеты популяции на реальных Android-смартфонах."
+    }
+  ]
+}
+  </script>
+
+  <script>
+    const INITIAL_DOC_SOURCE = "<!DOCTYPE html>\n" + document.documentElement.outerHTML;
+    const STORAGE_KEY = "neurocars_roadmap_draft_v1";
+
+    function escapeHtml(str) {
+      return String(str == null ? "" : str)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#39;");
+    }
+
+    function readEmbeddedData() {
+      const el = document.getElementById("app-data");
+      return JSON.parse(el.textContent);
+    }
+
+    function safeGetDraft() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        return raw ? JSON.parse(raw) : null;
+      } catch (_e) {
+        return null;
+      }
+    }
+
+    function safeSaveDraft(draftObj) {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(draftObj));
+      } catch (_e) {
+        // Ignore restricted storage on some mobile browsers
+      }
+    }
+
+    function safeClearDraft() {
+      try {
+        localStorage.removeItem(STORAGE_KEY);
+      } catch (_e) {
+        // Ignore
+      }
+    }
+
+    function showToast(msg) {
+      const t = document.getElementById("toast");
+      t.textContent = msg;
+      t.classList.add("show");
+      clearTimeout(window.__toastTimer);
+      window.__toastTimer = setTimeout(() => t.classList.remove("show"), 2800);
+    }
+
+    const fileData = readEmbeddedData();
+    const savedDraft = safeGetDraft();
+    let state = {
+      data: JSON.parse(JSON.stringify(fileData)),
+      baseRevision: fileData.meta.revision || 1,
+      dirty: false,
+      conflict: false
+    };
+
+    if (savedDraft && savedDraft.data && savedDraft.data.meta) {
+      const fileRev = Number(fileData.meta.revision || 1);
+      const draftBaseRev = Number(savedDraft.baseRevision || 1);
+      if (fileRev > draftBaseRev && !savedDraft.dirty) {
+        safeClearDraft();
+      } else if (fileRev > draftBaseRev && savedDraft.dirty) {
+        state.data = savedDraft.data;
+        state.baseRevision = draftBaseRev;
+        state.dirty = true;
+        state.conflict = true;
+      } else if (savedDraft.dirty) {
+        state.data = savedDraft.data;
+        state.baseRevision = draftBaseRev;
+        state.dirty = true;
+      }
+    }
+
+    function persistLocal() {
+      state.dirty = true;
+      safeSaveDraft({
+        data: state.data,
+        baseRevision: state.baseRevision,
+        dirty: true
+      });
+      renderSyncState();
+    }
+
+    function renderSyncState() {
+      const pill = document.getElementById("sync-indicator");
+      const rev = state.data.meta.revision || 1;
+      if (state.dirty) {
+        pill.className = "sync-pill dirty";
+        pill.textContent = `Git rev #${rev} • Есть несохранённые в файл правки`;
+      } else {
+        pill.className = "sync-pill clean";
+        pill.textContent = `Git rev #${rev} • Синхронизировано с файлом`;
+      }
+
+      const banner = document.getElementById("conflict-banner");
+      if (state.conflict) {
+        banner.style.display = "flex";
+        banner.innerHTML = `
+          <div>
+            <strong>Обнаружено обновление из Git (rev #${fileData.meta.revision}) при наличии ваших локальных правок (от rev #${state.baseRevision}).</strong>
+            <div style="font-size:0.83rem; opacity:0.9;">Выберите, какую версию оставить в редакторе:</div>
+          </div>
+          <div class="btn-group">
+            <button class="btn-primary btn-sm" id="btn-accept-git">Принять свежую версию из Git</button>
+            <button class="btn-sm" id="btn-keep-draft">Оставить локальный черновик</button>
+          </div>
+        `;
+        document.getElementById("btn-accept-git").onclick = () => {
+          safeClearDraft();
+          state.data = JSON.parse(JSON.stringify(fileData));
+          state.baseRevision = fileData.meta.revision || 1;
+          state.dirty = false;
+          state.conflict = false;
+          renderAll();
+          showToast("Загружена свежая версия из Git");
+        };
+        document.getElementById("btn-keep-draft").onclick = () => {
+          state.baseRevision = fileData.meta.revision || 1;
+          state.conflict = false;
+          persistLocal();
+          renderSyncState();
+          showToast("Сохранён локальный черновик");
+        };
+      } else {
+        banner.style.display = "none";
+      }
+    }
+
+    function renderProgress() {
+      let total = 0;
+      let done = 0;
+      state.data.stages.forEach(st => {
+        if (st.status === "BACKLOG") return;
+        (st.milestones || []).forEach(m => {
+          total += 1;
+          if (m.done) done += 1;
+        });
+      });
+      const pct = total ? Math.round((done / total) * 100) : 0;
+      document.getElementById("overall-progress-text").textContent = `${done} / ${total} вех (${pct}%)`;
+      document.getElementById("overall-progress-fill").style.width = `${pct}%`;
+    }
+
+    function renderAudit() {
+      const container = document.getElementById("audit-container");
+      const workingHtml = state.data.audit.working.map(item => `<li>${escapeHtml(item)}</li>`).join("");
+      const blockersHtml = state.data.audit.blockers.map(item => `<li>${escapeHtml(item)}</li>`).join("");
+      container.innerHTML = `
+        <div class="box" style="border-color:rgba(46,229,133,0.35);">
+          <h3 style="color:#84f5b8;">✅ Что уже готово (сильная база)</h3>
+          <ul>${workingHtml}</ul>
+        </div>
+        <div class="box" style="border-color:rgba(242,73,92,0.38);">
+          <h3 style="color:#ff9ba6;">🚧 Что нужно закрыть до сдачи ПМ 07 (.apk)</h3>
+          <ul>${blockersHtml}</ul>
+        </div>
+      `;
+    }
+
+    function renderStages() {
+      const container = document.getElementById("stages-container");
+      container.innerHTML = "";
+      state.data.stages.forEach((stage, stageIdx) => {
+        const card = document.createElement("article");
+        card.className = `stage-card status-${escapeHtml(stage.status)}`;
+
+        const milestones = stage.milestones || [];
+        const doneCount = milestones.filter(m => m.done).length;
+        const roleEntries = Object.entries(stage.roles || {}).map(([name, text]) => `
+          <div class="role-chip"><strong>${escapeHtml(name)}:</strong> ${escapeHtml(text)}</div>
+        `).join("");
+
+        const milestonesHtml = milestones.map((m, mIdx) => `
+          <div class="milestone-item">
+            <label class="milestone-label ${m.done ? "milestone-done" : ""}">
+              <input type="checkbox" data-stage="${stageIdx}" data-milestone="${mIdx}" ${m.done ? "checked" : ""}>
+              <span>${escapeHtml(m.text)}</span>
+            </label>
+            <button class="btn-sm btn-danger" title="Удалить веху" data-del-ms="${stageIdx}:${mIdx}">✕</button>
+          </div>
+        `).join("");
+
+        card.innerHTML = `
+          <div class="stage-top">
+            <div>
+              <div class="stage-title-row">
+                <h3 class="stage-title">${escapeHtml(stage.title)}</h3>
+                <span class="pill pill-${escapeHtml(stage.status)}">${escapeHtml(stage.status)}</span>
+                <span class="pill pill-role">${escapeHtml(stage.timeframe)}</span>
+                <span class="pill pill-role">${doneCount}/${milestones.length} вех</span>
+              </div>
+              <p class="stage-desc">${escapeHtml(stage.summary)}</p>
+            </div>
+            <div class="btn-group">
+              <select data-stage-status="${stageIdx}" aria-label="Статус этапа">
+                <option value="DONE" ${stage.status === "DONE" ? "selected" : ""}>DONE</option>
+                <option value="IN_PROGRESS" ${stage.status === "IN_PROGRESS" ? "selected" : ""}>IN_PROGRESS</option>
+                <option value="PLANNED" ${stage.status === "PLANNED" ? "selected" : ""}>PLANNED</option>
+                <option value="BACKLOG" ${stage.status === "BACKLOG" ? "selected" : ""}>BACKLOG</option>
+              </select>
+              <button class="btn-sm" data-add-ms="${stageIdx}">+ Веха</button>
+              <button class="btn-sm" data-edit-stage="${stageIdx}">✏️ Изменить</button>
+              <button class="btn-sm btn-danger" data-del-stage="${stageIdx}">🗑️</button>
+            </div>
+          </div>
+          <div class="stage-roles-grid">${roleEntries}</div>
+          <div class="milestones">${milestonesHtml}</div>
+        `;
+        container.appendChild(card);
+      });
+
+      container.querySelectorAll('input[type="checkbox"][data-stage]').forEach(cb => {
+        cb.addEventListener("change", () => {
+          const sIdx = Number(cb.dataset.stage);
+          const mIdx = Number(cb.dataset.milestone);
+          state.data.stages[sIdx].milestones[mIdx].done = cb.checked;
+          persistLocal();
+          renderStages();
+          renderProgress();
+        });
+      });
+
+      container.querySelectorAll("select[data-stage-status]").forEach(sel => {
+        sel.addEventListener("change", () => {
+          const sIdx = Number(sel.dataset.stageStatus);
+          state.data.stages[sIdx].status = sel.value;
+          persistLocal();
+          renderStages();
+          renderProgress();
+        });
+      });
+
+      container.querySelectorAll("button[data-add-ms]").forEach(btn => {
+        btn.addEventListener("click", () => {
+          const sIdx = Number(btn.dataset.addMs);
+          const text = prompt("Введите новую веху / требование для этого этапа:");
+          if (text && text.trim()) {
+            state.data.stages[sIdx].milestones.push({
+              id: "m-" + Date.now(),
+              text: text.trim(),
+              done: false
+            });
+            persistLocal();
+            renderStages();
+            renderProgress();
+          }
+        });
+      });
+
+      container.querySelectorAll("button[data-del-ms]").forEach(btn => {
+        btn.addEventListener("click", () => {
+          const [sIdx, mIdx] = btn.dataset.delMs.split(":").map(Number);
+          state.data.stages[sIdx].milestones.splice(mIdx, 1);
+          persistLocal();
+          renderStages();
+          renderProgress();
+        });
+      });
+
+      container.querySelectorAll("button[data-edit-stage]").forEach(btn => {
+        btn.addEventListener("click", () => openStageModal(Number(btn.dataset.editStage)));
+      });
+
+      container.querySelectorAll("button[data-del-stage]").forEach(btn => {
+        btn.addEventListener("click", () => {
+          const sIdx = Number(btn.dataset.delStage);
+          if (confirm(`Удалить «${state.data.stages[sIdx].title}»?`)) {
+            state.data.stages.splice(sIdx, 1);
+            persistLocal();
+            renderStages();
+            renderProgress();
+          }
+        });
+      });
+    }
+
+    function renderArchitecture() {
+      document.getElementById("flow-container").innerHTML = state.data.architectureFlow.map(f => `
+        <div class="flow-step">
+          <span class="flow-num">${escapeHtml(f.step)}</span>
+          <h4>${escapeHtml(f.title)}</h4>
+          <p>${escapeHtml(f.desc)}</p>
+        </div>
+      `).join("");
+
+      document.getElementById("files-table-body").innerHTML = state.data.fileMap.map(row => `
+        <tr>
+          <td><code>${escapeHtml(row.path)}</code></td>
+          <td><code>${escapeHtml(row.type)}</code></td>
+          <td><span class="pill pill-role">${escapeHtml(row.owner)}</span></td>
+          <td>${escapeHtml(row.desc)}</td>
+        </tr>
+      `).join("");
+
+      document.getElementById("layers-table-body").innerHTML = state.data.physicsLayers.map(row => `
+        <tr>
+          <td><strong>${escapeHtml(row.layer)}</strong></td>
+          <td><code>${escapeHtml(row.name)}</code></td>
+          <td><code>${escapeHtml(row.mask)}</code></td>
+          <td>${escapeHtml(row.entities)}</td>
+          <td>${escapeHtml(row.note)}</td>
+        </tr>
+      `).join("");
+    }
+
+    function renderGitAndQA() {
+      const wf = state.data.gitRules.workflow.map(x => `<li>${escapeHtml(x)}</li>`).join("");
+      const hyg = state.data.gitRules.hygiene.map(x => `<li>${escapeHtml(x)}</li>`).join("");
+      document.getElementById("git-rules-container").innerHTML = `
+        <div class="box">
+          <h3>🌿 Регламент веток и еженедельный цикл</h3>
+          <ul>${wf}</ul>
+        </div>
+        <div class="box">
+          <h3>🧹 Гигиена GitHub и безопасность .apk</h3>
+          <ul>${hyg}</ul>
+        </div>
+      `;
+
+      document.getElementById("qa-container").innerHTML = state.data.qaItems.map((qa, idx) => `
+        <details ${idx === 0 ? "open" : ""}>
+          <summary>${escapeHtml(qa.q)}</summary>
+          <div class="qa-body">${escapeHtml(qa.a)}</div>
+        </details>
+      `).join("");
+    }
+
+    function openStageModal(stageIdx) {
+      const modal = document.getElementById("stage-modal");
+      const isNew = stageIdx == null;
+      document.getElementById("modal-title").textContent = isNew ? "Добавить этап / требование преподавателя" : "Редактировать этап";
+      document.getElementById("m-stage-id").value = isNew ? "" : String(stageIdx);
+
+      const st = isNew ? {
+        title: "",
+        timeframe: "Новая неделя (Пн–Пн)",
+        status: "PLANNED",
+        summary: "",
+        roles: { "Даниал": "", "Тамерлан": "", "Бахтияр": "", "Санжар": "" }
+      } : state.data.stages[stageIdx];
+
+      document.getElementById("m-title").value = st.title || "";
+      document.getElementById("m-timeframe").value = st.timeframe || "";
+      document.getElementById("m-status").value = st.status || "PLANNED";
+      document.getElementById("m-summary").value = st.summary || "";
+      document.getElementById("m-role-danial").value = (st.roles && st.roles["Даниал"]) || "";
+      document.getElementById("m-role-tamerlan").value = (st.roles && st.roles["Тамерлан"]) || "";
+      document.getElementById("m-role-bakhtiyar").value = (st.roles && st.roles["Бахтияр"]) || "";
+      document.getElementById("m-role-sanzhar").value = (st.roles && st.roles["Санжар"]) || "";
+      modal.classList.add("open");
+    }
+
+    function closeStageModal() {
+      document.getElementById("stage-modal").classList.remove("open");
+    }
+
+    document.getElementById("m-cancel").onclick = closeStageModal;
+    document.getElementById("m-save").onclick = () => {
+      const title = document.getElementById("m-title").value.trim();
+      if (!title) {
+        alert("Укажите название этапа");
+        return;
+      }
+      const idxRaw = document.getElementById("m-stage-id").value;
+      const updated = {
+        id: idxRaw === "" ? "stage-" + Date.now() : state.data.stages[Number(idxRaw)].id,
+        title,
+        timeframe: document.getElementById("m-timeframe").value.trim() || "Без срока",
+        status: document.getElementById("m-status").value,
+        summary: document.getElementById("m-summary").value.trim(),
+        roles: {
+          "Даниал": document.getElementById("m-role-danial").value.trim() || "—",
+          "Тамерлан": document.getElementById("m-role-tamerlan").value.trim() || "—",
+          "Бахтияр": document.getElementById("m-role-bakhtiyar").value.trim() || "—",
+          "Санжар": document.getElementById("m-role-sanzhar").value.trim() || "—"
+        },
+        milestones: idxRaw === "" ? [] : (state.data.stages[Number(idxRaw)].milestones || [])
+      };
+      if (idxRaw === "") {
+        state.data.stages.push(updated);
+      } else {
+        state.data.stages[Number(idxRaw)] = updated;
+      }
+      persistLocal();
+      closeStageModal();
+      renderStages();
+      renderProgress();
+      showToast("Этап обновлён (не забудьте сохранить .html для Git)");
+    };
+
+    function buildUpdatedHtmlString() {
+      const nextRev = Number(state.data.meta.revision || 1) + 1;
+      state.data.meta.revision = nextRev;
+      state.data.meta.updatedAt = new Date().toISOString().slice(0, 10);
+      const safeJson = JSON.stringify(state.data, null, 2).replace(/<\//g, "<\\/");
+      return INITIAL_DOC_SOURCE.replace(
+        /(<script\s+id="app-data"\s+type="application\/json">)[\s\S]*?(<\/script>)/,
+        (_match, p1, p2) => `${p1}\n${safeJson}\n  ${p2}`
+      );
+    }
+
+    async function saveHtmlForGit() {
+      const htmlContent = buildUpdatedHtmlString();
+      if (window.showSaveFilePicker) {
+        try {
+          const handle = await window.showSaveFilePicker({
+            suggestedName: "PROJECT_ROADMAP.html",
+            types: [{ description: "HTML Document", accept: { "text/html": [".html"] } }]
+          });
+          const writable = await handle.createWritable();
+          await writable.write(htmlContent);
+          await writable.close();
+          state.baseRevision = state.data.meta.revision;
+          state.dirty = false;
+          safeClearDraft();
+          renderSyncState();
+          showToast(`Файл сохранён (Git rev #${state.data.meta.revision})`);
+          return;
+        } catch (err) {
+          if (err && err.name === "AbortError") {
+            state.data.meta.revision -= 1;
+            return;
+          }
+        }
+      }
+      const blob = new Blob([htmlContent], { type: "text/html;charset=utf-8" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "PROJECT_ROADMAP.html";
+      a.click();
+      URL.revokeObjectURL(url);
+      state.baseRevision = state.data.meta.revision;
+      state.dirty = false;
+      safeClearDraft();
+      renderSyncState();
+      showToast(`Скачан обновлённый PROJECT_ROADMAP.html (rev #${state.data.meta.revision})`);
+    }
+
+    function exportTxtReport() {
+      const lines = [];
+      lines.push(`GODOT-NEUROCARS — РОДМАП И АРХИТЕКТУРА (rev #${state.data.meta.revision}, ${state.data.meta.updatedAt})`);
+      lines.push("====================================================================");
+      lines.push("");
+      lines.push("1. АУДИТ ТЕКУЩЕГО ПРОГРЕССА:");
+      lines.push("[+] Готово:");
+      state.data.audit.working.forEach(x => lines.push("  * " + x));
+      lines.push("[-] Блокеры до .apk:");
+      state.data.audit.blockers.forEach(x => lines.push("  ! " + x));
+      lines.push("");
+      lines.push("2. ПОЭТАПНЫЙ РОДМАП:");
+      state.data.stages.forEach(st => {
+        lines.push(`\n--- ${st.title} [${st.status}] (${st.timeframe}) ---`);
+        lines.push(`Цель: ${st.summary}`);
+        Object.entries(st.roles || {}).forEach(([k, v]) => lines.push(`  - ${k}: ${v}`));
+        lines.push("  Вехи:");
+        (st.milestones || []).forEach(m => lines.push(`    [${m.done ? "x" : " "}] ${m.text}`));
+      });
+      lines.push("\n3. ПРАВИЛА GIT/GITHUB:");
+      state.data.gitRules.workflow.forEach(x => lines.push("  * " + x));
+      state.data.gitRules.hygiene.forEach(x => lines.push("  * " + x));
+
+      const blob = new Blob([lines.join("\n")], { type: "text/plain;charset=utf-8" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `NeuroCars_ROADMAP_rev${state.data.meta.revision}.txt`;
+      a.click();
+      URL.revokeObjectURL(url);
+      showToast("Текстовый отчёт .txt скачан");
+    }
+
+    document.getElementById("btn-add-stage").onclick = () => openStageModal(null);
+    document.getElementById("btn-save-html").onclick = saveHtmlForGit;
+    document.getElementById("btn-export-txt").onclick = exportTxtReport;
+    document.getElementById("btn-reset-cache").onclick = () => {
+      if (confirm("Сбросить локальные черновики браузера и загрузить данные прямо из файла?")) {
+        safeClearDraft();
+        state.data = JSON.parse(JSON.stringify(fileData));
+        state.baseRevision = fileData.meta.revision || 1;
+        state.dirty = false;
+        state.conflict = false;
+        renderAll();
+        showToast("Кэш сброшен к версии файла");
+      }
+    };
+
+    function renderAll() {
+      renderSyncState();
+      renderProgress();
+      renderAudit();
+      renderStages();
+      renderArchitecture();
+      renderGitAndQA();
+    }
+
+    renderAll();
+  </script>
+</body>
+</html>

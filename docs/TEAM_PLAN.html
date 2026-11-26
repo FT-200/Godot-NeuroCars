@@ -1,0 +1,1556 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Godot-NeuroCars — Командный План, Роли и Еженедельные Задачи</title>
+  <style>
+    :root {
+      --bg: #0b1018;
+      --bg-elev: #111927;
+      --bg-card: #151f30;
+      --bg-soft: #1b283d;
+      --border: #253652;
+      --border-strong: #2f4b75;
+      --text: #eef3fb;
+      --text-muted: #98a9c4;
+      --accent: #249ef8;
+      --accent-soft: rgba(36, 158, 248, 0.14);
+      --green: #2ee585;
+      --green-soft: rgba(46, 229, 133, 0.14);
+      --amber: #f5b82e;
+      --amber-soft: rgba(245, 184, 46, 0.15);
+      --red: #f2495c;
+      --red-soft: rgba(242, 73, 92, 0.15);
+      --purple: #a78bfa;
+      --purple-soft: rgba(167, 139, 250, 0.15);
+      --radius: 12px;
+      --shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+    }
+
+    * { box-sizing: border-box; }
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: radial-gradient(circle at top left, #122038 0%, var(--bg) 52%);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Inter, Arial, sans-serif;
+      line-height: 1.5;
+      min-height: 100vh;
+    }
+
+    code {
+      font-family: "Cascadia Code", "JetBrains Mono", Consolas, monospace;
+      font-size: 0.88em;
+      background: rgba(36, 158, 248, 0.12);
+      color: #8fd0ff;
+      padding: 2px 6px;
+      border-radius: 6px;
+      border: 1px solid rgba(36, 158, 248, 0.22);
+      word-break: break-word;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(11, 16, 24, 0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .topbar-inner {
+      max-width: 1360px;
+      margin: 0 auto;
+      padding: 12px 18px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .brand { display: flex; align-items: center; gap: 12px; }
+    .brand-badge {
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, #2ee585, #169c5b);
+      display: grid;
+      place-items: center;
+      font-weight: 800;
+      font-size: 16px;
+      color: #06140d;
+      box-shadow: 0 4px 14px rgba(46, 229, 133, 0.28);
+    }
+    .brand h1 { margin: 0; font-size: 1.08rem; font-weight: 700; }
+    .brand-sub { font-size: 0.8rem; color: var(--text-muted); }
+
+    .nav-tabs { display: flex; gap: 8px; flex-wrap: wrap; }
+    .nav-link {
+      text-decoration: none;
+      color: var(--text-muted);
+      background: var(--bg-elev);
+      border: 1px solid var(--border);
+      padding: 8px 14px;
+      border-radius: 9px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      transition: 0.16s ease;
+    }
+    .nav-link:hover { border-color: var(--accent); color: var(--text); }
+    .nav-link.active {
+      background: var(--accent-soft);
+      border-color: var(--accent);
+      color: #8fd0ff;
+    }
+
+    .container {
+      max-width: 1360px;
+      margin: 0 auto;
+      padding: 20px 18px 64px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .toolbar {
+      background: var(--bg-elev);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      box-shadow: var(--shadow);
+    }
+    .toolbar-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+    .btn-group { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+
+    button {
+      cursor: pointer;
+      border: 1px solid var(--border-strong);
+      background: var(--bg-soft);
+      color: var(--text);
+      padding: 8px 13px;
+      border-radius: 9px;
+      font-size: 0.86rem;
+      font-weight: 600;
+      transition: 0.15s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    button:hover { border-color: var(--accent); background: #21324d; }
+    .btn-primary {
+      background: linear-gradient(135deg, #249ef8, #1673c2);
+      border-color: #3db0ff;
+      color: #fff;
+    }
+    .btn-primary:hover { filter: brightness(1.08); background: linear-gradient(135deg, #249ef8, #1673c2); }
+    .btn-success {
+      background: rgba(46, 229, 133, 0.16);
+      border-color: rgba(46, 229, 133, 0.55);
+      color: #93f7c0;
+    }
+    .btn-danger {
+      background: var(--red-soft);
+      border-color: rgba(242, 73, 92, 0.5);
+      color: #ff9ba6;
+    }
+    .btn-sm { padding: 5px 9px; font-size: 0.78rem; border-radius: 7px; }
+
+    .sync-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+    }
+    .sync-pill.dirty { border-color: var(--amber); background: var(--amber-soft); color: #ffd97d; }
+    .sync-pill.clean { border-color: rgba(46, 229, 133, 0.4); color: #93f7c0; }
+
+    .banner-conflict {
+      background: var(--amber-soft);
+      border: 1px solid var(--amber);
+      border-radius: var(--radius);
+      padding: 12px 16px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      font-size: 0.9rem;
+    }
+
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 12px;
+    }
+    .stat-card {
+      background: var(--bg-elev);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 13px 15px;
+      cursor: pointer;
+      transition: 0.15s ease;
+    }
+    .stat-card:hover { border-color: var(--accent); transform: translateY(-1px); }
+    .stat-card.selected { border-color: var(--accent); background: #142236; }
+    .stat-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 6px;
+    }
+    .stat-name { font-weight: 700; font-size: 0.96rem; }
+    .stat-count { font-size: 0.82rem; color: var(--text-muted); font-weight: 600; }
+    .mini-track {
+      height: 7px;
+      border-radius: 999px;
+      background: #0a1019;
+      border: 1px solid var(--border);
+      overflow: hidden;
+      margin-top: 6px;
+    }
+    .mini-fill { height: 100%; background: linear-gradient(90deg, #249ef8, #2ee585); }
+
+    .section-card {
+      background: var(--bg-elev);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 18px;
+      box-shadow: var(--shadow);
+    }
+    .section-header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 14px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--border);
+    }
+    .section-title { margin: 0; font-size: 1.12rem; font-weight: 700; }
+    .section-sub { margin: 0; color: var(--text-muted); font-size: 0.85rem; }
+
+    .profiles-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 12px;
+    }
+    .profile-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+    }
+    .profile-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 8px;
+    }
+    .profile-name { margin: 0; font-size: 1rem; font-weight: 700; }
+    .profile-role { font-size: 0.8rem; color: #8fd0ff; font-weight: 600; }
+    .profile-meta { font-size: 0.82rem; color: var(--text-muted); }
+    .profile-card details {
+      background: rgba(11, 16, 24, 0.55);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 8px 10px;
+    }
+    .profile-card summary {
+      cursor: pointer;
+      font-size: 0.84rem;
+      font-weight: 600;
+      color: #dbe8ff;
+    }
+    .profile-card ul {
+      margin: 8px 0 0;
+      padding-left: 17px;
+      font-size: 0.82rem;
+      color: #d2def2;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .filters-bar {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+    select, input[type="text"], textarea {
+      background: #0c121d;
+      color: var(--text);
+      border: 1px solid var(--border-strong);
+      border-radius: 8px;
+      padding: 8px 10px;
+      font-family: inherit;
+      font-size: 0.86rem;
+      width: 100%;
+    }
+    select:focus, input[type="text"]:focus, textarea:focus {
+      outline: none;
+      border-color: var(--accent);
+    }
+
+    .week-group {
+      margin-bottom: 18px;
+    }
+    .week-banner {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      padding: 9px 13px;
+      background: #101826;
+      border: 1px solid var(--border);
+      border-radius: 9px;
+      margin-bottom: 10px;
+    }
+    .week-banner h3 { margin: 0; font-size: 0.96rem; }
+    .week-banner span { font-size: 0.8rem; color: var(--text-muted); }
+
+    .tasks-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .task-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--accent);
+      border-radius: 10px;
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .task-card.status-DONE { border-left-color: var(--green); opacity: 0.88; }
+    .task-card.status-IN_PROGRESS { border-left-color: var(--amber); }
+    .task-card.status-REVIEW { border-left-color: var(--purple); }
+    .task-card.status-TODO { border-left-color: var(--accent); }
+
+    .task-top {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 10px;
+    }
+    .task-title-block { flex: 1; min-width: 240px; }
+    .task-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 6px;
+      align-items: center;
+    }
+    .task-title { margin: 0; font-size: 1rem; font-weight: 700; }
+    .task-controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      align-items: center;
+    }
+    .task-controls select { width: auto; padding: 5px 8px; font-size: 0.79rem; }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      padding: 2px 8px;
+      border-radius: 999px;
+      font-size: 0.73rem;
+      font-weight: 700;
+      border: 1px solid transparent;
+    }
+    .pill-id { background: #101725; color: var(--text-muted); border-color: var(--border); }
+    .pill-prio-Критично { background: var(--red-soft); color: #ff9ba6; border-color: rgba(242, 73, 92, 0.45); }
+    .pill-prio-Высокий { background: var(--amber-soft); color: #ffd97d; border-color: rgba(245, 184, 46, 0.45); }
+    .pill-prio-Средний { background: var(--accent-soft); color: #8fd0ff; border-color: rgba(36, 158, 248, 0.4); }
+    .pill-status-DONE { background: var(--green-soft); color: #84f5b8; border-color: rgba(46, 229, 133, 0.4); }
+    .pill-status-IN_PROGRESS { background: var(--amber-soft); color: #ffd97d; border-color: rgba(245, 184, 46, 0.4); }
+    .pill-status-REVIEW { background: var(--purple-soft); color: #d3c2ff; border-color: rgba(167, 139, 250, 0.42); }
+    .pill-status-TODO { background: var(--accent-soft); color: #8fd0ff; border-color: rgba(36, 158, 248, 0.4); }
+    .pill-deadline { background: #1d2a40; color: #c7d6ee; border-color: var(--border-strong); }
+
+    .task-details-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 10px;
+      font-size: 0.84rem;
+    }
+    .detail-box {
+      background: rgba(11, 16, 24, 0.55);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 9px 11px;
+    }
+    .detail-box strong {
+      display: block;
+      margin-bottom: 4px;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+    }
+    .files-wrap { display: flex; flex-wrap: wrap; gap: 5px; }
+
+    details.academic {
+      background: rgba(36, 158, 248, 0.06);
+      border: 1px solid rgba(36, 158, 248, 0.28);
+      border-radius: 8px;
+      padding: 8px 11px;
+      font-size: 0.85rem;
+    }
+    details.academic summary {
+      cursor: pointer;
+      font-weight: 600;
+      color: #8fd0ff;
+    }
+    details.academic p {
+      margin: 8px 0 0;
+      color: #dbe6f7;
+    }
+
+    .notes-row {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .notes-input {
+      flex: 1;
+      min-width: 220px;
+      font-size: 0.82rem;
+      padding: 6px 10px;
+    }
+
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(4, 7, 13, 0.78);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      z-index: 100;
+    }
+    .modal-backdrop.open { display: flex; }
+    .modal {
+      width: 100%;
+      max-width: 680px;
+      max-height: 90vh;
+      overflow-y: auto;
+      background: var(--bg-elev);
+      border: 1px solid var(--border-strong);
+      border-radius: 14px;
+      padding: 20px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+      display: flex;
+      flex-direction: column;
+      gap: 11px;
+    }
+    .modal h3 { margin: 0; font-size: 1.08rem; }
+    .modal-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 10px;
+    }
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      font-size: 0.82rem;
+      color: var(--text-muted);
+    }
+
+    .toast {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      background: #132238;
+      border: 1px solid var(--accent);
+      color: var(--text);
+      padding: 10px 15px;
+      border-radius: 10px;
+      font-size: 0.86rem;
+      font-weight: 600;
+      box-shadow: var(--shadow);
+      z-index: 120;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(8px);
+      transition: 0.2s ease;
+    }
+    .toast.show { opacity: 1; transform: translateY(0); }
+
+    @media (max-width: 680px) {
+      .topbar-inner { padding: 10px 12px; }
+      .container { padding: 14px 12px 54px; }
+      .section-card { padding: 13px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand">
+        <div class="brand-badge">TP</div>
+        <div>
+          <h1>Godot-NeuroCars • Командный План и Еженедельные Спринты</h1>
+          <div class="brand-sub">4 участника • Понедельник → Четверг (PR + тест .apk) → Пт/Пн (сдача преподавателю)</div>
+        </div>
+      </div>
+      <nav class="nav-tabs" aria-label="Навигация по документам">
+        <a class="nav-link" href="PROJECT_ROADMAP.html">🗺️ Родмап и Архитектура</a>
+        <a class="nav-link active" href="TEAM_PLAN.html">👥 Командный План и Задачи</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <div id="conflict-banner" class="banner-conflict" style="display:none;"></div>
+
+    <section class="toolbar">
+      <div class="toolbar-row">
+        <div class="btn-group">
+          <button class="btn-primary" id="btn-add-task">+ Новая задача от преподавателя</button>
+          <button id="btn-add-week">+ Новая неделя (Пн–Пн)</button>
+          <button class="btn-success" id="btn-save-html">💾 Сохранить .html (для Git)</button>
+          <button id="btn-export-txt">📄 Скачать .txt</button>
+          <button id="btn-reset-cache">↺ Сброс кэша к файлу</button>
+        </div>
+        <div id="sync-indicator" class="sync-pill clean">Git rev #1 • Синхронизировано</div>
+      </div>
+    </section>
+
+    <section class="summary-grid" id="summary-grid"></section>
+
+    <section class="section-card">
+      <div class="section-header">
+        <div>
+          <h2 class="section-title">🧑‍💻 Роли, границы папок и Персональные Учебные Треки</h2>
+          <p class="section-sub">Нажмите на учебный шпаргалочный блок внутри карточки участника, чтобы подготовиться к работе и вопросам преподавателя.</p>
+        </div>
+      </div>
+      <div class="profiles-grid" id="profiles-grid"></div>
+    </section>
+
+    <section class="section-card">
+      <div class="section-header">
+        <div>
+          <h2 class="section-title">📋 Динамический реестр задач по неделям</h2>
+          <p class="section-sub">Меняйте статус и исполнителя прямо в карточке (например, назначайте задачи из <code>Unassigned</code> на Санжара или других участников). Для фиксации в Git нажмите «💾 Сохранить .html».</p>
+        </div>
+      </div>
+
+      <div class="filters-bar">
+        <select id="f-member" aria-label="Фильтр по участнику">
+          <option value="ALL">Все участники</option>
+        </select>
+        <select id="f-week" aria-label="Фильтр по неделе">
+          <option value="ALL">Все недели</option>
+        </select>
+        <select id="f-status" aria-label="Фильтр по статусу">
+          <option value="ALL">Все статусы</option>
+          <option value="TODO">TODO (Ожидает)</option>
+          <option value="IN_PROGRESS">IN_PROGRESS (В работе)</option>
+          <option value="REVIEW">REVIEW (На PR-ревью)</option>
+          <option value="DONE">DONE (Готово)</option>
+        </select>
+        <input type="text" id="f-search" placeholder="Поиск по задаче, файлу или ID...">
+      </div>
+
+      <div id="tasks-container"></div>
+    </section>
+  </main>
+
+  <div id="task-modal" class="modal-backdrop" role="dialog" aria-modal="true">
+    <div class="modal">
+      <h3 id="modal-title">Новая задача от преподавателя</h3>
+      <input type="hidden" id="t-edit-index">
+      <div class="modal-grid">
+        <div class="field">
+          ID задачи
+          <input type="text" id="t-id" placeholder="NC-25">
+        </div>
+        <div class="field">
+          Неделя / Спринт
+          <select id="t-week"></select>
+        </div>
+        <div class="field">
+          Исполнитель
+          <select id="t-assignee"></select>
+        </div>
+        <div class="field">
+          Приоритет
+          <select id="t-priority">
+            <option value="Критично">Критично</option>
+            <option value="Высокий">Высокий</option>
+            <option value="Средний">Средний</option>
+          </select>
+        </div>
+        <div class="field">
+          Статус
+          <select id="t-status">
+            <option value="TODO">TODO</option>
+            <option value="IN_PROGRESS">IN_PROGRESS</option>
+            <option value="REVIEW">REVIEW</option>
+            <option value="DONE">DONE</option>
+          </select>
+        </div>
+        <div class="field">
+          Дедлайн (Чт PR / Пт–Пн сдача)
+          <input type="text" id="t-deadline" placeholder="Чт PR / Пт сдача">
+        </div>
+      </div>
+      <div class="field">
+        Название задачи
+        <input type="text" id="t-title" placeholder="Что нужно сделать">
+      </div>
+      <div class="field">
+        Затрагиваемые файлы (через запятую)
+        <input type="text" id="t-files" placeholder="scripts/ui/hud.gd, scenes/ui/hud.tscn">
+      </div>
+      <div class="field">
+        Критерии готовности (Definition of Done — как проверить на ПК и телефоне)
+        <textarea id="t-dod" rows="2"></textarea>
+      </div>
+      <div class="field">
+        🎓 Академический разбор (подсказки по классам/методам и что спросит преподаватель)
+        <textarea id="t-guide" rows="3"></textarea>
+      </div>
+      <div class="field">
+        Заметки / Ссылка на PR / Комментарий преподавателя
+        <input type="text" id="t-notes" placeholder="PR #..., замечания, результаты теста на .apk">
+      </div>
+      <div class="btn-group" style="justify-content:flex-end; margin-top:6px;">
+        <button id="t-cancel">Отмена</button>
+        <button class="btn-primary" id="t-save">Сохранить задачу</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast" class="toast"></div>
+
+  <!-- =========================================================================
+       ИНСТРУКЦИЯ ПО РУЧНОМУ / ИИ-РЕДАКТИРОВАНИЮ ДЛЯ GIT:
+       Все участники, недели и задачи хранятся ТОЛЬКО в JSON-блоке ниже.
+       Когда преподаватель в понедельник выдаёт новое ТЗ:
+       - можно добавить задачи через кнопку «+ Новая задача от преподавателя»
+         в браузере и нажать «💾 Сохранить .html (для Git)»,
+       - либо дописать JSON-объект в массив "tasks" и увеличить meta.revision +1.
+       ========================================================================= -->
+  <script id="app-data" type="application/json">
+{
+  "meta": {
+    "project": "Godot-NeuroCars",
+    "docType": "team_plan",
+    "revision": 1,
+    "updatedAt": "2026-11-26"
+  },
+  "members": [
+    {
+      "id": "Даниал",
+      "roleTitle": "Project Architect, GitHub Maintainer & Track Lead",
+      "level": "~30% Junior (опыт Unity, GitHub: FT-200)",
+      "folders": [
+        ".gitignore, README.md, export_presets.cfg, docs/",
+        "scenes/maps/*, scenes/track/*, scenes/obstacles/*",
+        "scripts/track/*, scripts/obstacles/*, scripts/core/map_registry.gd"
+      ],
+      "focus": "Чистота Git/архитектуры, ревью PR от команды, карты (процедурный/ИИ-дизайн), сборка и публикация .apk.",
+      "guideTitle": "🎓 Трек Даниала: Unity ↔ Godot 4 + Чек-лист Тимлида Git",
+      "guideItems": [
+        "Unity Prefab -> PackedScene (.tscn); MonoBehaviour -> скрипт на Node; ScriptableObject -> Resource или RefCounted.",
+        "Unity OnTriggerEnter2D -> сигнал Area2D.body_entered; Physics2D Layer Matrix -> collision_layer (кто я) и collision_mask (кого вижу).",
+        "В Godot 4 инстанс сцены делается через preload(...).instantiate() и add_child(node), а удаление — queue_free().",
+        "Ревью PR перед мержем в main: нет ли чужих правок в одной .tscn, запущен ли проект без ошибок в консоли, прокомментирован ли код, не попали ли .apk/.keystore в коммит."
+      ]
+    },
+    {
+      "id": "Тамерлан",
+      "roleTitle": "Godot Core Systems, Car Kinematics & Mobile Input Lead",
+      "level": "~23-27% Junior (базовый опыт Godot)",
+      "folders": [
+        "scenes/main.tscn, scenes/agents/car.tscn",
+        "scripts/core/simulation_manager.gd, simulation_config.gd",
+        "scripts/agents/car.gd, scripts/ui/camera_controller.gd"
+      ],
+      "focus": "Ядро симуляции, физика/сенсорика машины, стыковка с UI-сигналами, мобильное тач-управление камерой и 60 FPS на Android.",
+      "guideTitle": "🎓 Трек Тамерлана: Цикл Godot, CharacterBody2D и Мультитач",
+      "guideItems": [
+        "_physics_process(delta) работает строго по физическому тику (60 Гц) — именно поэтому вся логика RayCast2D и Car.move_and_collide() живёт там.",
+        "Выбор машинки пальцем: увеличьте Area2D/Shape2D клика/тапа и передавайте выбранный экземпляр Car через сигнал (например, car_selected(car)) в SimulationManager/PiP, не связывая Car напрямую с UI-путями.",
+        "Мультитач в CameraController: отслеживайте словарь активных пальцев Dictionary {finger_index: Vector2} через InputEventScreenTouch и InputEventScreenDrag. 1 палец -> панорамирование, 2 пальца -> отношение дистанций (pinch-to-zoom).",
+        "Жизненный цикл Android: в _notification(what) обрабатывайте NOTIFICATION_APPLICATION_PAUSED, чтобы при сворачивании приложения сохранять лучший мозг и ставить симуляцию на паузу."
+      ]
+    },
+    {
+      "id": "Бахтияр",
+      "roleTitle": "AI / Neuroevolution Algorithms & Persistence Engineer",
+      "level": "~15-20% Junior в играх (сильная алгоритмическая база)",
+      "folders": [
+        "scripts/ai/neural_network.gd, scripts/ai/genetic_evolver.gd",
+        "scripts/ai/brain_storage.gd [Новый]",
+        "scripts/ai/evolution_metrics.gd [Новый]"
+      ],
+      "focus": "Чистая математика нейросети и эволюции без возни с вёрсткой сцен: обучение, сохранение весов (user://), метрики и баланс.",
+      "guideTitle": "🎓 Трек Бахтияра: Математика MLP [13,14,8,2] и Сохранение в JSON",
+      "guideItems": [
+        "Прямой проход (predict): каждый слой — умножение вектора активаций на матрицу weights[layer][out_i][in_j] + bias, затем нелинейность tanh(), сжимающая значения в [-1, 1].",
+        "Инициализация Xavier/Glorot: limit = sqrt(6 / (fan_in + fan_out)) удерживает дисперсию активаций стабильной, чтобы tanh сразу не уходил в насыщение (±1).",
+        "Эволюция (GeneticEvolver): 4 лучших мозга копируются без изменений (элитизм), остальные скрещиваются построчно (crossover по нейронам) и мутируют с усилением при стагнации >= 3 поколений.",
+        "Сохранение в Godot на Android: писать можно ТОЛЬКО в user:// (res:// только для чтения в .apk!). Используйте DirAccess.make_dir_recursive_absolute('user://brains'), FileAccess.open(..., WRITE) и JSON.stringify(brain.to_dict())."
+      ]
+    },
+    {
+      "id": "Санжар",
+      "roleTitle": "UI Functional Integration & Dynamic Assistant (Unassigned Next)",
+      "level": "~15-25% Junior",
+      "folders": [
+        "scenes/ui/pip_watcher.tscn, scripts/ui/pip_watcher.gd",
+        "scenes/ui/hud.tscn, scripts/ui/hud.gd",
+        "Новые UI/тест-задачи (слот Unassigned под задания препода)"
+      ],
+      "focus": "Никакой ручной графики и дизайна пропсов! Сейчас переносит свой PiP-экран и добавляет тач-кнопки в HUD, далее — буферный ассистент под новые задачи преподавателя.",
+      "guideTitle": "🎓 Трек Санжара: SubViewport, Control-вёрстка и Сигналы Godot",
+      "guideItems": [
+        "SubViewport для PiP-экрана: чтобы мини-окно показывало тот же мир трассы, обязательно задаётся sub_viewport.world_2d = get_tree().root.world_2d.",
+        "Адаптивный UI для телефонов: используйте Anchors (якоря по углам/краям), MarginContainer и DisplayServer.get_display_safe_area() — тогда кнопки не уедут за экран или под чёлку камеры.",
+        "Золотое правило архитектуры: UI-скрипт (pip_watcher.gd, hud.gd) НЕ лазит напрямую в Car или SimulationManager. Он принимает данные сверху (watch_car(car)) или испускает signal (rays_toggle_requested).",
+        "После завершения PiP и кнопок HUD переходите в статус «Свободный ассистент» и берите карточки со статусом Unassigned (Главное меню, живой тест .apk на телефоне, ТЗ новой недели)."
+      ]
+    },
+    {
+      "id": "Unassigned",
+      "roleTitle": "Свободный слот (Буфер под Санжара и новые вводные препода)",
+      "level": "Назначается каждый понедельник",
+      "folders": [
+        "Любой модуль по новому еженедельному ТЗ преподавателя"
+      ],
+      "focus": "Сюда складываются готовые кандидаты на следующие недели и новые задания преподавателя, чтобы в 1 клик назначить исполнителя.",
+      "guideTitle": "📌 Как распределять задачи из Unassigned",
+      "guideItems": [
+        "Каждый понедельник после пары с преподавателем добавьте его новое требование кнопкой «+ Новая задача от преподавателя».",
+        "В выпадающем списке прямо на карточке переключите исполнителя с Unassigned на Санжара (или другого свободного участника).",
+        "Проверьте поле «Затрагиваемые файлы», чтобы два человека не правили один .tscn файл в одной неделе."
+      ]
+    }
+  ],
+  "weeks": [
+    { "id": "Неделя 1", "title": "Неделя 1 — Ревизия Git, интеграция PiP и документирование базы", "range": "Пн → Чт PR / Пт–Пн сдача" },
+    { "id": "Неделя 2", "title": "Неделя 2 — Мобильный тач-UI, мультитач-камера и первый Debug .apk", "range": "Пн → Чт PR / Пт–Пн сдача" },
+    { "id": "Неделя 3", "title": "Неделя 3 — Сохранение мозгов (user://), Меню/Пауза и аналитика ИИ", "range": "Пн → Чт PR / Пт–Пн сдача" },
+    { "id": "Неделя 4", "title": "Неделя 4 — Профилирование Android, живые тесты и буфер ТЗ препода", "range": "Пн → Чт PR / Пт–Пн сдача" }
+  ],
+  "tasks": [
+    {
+      "id": "NC-01",
+      "week": "Неделя 1",
+      "assignee": "Даниал",
+      "priority": "Критично",
+      "status": "TODO",
+      "deadline": "Вт",
+      "title": "Починить Git-репозиторий: слить Best-Branch в main, удалить мусорный scenes/car.tscn и обновить .gitignore",
+      "files": [".gitignore", "scenes/car.tscn [Удалить]", "ветки main / Best-Branch"],
+      "dod": "Ветка main содержит актуальный код из Best-Branch; scenes/car.tscn удалён без ошибок ссылок; в .gitignore добавлены *.apk, *.aab, *.keystore, *.jks, export_presets.cfg (при наличии ключей). Все 4 участника настроили git config user.name/email.",
+      "guide": "Проверьте перед удалением scenes/car.tscn, что ни одна сцена в scenes/maps/ и scenes/main.tscn на него не ссылается (используется scenes/agents/car.tscn). После слияния в main отправьте остальным команду git fetch && git checkout main.",
+      "notes": ""
+    },
+    {
+      "id": "NC-02",
+      "week": "Неделя 1",
+      "assignee": "Даниал",
+      "priority": "Высокий",
+      "status": "TODO",
+      "deadline": "Чт PR / Пт сдача",
+      "title": "Создать корневой README.md и прокомментировать скрипты трасс (track_map.gd, obstacle_spawner.gd)",
+      "files": ["README.md [Новый]", "scripts/track/track_map.gd", "scripts/track/obstacle_spawner.gd"],
+      "dod": "В корне репозитория есть понятный README.md для преподавателя (идея проекта, состав команды и роли, архитектура 6 слоёв, как запустить в Godot 4.7 и собрать .apk). В track_map.gd и obstacle_spawner.gd добавлены краткие комментарии логики.",
+      "guide": "Сделайте акцент в комментариях на том, ПОЧЕМУ так написано: например, формула безопасного проезда >= 42 px в _pick_safe_lateral_offset и обновление expected_checkpoint_ids при advance_route_variant.",
+      "notes": ""
+    },
+    {
+      "id": "NC-03",
+      "week": "Неделя 1",
+      "assignee": "Тамерлан",
+      "priority": "Критично",
+      "status": "TODO",
+      "deadline": "Ср PR",
+      "title": "Добавить выбор машинки через сигнал и увеличенную тач-зону в Car + прокомментировать car.gd и simulation_manager.gd",
+      "files": ["scripts/agents/car.gd", "scenes/agents/car.tscn", "scripts/core/simulation_manager.gd"],
+      "dod": "В car.gd есть signal car_selected(car: Car), срабатывающий по тапу/клику на увеличенную зону выбора (минимум ~60x40 px), а не через прямой поиск группы 'pip_screen'. В car.gd и simulation_manager.gd написаны осмысленные комментарии.",
+      "guide": "В отличие от старой ветки feature/pip-camera, где Car сам искал группу pip_screen, чистая архитектура требует: Car испускает сигнал car_selected(self), а SimulationManager подписывается при спавне машины и передаёт её в HUD/PiP. Потребуется input_pickable = true (или дочерний Area2D с input_event).",
+      "notes": ""
+    },
+    {
+      "id": "NC-04",
+      "week": "Неделя 1",
+      "assignee": "Санжар",
+      "priority": "Критично",
+      "status": "TODO",
+      "deadline": "Чт PR / Пт сдача",
+      "title": "Перенести PiP-экран слежения за машинкой из origin/feature/pip-camera в новую модульную архитектуру",
+      "files": ["scenes/ui/pip_watcher.tscn [Новый]", "scripts/ui/pip_watcher.gd [Новый]", "scenes/ui/hud.tscn", "scripts/ui/hud.gd"],
+      "dod": "Мини-окно слежки на базе SubViewport (world_2d = get_tree().root.world_2d) работает в актуальной ветке: по нажатию на машину открывается PiP-панель с камерой слежения, при гибели машины автоматически переключается на следующую живую.",
+      "guide": "Не мержите старую ветку a8224a8 напрямую! Возьмите оттуда идею из scenes/panel_container.gd, создайте аккуратную сцену scenes/ui/pip_watcher.tscn (наследник PanelContainer) и подключите её в HUD. Список живых машин лучше получать через передачу массива или сигнал от SimulationManager, а не через глобальные хаки.",
+      "notes": "Основа уже написана Санжаром в коммите a8224a8 (feature/pip-camera) — нужно перенести и адаптировать."
+    },
+    {
+      "id": "NC-05",
+      "week": "Неделя 1",
+      "assignee": "Бахтияр",
+      "priority": "Высокий",
+      "status": "TODO",
+      "deadline": "Чт PR / Пт сдача",
+      "title": "Разобрать и задокументировать математику ИИ в neural_network.gd и genetic_evolver.gd",
+      "files": ["scripts/ai/neural_network.gd", "scripts/ai/genetic_evolver.gd"],
+      "dod": "Оба файла снабжены чёткими академическими комментариями (инициализация Xavier, прямой проход tanh, построчный кроссовер, турнирный отбор pow(randf(), 1.8), адаптация мутации при стагнации). Бахтияр может без шпаргалки объяснить каждую функцию.",
+      "guide": "Обратите особое внимание на уже готовые, но неиспользуемые методы to_dict() и from_dict() в neural_network.gd — на Неделе 3 вы будете строить на них сохранение мозгов на телефон.",
+      "notes": ""
+    },
+    {
+      "id": "NC-06",
+      "week": "Неделя 2",
+      "assignee": "Тамерлан",
+      "priority": "Критично",
+      "status": "TODO",
+      "deadline": "Ср PR",
+      "title": "Реализовать мобильное мультитач-управление камерой (pinch-to-zoom + свайп) в camera_controller.gd",
+      "files": ["scripts/ui/camera_controller.gd"],
+      "dod": "На телефоне 1 палец в режиме Обзора плавно двигает камеру, 2 пальца (щипок) масштабируют зум от 0.22 до 1.8. Сохранена совместимость с мышью на ПК для быстрой отладки.",
+      "guide": "В _unhandled_input(event) отслеживайте InputEventScreenTouch (добавлять/удалять event.index в Dictionary активных касаний) и InputEventScreenDrag: при 1 пальце меняйте position -= event.relative / zoom.x; при 2 пальцах сравнивайте текущую дистанцию между точками с предыдущей для пересчёта target_zoom.",
+      "notes": ""
+    },
+    {
+      "id": "NC-07",
+      "week": "Неделя 2",
+      "assignee": "Санжар",
+      "priority": "Критично",
+      "status": "TODO",
+      "deadline": "Чт PR / Пт сдача",
+      "title": "Мобильная доработка HUD и PiP: тач-кнопки вместо хоткеев [R]/[G]/[Space], кнопки ◀/▶/✕ на PiP и Safe Area",
+      "files": ["scenes/ui/hud.tscn", "scripts/ui/hud.gd", "scenes/ui/pip_watcher.tscn", "scripts/ui/pip_watcher.gd", "scripts/core/simulation_manager.gd"],
+      "dod": "Убрана или скрыта на мобильных строка десктопных хоткеев HotkeysLabel; в TopBar/нижней панели есть крупные тач-кнопки (высота >= 44 px) для Лучей, Ворот, След. поколения. На PiP есть кнопки ◀, ▶, ✕ и имя/фитнес машины. Панели не попадают под вырез камеры.",
+      "guide": "Проверьте размер кнопок пальцем при разрешении 1280x720. Для Safe Area в _ready() можно учитывать DisplayServer.get_display_safe_area(). Для связи новых кнопок добавьте сигналы в hud.gd и подключите их в simulation_manager.gd.",
+      "notes": "После этой задачи Санжар переходит к статусу свободного ассистента для новых задач."
+    },
+    {
+      "id": "NC-08",
+      "week": "Неделя 2",
+      "assignee": "Даниал",
+      "priority": "Критично",
+      "status": "TODO",
+      "deadline": "Чт тест / Пт сдача",
+      "title": "Настроить Android-экспорт (Landscape, иконка, export_presets.cfg) и собрать первый живой Debug .apk",
+      "files": ["project.godot", "export_presets.cfg", "icon.svg"],
+      "dod": "В project.godot закреплена горизонтальная ориентация (display/window/handheld/orientation='landscape'). Настроен Android Build Template / Export Preset (arm64-v8a), собран Debug .apk и успешно запущен минимум на 2 реальных смартфонах команды.",
+      "guide": "Для Godot 4.7 потребуются Export Templates и Android SDK (через Android Studio Command-line Tools + OpenJDK 17). Укажите package/unique_name (например, com.college.neurocars) и сохраните рабочий Debug-пресет.",
+      "notes": ""
+    },
+    {
+      "id": "NC-09",
+      "week": "Неделя 3",
+      "assignee": "Бахтияр",
+      "priority": "Критично",
+      "status": "TODO",
+      "deadline": "Ср PR",
+      "title": "Реализовать модуль BrainStorage (сохранение и загрузка весов нейросети по картам в user://)",
+      "files": ["scripts/ai/brain_storage.gd [Новый]", "scripts/core/simulation_manager.gd"],
+      "dod": "Лучший мозг (best_brain_ever) можно сохранить и загрузить с диска телефона в user://brains/<map_id>.json с сохранением best_fitness, номера поколения и проверкой is_compatible_with(DEFAULT_NETWORK_LAYERS).",
+      "guide": "Используйте готовые NeuralNetwork.to_dict() и NeuralNetwork.from_dict(). Заведите статические методы save_champion(map_id, brain, fitness, generation) и load_champion(map_id). На Android запись разрешена только в user://!",
+      "notes": ""
+    },
+    {
+      "id": "NC-10",
+      "week": "Неделя 3",
+      "assignee": "Бахтияр",
+      "priority": "Высокий",
+      "status": "TODO",
+      "deadline": "Чт PR / Пт сдача",
+      "title": "Реализовать EvolutionMetrics (трекинг истории рекордов, среднего фитнеса и стагнации)",
+      "files": ["scripts/ai/evolution_metrics.gd [Новый]", "scripts/core/simulation_manager.gd"],
+      "dod": "Собирается история по поколениям (best_fitness, avg_fitness, max_laps, stagnation_count) и передаётся в HUD для показа реального прогресса обучения нейросети.",
+      "guide": "Ограничьте буфер последними ~50 поколениями (кольцевой буфер/срез массива), чтобы память на телефоне не росла бесконечно при долгой симуляции на x10.",
+      "notes": ""
+    },
+    {
+      "id": "NC-11",
+      "week": "Неделя 3",
+      "assignee": "Тамерлан",
+      "priority": "Высокий",
+      "status": "TODO",
+      "deadline": "Чт PR",
+      "title": "Обработка жизненного цикла Android (пауза и автосохранение при сворачивании приложения)",
+      "files": ["scripts/core/simulation_manager.gd"],
+      "dod": "При сворачивании игры на телефоне (NOTIFICATION_APPLICATION_PAUSED) или по кнопке 'Назад' (NOTIFICATION_WM_GO_BACK_REQUEST) симуляция ставится на паузу, а текущий best_brain_ever автоматически сохраняется через BrainStorage.",
+      "guide": "Переопределите func _notification(what: int) -> void в SimulationManager. Помните, что при Engine.time_scale > 1 на паузе нужно сбрасывать паузу через get_tree().paused = true (а у UI-меню выставить process_mode = PROCESS_MODE_ALWAYS).",
+      "notes": ""
+    },
+    {
+      "id": "NC-12",
+      "week": "Неделя 3",
+      "assignee": "Unassigned",
+      "priority": "Высокий",
+      "status": "TODO",
+      "deadline": "Чт PR / Пт сдача",
+      "title": "[Кандидат для Санжара] Экран Главного меню, Паузы и кнопки 'Сохранить / Загрузить мозг'",
+      "files": ["scenes/ui/main_menu.tscn [Новый]", "scenes/ui/hud.tscn", "scripts/ui/hud.gd"],
+      "dod": "Приложение открывается не сразу в хаос старта, а с аккуратного стартового экрана (выбор карты / продолжить обучение / настройки популяции) и имеет кнопку Паузы II прямо во время симуляции.",
+      "guide": "Назначьте эту задачу на Санжара после закрытия NC-07 (или замените новым заданием от преподавателя в понедельник). Используйте уже готовую тему resources/themes/hud_theme.tres.",
+      "notes": "Назначить исполнителя после завершения Недели 2."
+    },
+    {
+      "id": "NC-13",
+      "week": "Неделя 4",
+      "assignee": "Тамерлан",
+      "priority": "Высокий",
+      "status": "TODO",
+      "deadline": "Ср PR",
+      "title": "Мобильная оптимизация: пресеты популяции (25 / 35 / 50 машин) и стабильность физики на x5/x10",
+      "files": ["scripts/core/simulation_manager.gd", "scripts/core/simulation_config.gd", "scripts/ui/hud.gd"],
+      "dod": "Пользователь может выбрать размер популяции под мощность телефона (25 — энергосберегающий, 35 — баланс, 50 — максимум). На смартфоне при скорости x5 интерфейс и камера не лагают.",
+      "guide": "Проверьте Engine.max_physics_steps_per_frame = 16 в hud.gd: на слабом мобильном CPU при x10 50 машин * 9 RayCast2D = 450 лучей * 16 шагов = 7200 рейкастов за кадр! Снижение популяции до 25-30 и ограничение скорости до x5/x8 на мобильном резко поднимет FPS.",
+      "notes": ""
+    },
+    {
+      "id": "NC-14",
+      "week": "Неделя 4",
+      "assignee": "Бахтияр",
+      "priority": "Средний",
+      "status": "TODO",
+      "deadline": "Чт PR",
+      "title": "Калибровка параметров GeneticEvolver для быстрой сходимости на популяции 25–35 агентов",
+      "files": ["scripts/ai/genetic_evolver.gd"],
+      "dod": "При популяции 25 машин ИИ стабильно проходит 1-й круг на map_01 за <= 10–15 поколений, без вырождения элиты.",
+      "guide": "При 25 машинах константы ELITE_SLOTS = 4 и RANDOM_SLOTS = 3 оставляют всего 18 потомков. Проверьте пропорцию (например, адаптивный elite_count = clampi(population_size / 8, 2, 4)) и силу мутации.",
+      "notes": ""
+    },
+    {
+      "id": "NC-15",
+      "week": "Неделя 4",
+      "assignee": "Unassigned",
+      "priority": "Высокий",
+      "status": "TODO",
+      "deadline": "Чт тест / Пт сдача",
+      "title": "[Кандидат для Санжара] Живой смоук-тест .apk на Android-устройствах команды + буфер под ТЗ преподавателя",
+      "files": ["docs/TEAM_PLAN.html (заметки тестов)"],
+      "dod": "Пройден и зафиксирован полный чек-лист на 2+ смартфонах: установка .apk, тач-камера, выбор машины в PiP, все 6 карт, переключение маршрутов, сохранение мозга после перезапуска приложения.",
+      "guide": "Записывайте модель телефона, версию Android, FPS на x1/x5 и любые баги вёрстки прямо в заметки этой карточки перед релизом.",
+      "notes": ""
+    },
+    {
+      "id": "NC-16",
+      "week": "Неделя 4",
+      "assignee": "Даниал",
+      "priority": "Критично",
+      "status": "TODO",
+      "deadline": "Пт финал",
+      "title": "Финальная сборка Release .apk, GitHub Release v1.0.0 и проверка чистоты репозитория",
+      "files": ["export_presets.cfg", "README.md", "GitHub Releases"],
+      "dod": "Собран подписанный Release .apk (keystore хранится локально и в .gitignore!), создан тег v1.0.0 и релиз на GitHub с приложенным .apk и скриншотами.",
+      "guide": "Сгенерируйте release.keystore через keytool один раз, сохраните резервную копию вне папки репозитория и ни в коем случае не коммитьте файл ключа на GitHub.",
+      "notes": ""
+    }
+  ]
+}
+  </script>
+
+  <script>
+    const INITIAL_DOC_SOURCE = "<!DOCTYPE html>\n" + document.documentElement.outerHTML;
+    const STORAGE_KEY = "neurocars_team_plan_draft_v1";
+
+    function escapeHtml(str) {
+      return String(str == null ? "" : str)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#39;");
+    }
+
+    function readEmbeddedData() {
+      return JSON.parse(document.getElementById("app-data").textContent);
+    }
+
+    function safeGetDraft() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        return raw ? JSON.parse(raw) : null;
+      } catch (_e) {
+        return null;
+      }
+    }
+
+    function safeSaveDraft(obj) {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(obj));
+      } catch (_e) {
+        // Ignore
+      }
+    }
+
+    function safeClearDraft() {
+      try {
+        localStorage.removeItem(STORAGE_KEY);
+      } catch (_e) {
+        // Ignore
+      }
+    }
+
+    function showToast(msg) {
+      const t = document.getElementById("toast");
+      t.textContent = msg;
+      t.classList.add("show");
+      clearTimeout(window.__toastTimer);
+      window.__toastTimer = setTimeout(() => t.classList.remove("show"), 2800);
+    }
+
+    const fileData = readEmbeddedData();
+    const savedDraft = safeGetDraft();
+    let state = {
+      data: JSON.parse(JSON.stringify(fileData)),
+      baseRevision: fileData.meta.revision || 1,
+      dirty: false,
+      conflict: false
+    };
+
+    if (savedDraft && savedDraft.data && savedDraft.data.meta) {
+      const fileRev = Number(fileData.meta.revision || 1);
+      const draftBaseRev = Number(savedDraft.baseRevision || 1);
+      if (fileRev > draftBaseRev && !savedDraft.dirty) {
+        safeClearDraft();
+      } else if (fileRev > draftBaseRev && savedDraft.dirty) {
+        state.data = savedDraft.data;
+        state.baseRevision = draftBaseRev;
+        state.dirty = true;
+        state.conflict = true;
+      } else if (savedDraft.dirty) {
+        state.data = savedDraft.data;
+        state.baseRevision = draftBaseRev;
+        state.dirty = true;
+      }
+    }
+
+    function persistLocal() {
+      state.dirty = true;
+      safeSaveDraft({
+        data: state.data,
+        baseRevision: state.baseRevision,
+        dirty: true
+      });
+      renderSyncState();
+    }
+
+    function renderSyncState() {
+      const pill = document.getElementById("sync-indicator");
+      const rev = state.data.meta.revision || 1;
+      if (state.dirty) {
+        pill.className = "sync-pill dirty";
+        pill.textContent = `Git rev #${rev} • Есть несохранённые в файл правки`;
+      } else {
+        pill.className = "sync-pill clean";
+        pill.textContent = `Git rev #${rev} • Синхронизировано с файлом`;
+      }
+
+      const banner = document.getElementById("conflict-banner");
+      if (state.conflict) {
+        banner.style.display = "flex";
+        banner.innerHTML = `
+          <div>
+            <strong>Обнаружено обновление из Git (rev #${fileData.meta.revision}) при наличии ваших локальных правок (от rev #${state.baseRevision}).</strong>
+            <div style="font-size:0.83rem; opacity:0.9;">Выберите действие:</div>
+          </div>
+          <div class="btn-group">
+            <button class="btn-primary btn-sm" id="btn-accept-git">Принять свежую версию из Git</button>
+            <button class="btn-sm" id="btn-keep-draft">Оставить локальный черновик</button>
+          </div>
+        `;
+        document.getElementById("btn-accept-git").onclick = () => {
+          safeClearDraft();
+          state.data = JSON.parse(JSON.stringify(fileData));
+          state.baseRevision = fileData.meta.revision || 1;
+          state.dirty = false;
+          state.conflict = false;
+          renderAll();
+          showToast("Загружена свежая версия из Git");
+        };
+        document.getElementById("btn-keep-draft").onclick = () => {
+          state.baseRevision = fileData.meta.revision || 1;
+          state.conflict = false;
+          persistLocal();
+          renderSyncState();
+        };
+      } else {
+        banner.style.display = "none";
+      }
+    }
+
+    function renderSummary() {
+      const grid = document.getElementById("summary-grid");
+      const activeMember = document.getElementById("f-member").value;
+      grid.innerHTML = state.data.members.map(m => {
+        const list = state.data.tasks.filter(t => t.assignee === m.id);
+        const done = list.filter(t => t.status === "DONE").length;
+        const pct = list.length ? Math.round((done / list.length) * 100) : 0;
+        const selected = activeMember === m.id ? "selected" : "";
+        return `
+          <div class="stat-card ${selected}" data-filter-member="${escapeHtml(m.id)}">
+            <div class="stat-head">
+              <span class="stat-name">${escapeHtml(m.id)}</span>
+              <span class="stat-count">${done}/${list.length} (${pct}%)</span>
+            </div>
+            <div style="font-size:0.78rem; color:var(--text-muted);">${escapeHtml(m.roleTitle)}</div>
+            <div class="mini-track"><div class="mini-fill" style="width:${pct}%"></div></div>
+          </div>
+        `;
+      }).join("");
+
+      grid.querySelectorAll(".stat-card").forEach(card => {
+        card.addEventListener("click", () => {
+          const target = card.dataset.filterMember;
+          const sel = document.getElementById("f-member");
+          sel.value = sel.value === target ? "ALL" : target;
+          renderSummary();
+          renderTasks();
+        });
+      });
+    }
+
+    function renderProfiles() {
+      const grid = document.getElementById("profiles-grid");
+      grid.innerHTML = state.data.members.map(m => {
+        const foldersHtml = m.folders.map(f => `<code>${escapeHtml(f)}</code>`).join(" ");
+        const guideHtml = m.guideItems.map(g => `<li>${escapeHtml(g)}</li>`).join("");
+        return `
+          <article class="profile-card">
+            <div class="profile-top">
+              <div>
+                <h3 class="profile-name">${escapeHtml(m.id)}</h3>
+                <div class="profile-role">${escapeHtml(m.roleTitle)}</div>
+              </div>
+              <span class="pill pill-deadline">${escapeHtml(m.level)}</span>
+            </div>
+            <div class="profile-meta">${escapeHtml(m.focus)}</div>
+            <div class="files-wrap">${foldersHtml}</div>
+            <details>
+              <summary>${escapeHtml(m.guideTitle)}</summary>
+              <ul>${guideHtml}</ul>
+            </details>
+          </article>
+        `;
+      }).join("");
+    }
+
+    function populateFilterSelects() {
+      const fMember = document.getElementById("f-member");
+      const prevM = fMember.value || "ALL";
+      fMember.innerHTML = `<option value="ALL">Все участники</option>` +
+        state.data.members.map(m => `<option value="${escapeHtml(m.id)}">${escapeHtml(m.id)}</option>`).join("");
+      fMember.value = prevM;
+
+      const fWeek = document.getElementById("f-week");
+      const prevW = fWeek.value || "ALL";
+      fWeek.innerHTML = `<option value="ALL">Все недели</option>` +
+        state.data.weeks.map(w => `<option value="${escapeHtml(w.id)}">${escapeHtml(w.title)}</option>`).join("");
+      fWeek.value = prevW;
+    }
+
+    function renderTasks() {
+      const container = document.getElementById("tasks-container");
+      const mFilter = document.getElementById("f-member").value;
+      const wFilter = document.getElementById("f-week").value;
+      const sFilter = document.getElementById("f-status").value;
+      const q = document.getElementById("f-search").value.trim().toLowerCase();
+
+      const indexedTasks = state.data.tasks.map((t, idx) => ({ task: t, idx }));
+      const filtered = indexedTasks.filter(({ task }) => {
+        if (mFilter !== "ALL" && task.assignee !== mFilter) return false;
+        if (wFilter !== "ALL" && task.week !== wFilter) return false;
+        if (sFilter !== "ALL" && task.status !== sFilter) return false;
+        if (q) {
+          const hay = [
+            task.id, task.title, task.assignee, task.dod, task.guide, task.notes,
+            (task.files || []).join(" ")
+          ].join(" ").toLowerCase();
+          if (!hay.includes(q)) return false;
+        }
+        return true;
+      });
+
+      if (filtered.length === 0) {
+        container.innerHTML = `<div class="detail-box">По текущим фильтрам задач не найдено. Попробуйте сбросить фильтры или добавить новую задачу.</div>`;
+        return;
+      }
+
+      const weeksToRender = state.data.weeks.filter(w => wFilter === "ALL" || w.id === wFilter);
+      const knownWeekIds = new Set(weeksToRender.map(w => w.id));
+      const extraWeeks = [];
+      filtered.forEach(({ task }) => {
+        if (!knownWeekIds.has(task.week)) {
+          knownWeekIds.add(task.week);
+          extraWeeks.push({ id: task.week, title: task.week, range: "Пользовательский спринт" });
+        }
+      });
+
+      container.innerHTML = "";
+      [...weeksToRender, ...extraWeeks].forEach(weekObj => {
+        const weekTasks = filtered.filter(item => item.task.week === weekObj.id);
+        if (weekTasks.length === 0) return;
+
+        const group = document.createElement("div");
+        group.className = "week-group";
+        const weekDone = weekTasks.filter(x => x.task.status === "DONE").length;
+
+        group.innerHTML = `
+          <div class="week-banner">
+            <h3>📅 ${escapeHtml(weekObj.title)}</h3>
+            <span>${escapeHtml(weekObj.range)} • Готово: ${weekDone}/${weekTasks.length}</span>
+          </div>
+          <div class="tasks-list"></div>
+        `;
+        const listEl = group.querySelector(".tasks-list");
+
+        weekTasks.forEach(({ task, idx }) => {
+          const card = document.createElement("article");
+          card.className = `task-card status-${escapeHtml(task.status)}`;
+
+          const filesHtml = (task.files || []).map(f => `<code>${escapeHtml(f)}</code>`).join("");
+          const memberOptions = state.data.members.map(m =>
+            `<option value="${escapeHtml(m.id)}" ${task.assignee === m.id ? "selected" : ""}>${escapeHtml(m.id)}</option>`
+          ).join("");
+
+          card.innerHTML = `
+            <div class="task-top">
+              <div class="task-title-block">
+                <div class="task-badges">
+                  <span class="pill pill-id">${escapeHtml(task.id)}</span>
+                  <span class="pill pill-prio-${escapeHtml(task.priority)}">${escapeHtml(task.priority)}</span>
+                  <span class="pill pill-status-${escapeHtml(task.status)}">${escapeHtml(task.status)}</span>
+                  <span class="pill pill-deadline">⏰ ${escapeHtml(task.deadline || "Чт PR / Пт–Пн")}</span>
+                </div>
+                <h4 class="task-title">${escapeHtml(task.title)}</h4>
+              </div>
+              <div class="task-controls">
+                <select data-reassign="${idx}" title="Назначить участника">${memberOptions}</select>
+                <select data-status="${idx}" title="Изменить статус">
+                  <option value="TODO" ${task.status === "TODO" ? "selected" : ""}>TODO</option>
+                  <option value="IN_PROGRESS" ${task.status === "IN_PROGRESS" ? "selected" : ""}>IN_PROGRESS</option>
+                  <option value="REVIEW" ${task.status === "REVIEW" ? "selected" : ""}>REVIEW</option>
+                  <option value="DONE" ${task.status === "DONE" ? "selected" : ""}>DONE</option>
+                </select>
+                <button class="btn-sm" data-edit-task="${idx}">✏️ Изменить</button>
+                <button class="btn-sm btn-danger" data-del-task="${idx}">🗑️</button>
+              </div>
+            </div>
+
+            <div class="task-details-grid">
+              <div class="detail-box">
+                <strong>Затрагиваемые файлы (проверка конфликтов .tscn)</strong>
+                <div class="files-wrap">${filesHtml || "<code>Не указаны</code>"}</div>
+              </div>
+              <div class="detail-box">
+                <strong>Критерии готовности (Definition of Done)</strong>
+                <div>${escapeHtml(task.dod || "—")}</div>
+              </div>
+            </div>
+
+            <details class="academic">
+              <summary>🎓 Академический разбор: как сделать осмысленно и что спросит преподаватель</summary>
+              <p>${escapeHtml(task.guide || "Добавьте подсказки по классам Godot и алгоритму реализации.")}</p>
+            </details>
+
+            <div class="notes-row">
+              <input type="text" class="notes-input" data-notes="${idx}" value="${escapeHtml(task.notes || "")}" placeholder="Заметка: ссылка на PR, результат теста на .apk, комментарий преподавателя...">
+            </div>
+          `;
+          listEl.appendChild(card);
+        });
+
+        container.appendChild(group);
+      });
+
+      container.querySelectorAll("select[data-reassign]").forEach(sel => {
+        sel.addEventListener("change", () => {
+          const i = Number(sel.dataset.reassign);
+          state.data.tasks[i].assignee = sel.value;
+          persistLocal();
+          renderSummary();
+          renderTasks();
+        });
+      });
+
+      container.querySelectorAll("select[data-status]").forEach(sel => {
+        sel.addEventListener("change", () => {
+          const i = Number(sel.dataset.status);
+          state.data.tasks[i].status = sel.value;
+          persistLocal();
+          renderSummary();
+          renderTasks();
+        });
+      });
+
+      container.querySelectorAll("input[data-notes]").forEach(inp => {
+        inp.addEventListener("change", () => {
+          const i = Number(inp.dataset.notes);
+          state.data.tasks[i].notes = inp.value;
+          persistLocal();
+          showToast("Заметка сохранена в черновик");
+        });
+      });
+
+      container.querySelectorAll("button[data-edit-task]").forEach(btn => {
+        btn.addEventListener("click", () => openTaskModal(Number(btn.dataset.editTask)));
+      });
+
+      container.querySelectorAll("button[data-del-task]").forEach(btn => {
+        btn.addEventListener("click", () => {
+          const i = Number(btn.dataset.delTask);
+          if (confirm(`Удалить задачу ${state.data.tasks[i].id}: «${state.data.tasks[i].title}»?`)) {
+            state.data.tasks.splice(i, 1);
+            persistLocal();
+            renderSummary();
+            renderTasks();
+          }
+        });
+      });
+    }
+
+    function openTaskModal(editIdx) {
+      const modal = document.getElementById("task-modal");
+      const isNew = editIdx == null;
+      document.getElementById("modal-title").textContent = isNew ? "Новая задача от преподавателя" : "Редактировать задачу";
+      document.getElementById("t-edit-index").value = isNew ? "" : String(editIdx);
+
+      const tWeek = document.getElementById("t-week");
+      tWeek.innerHTML = state.data.weeks.map(w =>
+        `<option value="${escapeHtml(w.id)}">${escapeHtml(w.title)}</option>`
+      ).join("");
+
+      const tAssignee = document.getElementById("t-assignee");
+      tAssignee.innerHTML = state.data.members.map(m =>
+        `<option value="${escapeHtml(m.id)}">${escapeHtml(m.id)}</option>`
+      ).join("");
+
+      const nextNum = state.data.tasks.length + 1;
+      const item = isNew ? {
+        id: "NC-" + String(nextNum).padStart(2, "0"),
+        week: state.data.weeks[state.data.weeks.length - 1]?.id || "Неделя 1",
+        assignee: "Unassigned",
+        priority: "Высокий",
+        status: "TODO",
+        deadline: "Чт PR / Пт–Пн сдача",
+        title: "",
+        files: [],
+        dod: "",
+        guide: "",
+        notes: ""
+      } : state.data.tasks[editIdx];
+
+      document.getElementById("t-id").value = item.id || "";
+      tWeek.value = item.week;
+      tAssignee.value = item.assignee;
+      document.getElementById("t-priority").value = item.priority || "Высокий";
+      document.getElementById("t-status").value = item.status || "TODO";
+      document.getElementById("t-deadline").value = item.deadline || "";
+      document.getElementById("t-title").value = item.title || "";
+      document.getElementById("t-files").value = (item.files || []).join(", ");
+      document.getElementById("t-dod").value = item.dod || "";
+      document.getElementById("t-guide").value = item.guide || "";
+      document.getElementById("t-notes").value = item.notes || "";
+
+      modal.classList.add("open");
+    }
+
+    function closeTaskModal() {
+      document.getElementById("task-modal").classList.remove("open");
+    }
+
+    document.getElementById("t-cancel").onclick = closeTaskModal;
+    document.getElementById("t-save").onclick = () => {
+      const title = document.getElementById("t-title").value.trim();
+      if (!title) {
+        alert("Укажите название задачи");
+        return;
+      }
+      const filesRaw = document.getElementById("t-files").value.split(",").map(s => s.trim()).filter(Boolean);
+      const taskObj = {
+        id: document.getElementById("t-id").value.trim() || "NC-NEW",
+        week: document.getElementById("t-week").value,
+        assignee: document.getElementById("t-assignee").value,
+        priority: document.getElementById("t-priority").value,
+        status: document.getElementById("t-status").value,
+        deadline: document.getElementById("t-deadline").value.trim() || "Чт PR / Пт–Пн",
+        title,
+        files: filesRaw,
+        dod: document.getElementById("t-dod").value.trim(),
+        guide: document.getElementById("t-guide").value.trim(),
+        notes: document.getElementById("t-notes").value.trim()
+      };
+
+      const editRaw = document.getElementById("t-edit-index").value;
+      if (editRaw === "") {
+        state.data.tasks.push(taskObj);
+      } else {
+        state.data.tasks[Number(editRaw)] = taskObj;
+      }
+
+      persistLocal();
+      closeTaskModal();
+      renderSummary();
+      renderTasks();
+      showToast("Задача сохранена (не забудьте сохранить .html для Git)");
+    };
+
+    document.getElementById("btn-add-week").onclick = () => {
+      const n = state.data.weeks.length + 1;
+      const title = prompt("Название новой недели / спринта от преподавателя:", `Неделя ${n} — Новое задание преподавателя`);
+      if (!title || !title.trim()) return;
+      const id = `Неделя ${n}`;
+      state.data.weeks.push({
+        id,
+        title: title.trim(),
+        range: "Пн → Чт PR / Пт–Пн сдача"
+      });
+      persistLocal();
+      populateFilterSelects();
+      renderTasks();
+      showToast(`Добавлена ${id}`);
+    };
+
+    function buildUpdatedHtmlString() {
+      const nextRev = Number(state.data.meta.revision || 1) + 1;
+      state.data.meta.revision = nextRev;
+      state.data.meta.updatedAt = new Date().toISOString().slice(0, 10);
+      const safeJson = JSON.stringify(state.data, null, 2).replace(/<\//g, "<\\/");
+      return INITIAL_DOC_SOURCE.replace(
+        /(<script\s+id="app-data"\s+type="application\/json">)[\s\S]*?(<\/script>)/,
+        (_match, p1, p2) => `${p1}\n${safeJson}\n  ${p2}`
+      );
+    }
+
+    async function saveHtmlForGit() {
+      const htmlContent = buildUpdatedHtmlString();
+      if (window.showSaveFilePicker) {
+        try {
+          const handle = await window.showSaveFilePicker({
+            suggestedName: "TEAM_PLAN.html",
+            types: [{ description: "HTML Document", accept: { "text/html": [".html"] } }]
+          });
+          const writable = await handle.createWritable();
+          await writable.write(htmlContent);
+          await writable.close();
+          state.baseRevision = state.data.meta.revision;
+          state.dirty = false;
+          safeClearDraft();
+          renderSyncState();
+          showToast(`Файл сохранён (Git rev #${state.data.meta.revision})`);
+          return;
+        } catch (err) {
+          if (err && err.name === "AbortError") {
+            state.data.meta.revision -= 1;
+            return;
+          }
+        }
+      }
+      const blob = new Blob([htmlContent], { type: "text/html;charset=utf-8" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "TEAM_PLAN.html";
+      a.click();
+      URL.revokeObjectURL(url);
+      state.baseRevision = state.data.meta.revision;
+      state.dirty = false;
+      safeClearDraft();
+      renderSyncState();
+      showToast(`Скачан обновлённый TEAM_PLAN.html (rev #${state.data.meta.revision})`);
+    }
+
+    function exportTxtReport() {
+      const lines = [];
+      lines.push(`GODOT-NEUROCARS — КОМАНДНЫЙ ПЛАН (rev #${state.data.meta.revision}, ${state.data.meta.updatedAt})`);
+      lines.push("====================================================================");
+      lines.push("");
+      state.data.members.forEach(m => {
+        const list = state.data.tasks.filter(t => t.assignee === m.id);
+        const done = list.filter(t => t.status === "DONE").length;
+        lines.push(`* ${m.id} (${m.roleTitle}) — Выполнено ${done}/${list.length}`);
+      });
+      lines.push("");
+      state.data.weeks.forEach(w => {
+        lines.push(`\n=== ${w.title} (${w.range}) ===`);
+        state.data.tasks.filter(t => t.week === w.id).forEach(t => {
+          lines.push(`[${t.status}] ${t.id} | ${t.assignee} | ${t.priority} | ${t.deadline} :: ${t.title}`);
+          if (t.files && t.files.length) lines.push(`    Файлы: ${t.files.join(", ")}`);
+          if (t.dod) lines.push(`    Готовность: ${t.dod}`);
+          if (t.notes) lines.push(`    Заметка: ${t.notes}`);
+        });
+      });
+
+      const blob = new Blob([lines.join("\n")], { type: "text/plain;charset=utf-8" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `NeuroCars_TEAM_PLAN_rev${state.data.meta.revision}.txt`;
+      a.click();
+      URL.revokeObjectURL(url);
+      showToast("Текстовый отчёт .txt скачан");
+    }
+
+    document.getElementById("btn-add-task").onclick = () => openTaskModal(null);
+    document.getElementById("btn-save-html").onclick = saveHtmlForGit;
+    document.getElementById("btn-export-txt").onclick = exportTxtReport;
+    document.getElementById("btn-reset-cache").onclick = () => {
+      if (confirm("Сбросить локальные черновики браузера и загрузить задачи из файла?")) {
+        safeClearDraft();
+        state.data = JSON.parse(JSON.stringify(fileData));
+        state.baseRevision = fileData.meta.revision || 1;
+        state.dirty = false;
+        state.conflict = false;
+        renderAll();
+        showToast("Кэш сброшен к версии файла");
+      }
+    };
+
+    ["f-member", "f-week", "f-status"].forEach(id => {
+      document.getElementById(id).addEventListener("change", () => {
+        renderSummary();
+        renderTasks();
+      });
+    });
+    document.getElementById("f-search").addEventListener("input", renderTasks);
+
+    function renderAll() {
+      renderSyncState();
+      populateFilterSelects();
+      renderSummary();
+      renderProfiles();
+      renderTasks();
+    }
+
+    renderAll();
+  </script>
+</body>
+</html>
